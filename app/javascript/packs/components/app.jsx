@@ -1,7 +1,12 @@
 import React from 'react';
+import Home from './storeHome/home';
 
 const App = () => {
-  return <div>THE APP</div>;
+  return (
+    <>
+      <Home />
+    </>
+  );
 };
 
 export default App;

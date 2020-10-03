@@ -1,11 +1,11 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import App from 'packs/components/app';
+import Home from 'packs/components/storeHome/home';
 
 describe('HelloReact component', () => {
   describe('Basic test', () => {
     it('render Hello Caique!', () => {
-      expect(shallow(<App />).text()).toBe('<Home />');
+      expect(shallow(<Home />).text()).toBe('home page');
     });
   });
 });
