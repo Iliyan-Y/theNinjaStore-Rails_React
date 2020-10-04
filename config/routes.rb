@@ -1,10 +1,9 @@
 Rails.application.routes.draw do
-  get 'test/index'
   root 'home#index'
 
   namespace :api, defaults: { format: :json } do
     namespace :v1 do
-      resources :products, only: [:index]
+      resources :products, only: [:index, :create]
     end
   end
 
