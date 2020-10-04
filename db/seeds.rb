@@ -7,3 +7,4 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 Product.create(name: "Test", description:"Testeste", price: "1.00")
+Product.create(name: "Test 2", description:"The ultimate test 2", price: "2.50")
