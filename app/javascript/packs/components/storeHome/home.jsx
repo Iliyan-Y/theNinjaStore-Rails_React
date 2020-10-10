@@ -7,7 +7,7 @@ const Home = () => {
   useEffect(() => {
     axios
       .get('/api/v1/products')
-      .then((res) => setProducts(res.data.results))
+      .then((res) => setProducts(res.data))
       .catch((err) => console.log(err.message));
   }, []);
 
@@ -19,6 +19,7 @@ const Home = () => {
           <p>{each.name}</p>
           <p>{each.description}</p>
           <p>£{each.price}</p>
+          <img src={each.image} alt=""/>
         </span>
       ))}
     </>

@@ -7,15 +7,18 @@ class Api::V1::ProductsController < ActionController::API
         name: product.name,
         description: product.description,
         price: product.price,
-        created_at: product.created_at
+        created_at: product.created_at,
+        image: url_for(product.image)
+        
       } 
     end
 
-    render json: {results: products}.to_json, status: :ok
+    render json: products, status: :ok
   end
 
   def create
-    product = Product.new(product_params)
+    #raise params.inspect
+    product = Product.create(product_params)
 
     if product.save
       render json: product, status: :created

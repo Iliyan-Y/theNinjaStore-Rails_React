@@ -1,21 +1,21 @@
-import Axios from 'axios';
 import React,{useState} from 'react';
 import axios from 'axios';
 
 const CreateProduct = () => {
+
   let [name, setName] = useState("")
   let [description, setDescription] = useState("")
   let [price, setPrice] = useState("")
-  let [image, setImage] = useState("")
+  let [image, setImage] = useState(null)
+  
   
   let submit = () => {
-    console.log(name, description, price, image)
-    let body = {
-      name, 
-      description,
-      price,
-      image
-    }
+    const body = new FormData();
+    body.append('product[name]', name);
+    body.append('product[description]', description);
+    body.append('product[price]', price);
+    body.append('product[image]', image);
+    
 
     axios.post('/api/v1/products', body).then((res) =>{
       setName("")
@@ -30,6 +30,7 @@ const CreateProduct = () => {
       <textarea cols="30" rows="5" value={description} onChange={((e) => setDescription(e.target.value) )}></textarea>
       <input type="number" placeholder="price" value={price} onChange={(e) => setPrice(e.target.value)}></input>
       <input type="file" onChange={(e) => setImage(e.target.files[0])}/>
+
       <button onClick={() => submit()}>Submit</button>
     </div>
   );
