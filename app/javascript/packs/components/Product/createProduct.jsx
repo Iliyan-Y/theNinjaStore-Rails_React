@@ -21,6 +21,7 @@ const CreateProduct = () => {
       setName("")
       setDescription("")
       setPrice("")
+      setImage(null)
     }).catch((err) => console.log("Error : " + err.message))
     
   }
@@ -29,7 +30,7 @@ const CreateProduct = () => {
       <input type='text' placeholder="title" value={name} onChange={(e)=> setName(e.target.value)}></input>
       <textarea cols="30" rows="5" value={description} onChange={((e) => setDescription(e.target.value) )}></textarea>
       <input type="number" placeholder="price" value={price} onChange={(e) => setPrice(e.target.value)}></input>
-      <input type="file" onChange={(e) => setImage(e.target.files[0])}/>
+      <input type="file"  onChange={(e) => setImage(e.target.files[0])}/>
 
       <button onClick={() => submit()}>Submit</button>
     </div>

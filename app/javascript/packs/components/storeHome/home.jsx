@@ -19,7 +19,7 @@ const Home = () => {
           <p>{each.name}</p>
           <p>{each.description}</p>
           <p>£{each.price}</p>
-          <img src={each.image} alt=""/>
+          <img src={each.image} alt="" style={{width:"250px"}}/>
         </span>
       ))}
     </>

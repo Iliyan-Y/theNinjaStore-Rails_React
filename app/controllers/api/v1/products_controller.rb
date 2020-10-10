@@ -17,7 +17,6 @@ class Api::V1::ProductsController < ActionController::API
   end
 
   def create
-    #raise params.inspect
     product = Product.create(product_params)
 
     if product.save
