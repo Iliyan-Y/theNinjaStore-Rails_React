@@ -3,7 +3,7 @@ import { Switch, Route } from 'react-router-dom';
 
 //components
 import Home from './storeHome/home';
-import CreateProduct from './createProduct/createProduct';
+import CreateProduct from './Product/createProduct';
 
 const App = () => {
   return (

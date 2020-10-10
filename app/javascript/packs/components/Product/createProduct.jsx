@@ -6,13 +6,15 @@ const CreateProduct = () => {
   let [name, setName] = useState("")
   let [description, setDescription] = useState("")
   let [price, setPrice] = useState("")
+  let [image, setImage] = useState("")
   
   let submit = () => {
-    console.log(name, description, price)
+    console.log(name, description, price, image)
     let body = {
       name, 
       description,
-      price
+      price,
+      image
     }
 
     axios.post('/api/v1/products', body).then((res) =>{
@@ -27,6 +29,7 @@ const CreateProduct = () => {
       <input type='text' placeholder="title" value={name} onChange={(e)=> setName(e.target.value)}></input>
       <textarea cols="30" rows="5" value={description} onChange={((e) => setDescription(e.target.value) )}></textarea>
       <input type="number" placeholder="price" value={price} onChange={(e) => setPrice(e.target.value)}></input>
+      <input type="file" onChange={(e) => setImage(e.target.files[0])}/>
       <button onClick={() => submit()}>Submit</button>
     </div>
   );
