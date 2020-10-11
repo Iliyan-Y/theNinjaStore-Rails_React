@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   root 'home#index'
   get "new/product", to: "home#new"
-  get "show/product", to: "home#index"
+  get "show/product", to: "home#show"
   namespace :api, defaults: { format: :json } do
     namespace :v1 do
       resources :products, only: [:index, :create, :show]
