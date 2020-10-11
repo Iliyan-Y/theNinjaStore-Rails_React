@@ -1,6 +1,8 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import { Switch, Route } from 'react-router-dom';
 
+import ShowProduct from '../Product/showProduct'
 const Home = () => {
   let [products, setProducts] = useState([]);
 

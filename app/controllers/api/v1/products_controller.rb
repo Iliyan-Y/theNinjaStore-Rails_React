@@ -24,7 +24,9 @@ class Api::V1::ProductsController < ActionController::API
     else
       render json: product.errors, status: :unprocessable_entity 
     end
-    
+  end
+
+  def show
   end
 
   private 
