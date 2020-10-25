@@ -19,7 +19,8 @@ const productsReducer = (state = initialState, action) => {
       return Object.assign({}, state, {
         all: [...state.all, payload],
       });
-
+    case 'CLEAR_PRODUCTS':
+      return initialState;
     default:
       return state;
   }

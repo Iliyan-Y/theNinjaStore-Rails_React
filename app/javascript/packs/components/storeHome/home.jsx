@@ -23,6 +23,12 @@ const Home = () => {
         addToStore(res.data);
       })
       .catch((err) => console.log(err.message));
+
+    return () =>
+      dispatch({
+        type: 'CLEAR_PRODUCTS',
+        payload: '',
+      });
   }, []);
 
   return (
