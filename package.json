@@ -18,9 +18,9 @@
   },
   "version": "0.1.0",
   "devDependencies": {
-    "enzyme": "^3.11.0",
-    "enzyme-adapter-react-16.3": "^1.7.3",
+    "@testing-library/react": "^11.1.0",
     "jest": "^26.4.2",
+    "redux-mock-store": "^1.5.4",
     "webpack-dev-server": "^3.11.0"
   },
   "scripts": {
@@ -34,9 +34,6 @@
     "moduleDirectories": [
       "node_modules",
       "app/javascript"
-    ],
-    "setupFilesAfterEnv": [
-      "./spec/javascript/setupTests.js"
     ]
   }
 }
