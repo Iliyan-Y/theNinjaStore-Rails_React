@@ -33,6 +33,7 @@ const CreateProduct = () => {
         onChange={(e) => setName(e.target.value)}
       ></input>
       <textarea
+        data-testid="description-area"
         cols="30"
         rows="5"
         value={description}
@@ -44,7 +45,11 @@ const CreateProduct = () => {
         value={price}
         onChange={(e) => setPrice(e.target.value)}
       />
-      <input type="file" onChange={(e) => setImage(e.target.files[0])} />
+      <input
+        data-testid="photo-upload"
+        type="file"
+        onChange={(e) => setImage(e.target.files[0])}
+      />
 
       <button onClick={() => submit()}>Submit</button>
     </div>

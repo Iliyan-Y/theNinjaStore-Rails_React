@@ -15,7 +15,7 @@ jest.mock('react-redux', () => ({
 jest.mock('axios');
 
 describe('Home component', () => {
-  it('Check the home page renders', async () => {
+  it('Check the home page renders correctly', () => {
     const initialState = [
       {
         id: '',
@@ -31,7 +31,7 @@ describe('Home component', () => {
       },
     ];
 
-    //mockstate
+    //mock
     const mockStore = configureStore();
     let store = mockStore(initialState);
 
@@ -40,7 +40,8 @@ describe('Home component', () => {
       Promise.resolve({ data: initialState })
     );
 
-    const { findByText } = render(
+    //render
+    const { findByText, getByText } = render(
       <BrowserRouter>
         <Provider store={store}>
           <Home />
@@ -49,8 +50,9 @@ describe('Home component', () => {
     );
 
     //expected
-    //await findByText('fake name');
+    findByText('Home Page');
     expect(axios.get).toHaveBeenCalledTimes(1);
     expect(useSelector).toHaveBeenCalledTimes(1);
+    getByText('Product');
   });
 });
