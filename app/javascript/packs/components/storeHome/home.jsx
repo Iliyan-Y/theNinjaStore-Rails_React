@@ -36,11 +36,10 @@ const Home = () => {
       <p>Home Page</p>
       {products.map((each) => (
         <span key={each.id + 'product'}>
-          <Link to="/show/product">Product</Link>
-          <p>{each.name}</p>
+          <Link to={'/show/product/' + each.id}>{each.name}</Link>
           <p>{each.description}</p>
-          <p>£{each.price}</p>
           <img src={each.image} alt="" style={{ width: '250px' }} />
+          <p>£{each.price}</p>
         </span>
       ))}
     </>

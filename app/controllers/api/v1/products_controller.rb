@@ -9,7 +9,6 @@ class Api::V1::ProductsController < ActionController::API
         price: product.price,
         created_at: product.created_at,
         image: url_for(product.image)
-        
       } 
     end
 
@@ -27,6 +26,16 @@ class Api::V1::ProductsController < ActionController::API
   end
 
   def show
+    product = Product.find(params['id'])
+    product = {
+      id: product.id,
+      name: product.name,
+      description: product.description,
+      price: product.price,
+      created_at: product.created_at,
+      image: url_for(product.image)
+    } 
+    render json: product, status: :ok
   end
 
   private 

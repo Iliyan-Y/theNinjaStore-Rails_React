@@ -1,14 +1,6 @@
 const initialState = {
   id: '',
-  all: [
-    {
-      id: 'fake id',
-      name: 'fake name',
-      description: 'fake item',
-      image: 'no Image yet',
-      created: 'forever',
-    },
-  ],
+  all: [],
 };
 
 const productsReducer = (state = initialState, action) => {
