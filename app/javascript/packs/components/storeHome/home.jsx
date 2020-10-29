@@ -7,11 +7,11 @@ const Home = () => {
   let dispatch = useDispatch();
   let products = useSelector((state) => state.products.all);
 
-  let addToStore = (data) => {
-    data.map((each) => {
+  let getFromStore = (data) => {
+    data.map((item) => {
       dispatch({
         type: 'GET_PRODUCTS',
-        payload: each,
+        payload: item,
       });
     });
   };
@@ -20,7 +20,7 @@ const Home = () => {
     axios
       .get('/api/v1/products')
       .then((res) => {
-        addToStore(res.data);
+        getFromStore(res.data);
       })
       .catch((err) => console.log(err.message));
 

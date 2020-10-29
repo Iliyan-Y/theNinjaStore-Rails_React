@@ -1,18 +1,21 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { render } from '@testing-library/react';
 import Home from 'packs/components/storeHome/home';
 import { Provider } from 'react-redux';
 import configureStore from 'redux-mock-store';
 import { useSelector } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
+import axios from 'axios';
 
 jest.mock('react-redux', () => ({
   ...jest.requireActual('react-redux'),
   useSelector: jest.fn(),
 }));
 
-describe('HelloReact component', () => {
-  it('do something', () => {
+jest.mock('axios');
+
+describe('Home component', () => {
+  it('Check the home page renders', async () => {
     const initialState = [
       {
         id: '',
@@ -33,19 +36,21 @@ describe('HelloReact component', () => {
     let store = mockStore(initialState);
 
     useSelector.mockImplementation(() => initialState);
+    axios.get.mockImplementationOnce(() =>
+      Promise.resolve({ data: initialState })
+    );
 
-    //render
-    const root = document.createElement('div');
-    ReactDOM.render(
+    const { findByText } = render(
       <BrowserRouter>
         <Provider store={store}>
           <Home />
         </Provider>
-      </BrowserRouter>,
-      root
+      </BrowserRouter>
     );
 
     //expected
-    expect(root.querySelector('p').textContent).toBe('Home Page');
+    //await findByText('fake name');
+    expect(axios.get).toHaveBeenCalledTimes(1);
+    expect(useSelector).toHaveBeenCalledTimes(1);
   });
 });
