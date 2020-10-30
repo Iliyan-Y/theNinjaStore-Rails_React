@@ -2,9 +2,12 @@ Rails.application.routes.draw do
   root 'home#index'
   get "new/product", to: "home#new"
   get "show/product", to: "home#show"
-  namespace :api, defaults: { format: :json } do
-    namespace :v1 do
-      devise_for :users
+  scope :api, defaults: { format: :json } do
+    scope :v1 do
+      
+      devise_for :users, controllers: {
+        registrations: 'api/v1/users/registrations'
+      }
       resources :products, only: [:index, :create, :show]
     end
   end
