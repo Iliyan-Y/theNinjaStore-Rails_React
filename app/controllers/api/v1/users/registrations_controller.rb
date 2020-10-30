@@ -2,14 +2,13 @@
 
 class  Api::V1::Users::RegistrationsController < Devise::RegistrationsController
    skip_before_action :verify_authenticity_token, :only => :create
+   #protect_from_forgery with: :null_session
   
-  # def new
-  #   super
-  # end
-
  
   def create
-    user = User.new(user_params)
+    token = JWT.encode("payload", 's3cr3t')
+    token = token.split(".")[2]
+    user = User.new(user_params.merge(auth_token: token))
       if user.save
         render json: {
           messages: "Sign Up Successfully",
@@ -63,6 +62,9 @@ class  Api::V1::Users::RegistrationsController < Devise::RegistrationsController
         is_success: false,
         data: {}
       }, status: :bad_request
+  end
+
+  def create_token
   end
 
  #If you have extra params to permit, append them to the sanitizer.
