@@ -11,37 +11,19 @@ jest.mock('react-redux', () => ({
   ...jest.requireActual('react-redux'),
   useSelector: jest.fn(),
 }));
+useSelector.mockImplementation(() => []);
 
 jest.mock('axios');
+axios.get.mockResolvedValue({});
 
 describe('Home component', () => {
   it('Check the home page renders correctly', () => {
-    const initialState = [
-      {
-        id: '',
-        all: [
-          {
-            id: 'fake id',
-            name: 'fake name',
-            description: 'fake item',
-            image: 'no Image yet',
-            created: 'forever',
-          },
-        ],
-      },
-    ];
-
     //mock
     const mockStore = configureStore();
-    let store = mockStore(initialState);
-
-    useSelector.mockImplementation(() => initialState);
-    axios.get.mockImplementationOnce(() =>
-      Promise.resolve({ data: initialState })
-    );
+    let store = mockStore({});
 
     //render
-    const { findByText, getByText } = render(
+    const { getByText } = render(
       <BrowserRouter>
         <Provider store={store}>
           <Home />
@@ -50,9 +32,8 @@ describe('Home component', () => {
     );
 
     //expected
-    findByText('Home Page');
+    getByText('Home Page');
     expect(axios.get).toHaveBeenCalledTimes(1);
     expect(useSelector).toHaveBeenCalledTimes(1);
-    getByText('Product');
   });
 });
