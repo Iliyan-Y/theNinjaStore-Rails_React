@@ -1,11 +1,55 @@
-import React from 'react';
+import React, { useState } from 'react';
+import axios from 'axios';
 
 const SignUp = () => {
+  let [email, setEmail] = useState('');
+  let [password, setPassword] = useState('');
+  let [password_confirmation, setConfirmPassword] = useState('');
+
+  async function submit(event) {
+    event.preventDefault();
+
+    let body = {
+      user: {
+        email,
+        password,
+        password_confirmation,
+      },
+    };
+
+    await axios
+      .post('/api/v1/users', body)
+      .then((res) => console.log(res.status))
+      .catch((err) => console.log(err.message));
+
+    setEmail('');
+    setPassword('');
+    setConfirmPassword('');
+  }
+
   return (
-    <form onSubmit={() => console.log('Submitted')}>
-      <input type="email" name="email" />
-      <input type="password" name="Password" />
-      <input type="password" name="PasswordConfirmation" />
+    <form onSubmit={(action) => submit(action)}>
+      <input
+        onChange={(e) => setEmail(e.target.value)}
+        type="email"
+        name="email"
+        value={email}
+        placeholder="email"
+      />
+      <input
+        onChange={(e) => setPassword(e.target.value)}
+        value={password}
+        type="password"
+        name="Password"
+        placeholder="password"
+      />
+      <input
+        onChange={(e) => setConfirmPassword(e.target.value)}
+        value={password_confirmation}
+        type="password"
+        name="PasswordConfirmation"
+        placeholder="Confirm Password"
+      />
       <input type="submit" value="Submit" />
     </form>
   );
