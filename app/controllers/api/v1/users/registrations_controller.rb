@@ -3,7 +3,6 @@
 class  Api::V1::Users::RegistrationsController < Devise::RegistrationsController
    skip_before_action :verify_authenticity_token, :only => :create
    #protect_from_forgery with: :null_session
-  
  
   def create
     token = User.generate_token({user: params[:user][:email]})

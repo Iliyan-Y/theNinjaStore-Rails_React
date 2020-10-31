@@ -2,16 +2,22 @@ Rails.application.routes.draw do
   root 'home#index'
   get "new/product", to: "home#new"
   get "show/product", to: "home#show"
+  get "/register", to: "home#sign_up"
+
   scope :api, defaults: { format: :json } do
     scope :v1 do
-      
       devise_for :users, controllers: {
         registrations: 'api/v1/users/registrations'
       }
+    end
+  end
+
+  namespace :api, defaults: { format: :json } do
+    namespace :v1 do 
       resources :products, only: [:index, :create, :show]
     end
   end
- 
+
   # set all routes to point this path - used for react router
   get '*path', to: redirect('/'), constraints: lambda { |req|
   req.path.exclude? 'rails/active_storage'}

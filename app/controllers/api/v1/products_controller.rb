@@ -16,8 +16,8 @@ class Api::V1::ProductsController < ActionController::API
   end
 
   def create
+    
     product = Product.create(product_params)
-
     if product.save
       render json: product, status: :created
     else
