@@ -6,6 +6,7 @@ import Home from './storeHome/home';
 import CreateProduct from './Product/createProduct';
 import ShowProduct from './Product/showProduct';
 import SignUp from './Auth/SignSup';
+import LogIn from './Auth/LogIn';
 
 const App = () => {
   return (
@@ -14,6 +15,7 @@ const App = () => {
       <Route exact path="/new/product" component={CreateProduct} />
       <Route exact path="/show/product/:productId" component={ShowProduct} />
       <Route exact path="/register" component={SignUp} />
+      <Route exact path="/logIn" component={LogIn} />
     </Switch>
   );
 };

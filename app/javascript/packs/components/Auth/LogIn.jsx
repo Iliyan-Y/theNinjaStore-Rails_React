@@ -1,0 +1,49 @@
+import React, { useState } from 'react';
+import axios from 'axios';
+
+const LogIn = () => {
+  let [email, setEmail] = useState('');
+  let [password, setPassword] = useState('');
+
+  async function submit(event) {
+    event.preventDefault();
+
+    let body = {
+      user: {
+        email,
+        password,
+      },
+    };
+
+    await axios
+      .post('/api/v1/users/sign_in', body)
+      .then((res) => console.log(res.status + res.data))
+      .catch((err) => console.log(err.message));
+
+    setEmail('');
+    setPassword('');
+  }
+
+  return (
+    <form onSubmit={(action) => submit(action)}>
+      <input
+        onChange={(e) => setEmail(e.target.value)}
+        type="email"
+        name="email"
+        value={email}
+        placeholder="email"
+      />
+      <input
+        onChange={(e) => setPassword(e.target.value)}
+        value={password}
+        type="password"
+        name="Password"
+        placeholder="password"
+      />
+
+      <input type="submit" value="Submit" />
+    </form>
+  );
+};
+
+export default LogIn;

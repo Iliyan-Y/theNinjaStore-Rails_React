@@ -5,7 +5,7 @@ class  Api::V1::Users::RegistrationsController < Devise::RegistrationsController
    #protect_from_forgery with: :null_session
  
   def create
-    token = User.generate_token({user: params[:user][:email]})
+    token = User.generate_token(params[:user][:email])
     p 'User email'
     p params[:user][:email]
     

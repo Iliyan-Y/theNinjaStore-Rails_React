@@ -3,11 +3,13 @@ Rails.application.routes.draw do
   get "new/product", to: "home#new"
   get "show/product", to: "home#show"
   get "/register", to: "home#sign_up"
+  get "/login", to: "home#log_in"
 
   scope :api, defaults: { format: :json } do
     scope :v1 do
       devise_for :users, controllers: {
-        registrations: 'api/v1/users/registrations'
+        registrations: 'api/v1/users/registrations',
+        sessions: 'api/v1/users/sessions',
       }
     end
   end
