@@ -6,8 +6,10 @@ class  Api::V1::Users::RegistrationsController < Devise::RegistrationsController
   
  
   def create
-    token = JWT.encode("payload", 's3cr3t')
-    token = token.split(".")[2]
+    token = User.generate_token({user: params[:user][:email]})
+    p 'User email'
+    p params[:user][:email]
+    
     user = User.new(user_params.merge(auth_token: token))
       if user.save
         render json: {
