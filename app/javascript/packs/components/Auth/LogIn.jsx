@@ -17,7 +17,11 @@ const LogIn = () => {
 
     await axios
       .post('/api/v1/users/sign_in', body)
-      .then((res) => console.log(res.status + res.data))
+      .then((res) => {
+        let response = JSON.stringify(res.data);
+        let parsed = JSON.parse(response);
+        localStorage.setItem('user_token', parsed.data.user.auth_token);
+      })
       .catch((err) => console.log(err.message));
 
     setEmail('');

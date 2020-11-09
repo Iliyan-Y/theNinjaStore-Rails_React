@@ -10,11 +10,11 @@ const CreateProduct = () => {
   let [image, setImage] = useState(null);
 
   useEffect(() => {
+    let token = localStorage.getItem('user_token');
     axios
       .get('/new/product', {
         headers: {
-          'token':
-            'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjoidGVzdFRva2VuQGdtLmNvbSIsImV4cCI6MTYwNDkyNzQwNX0.m8wXqpBHU6FpjAVfkbWSnmLgczpM4W3g-qXR-WgijeU',
+          'token': token,
         },
       })
       .then((res) => {
