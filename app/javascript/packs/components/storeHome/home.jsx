@@ -33,14 +33,18 @@ const Home = () => {
 
   return (
     <>
-      <div>
-        <Link to="/register">Sign Up</Link> | <Link to="/log-in">Log In</Link>
-      </div>
-      <div>
-        <Link to="/new/product" onClick={() => console.log('click')}>
-          New Product
-        </Link>
-      </div>
+      {localStorage.getItem('user_token') == undefined ? (
+        <div>
+          <Link to="/register">Sign Up</Link> | <Link to="/log-in">Log In</Link>
+        </div>
+      ) : (
+        <div>
+          <Link to="/new/product">New Product</Link> |{' '}
+          <a href="/" onClick={() => localStorage.clear()}>
+            Log Out
+          </a>
+        </div>
+      )}
       <p>Home Page</p>
       {products.map((each) => (
         <span key={each.id + 'product'}>

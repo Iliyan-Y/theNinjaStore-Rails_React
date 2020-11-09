@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useHistory } from 'react-router-dom';
 
 const LogIn = () => {
+  let history = useHistory();
   let [email, setEmail] = useState('');
   let [password, setPassword] = useState('');
 
@@ -21,6 +23,7 @@ const LogIn = () => {
         let response = JSON.stringify(res.data);
         let parsed = JSON.parse(response);
         localStorage.setItem('user_token', parsed.data.user.auth_token);
+        history.push('/');
       })
       .catch((err) => console.log(err.message));
 

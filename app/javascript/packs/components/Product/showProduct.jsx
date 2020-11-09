@@ -11,7 +11,7 @@ const ShowProduct = ({ match }) => {
     axios
       .get('/api/v1/products/' + productId)
       .then((res) => setProduct(res.data))
-      .catch((err) => console.log(err.message));
+      .catch((err) => console.error(err.message));
   }, []);
 
   function renderProducts() {

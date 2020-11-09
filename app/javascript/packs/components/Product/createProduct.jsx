@@ -10,6 +10,7 @@ const CreateProduct = () => {
   let [image, setImage] = useState(null);
 
   useEffect(() => {
+    console.log('send');
     let token = localStorage.getItem('user_token');
     axios
       .get('/new/product', {
@@ -17,11 +18,8 @@ const CreateProduct = () => {
           'token': token,
         },
       })
-      .then((res) => {
-        if (res.status == 403) history.push('/');
-      })
       .catch((err) => {
-        console.log(err.message);
+        console.error(err.message);
         history.push('/');
       });
   }, []);
@@ -35,11 +33,12 @@ const CreateProduct = () => {
 
     axios
       .post('/api/v1/products', body)
-      .then((res) => {
+      .then(() => {
         setName('');
         setDescription('');
         setPrice('');
-        setImage(null);
+        setImage(undefined);
+        history.push('/');
       })
       .catch((err) => console.log('Error : ' + err.message));
   };
