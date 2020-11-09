@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
+import { useCookies } from 'react-cookie';
 
 const LogIn = () => {
   let history = useHistory();
   let [email, setEmail] = useState('');
   let [password, setPassword] = useState('');
+  const [cookies, setCookie] = useCookies(['user_token']);
 
-  async function submit(event) {
+  function submit(event) {
     event.preventDefault();
 
     let body = {
@@ -17,12 +19,15 @@ const LogIn = () => {
       },
     };
 
-    await axios
+    axios
       .post('/api/v1/users/sign_in', body)
       .then((res) => {
         let response = JSON.stringify(res.data);
         let parsed = JSON.parse(response);
-        localStorage.setItem('user_token', parsed.data.user.auth_token);
+        setCookie('user_token', parsed.data.user.auth_token, {
+          maxAge: 3600,
+        });
+        // localStorage.setItem('user_token', parsed.data.user.auth_token);
         history.push('/');
       })
       .catch((err) => console.log(err.message));

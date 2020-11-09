@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
+import { useCookies } from 'react-cookie';
 
 const CreateProduct = () => {
   let history = useHistory();
@@ -8,10 +9,10 @@ const CreateProduct = () => {
   let [description, setDescription] = useState('');
   let [price, setPrice] = useState('');
   let [image, setImage] = useState(null);
+  const [cookies, setCookie] = useCookies();
 
   useEffect(() => {
-    console.log('send');
-    let token = localStorage.getItem('user_token');
+    let token = cookies.user_token;
     axios
       .get('/new/product', {
         headers: {
