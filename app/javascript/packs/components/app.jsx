@@ -15,7 +15,7 @@ const App = () => {
       <Route exact path="/new/product" component={CreateProduct} />
       <Route exact path="/show/product/:productId" component={ShowProduct} />
       <Route exact path="/register" component={SignUp} />
-      <Route exact path="/logIn" component={LogIn} />
+      <Route exact path="/log-in" component={LogIn} />
     </Switch>
   );
 };
