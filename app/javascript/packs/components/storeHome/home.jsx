@@ -3,6 +3,7 @@ import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { useCookies } from 'react-cookie';
+import DisplayProducts from '../Product/displayProducts';
 
 const Home = () => {
   let dispatch = useDispatch();
@@ -48,15 +49,7 @@ const Home = () => {
         </div>
       )}
 
-      <p>Home Page</p>
-      {products.map((each) => (
-        <span key={each.id + 'product'}>
-          <Link to={'/show/product/' + each.id}>{each.name}</Link>
-          <p>{each.description}</p>
-          <img src={each.image} alt="" style={{ width: '250px' }} />
-          <p>£{each.price}</p>
-        </span>
-      ))}
+      <DisplayProducts products={products} />
     </>
   );
 };
