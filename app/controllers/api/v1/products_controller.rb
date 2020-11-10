@@ -1,5 +1,5 @@
 class Api::V1::ProductsController < ActionController::API
-  before_action :find_product, only: [:show, :destroy]
+  before_action :find_product, only: [:show, :destroy, :update]
 
   def index 
     products = Product.all
@@ -27,7 +27,6 @@ class Api::V1::ProductsController < ActionController::API
   end
 
   def show
-   # product = Product.find(params['id'])
     product = {
       id: @product.id,
       name: @product.name,
@@ -37,6 +36,14 @@ class Api::V1::ProductsController < ActionController::API
       image: url_for(@product.image)
     } 
     render json: product, status: :ok
+  end
+
+  def update
+    if @product.update(product_params)
+      head 200
+    else
+      head 400
+    end
   end
 
   def destroy

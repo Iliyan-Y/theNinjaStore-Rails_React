@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import DeleteProduct from './deleteProduct';
+import EditProduct from './editProduct';
 
 const ShowProduct = ({ match }) => {
   const {
@@ -25,6 +26,7 @@ const ShowProduct = ({ match }) => {
           <img src={product.image} alt="" style={{ width: '250px' }} />
           <div>
             <DeleteProduct productId={productId} />
+            <EditProduct product={product} />
           </div>
         </>
       );
