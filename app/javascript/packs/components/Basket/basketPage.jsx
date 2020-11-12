@@ -1,15 +1,14 @@
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { v4 as uuid } from 'uuid';
 
 const BasketPage = () => {
-  let dispatch = useDispatch();
-  let items = useSelector((state) => state.basket.items);
+  let basket = JSON.parse(sessionStorage.getItem('basket'));
 
   return (
     <div>
-      {items.map((each) => (
-        <span key={each.id + 'product'}>
+      {basket.items.map((each) => (
+        <span key={uuid()}>
           <Link to={'/show/product/' + each.id}>{each.name}</Link>
           <p>{each.description}</p>
           <img src={each.image} alt="" style={{ width: '250px' }} />

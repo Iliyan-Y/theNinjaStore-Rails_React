@@ -6,7 +6,7 @@ const DisplayProducts = ({ products }) => {
   return (
     <div>
       {products.map((each) => (
-        <span key={each.id + 'product'}>
+        <span key={each.id}>
           <Link to={'/show/product/' + each.id}>{each.name}</Link>
           <p>{each.description}</p>
           <img src={each.image} alt="" style={{ width: '250px' }} />

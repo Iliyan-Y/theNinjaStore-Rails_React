@@ -1,7 +1,6 @@
 import axios from 'axios';
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import ActionBar from '../ActionBar/actionBar';
 import DisplayProducts from '../Product/displayProducts';
 
 const Home = () => {
@@ -34,7 +33,6 @@ const Home = () => {
 
   return (
     <>
-      <ActionBar />
       <DisplayProducts products={products} />
     </>
   );

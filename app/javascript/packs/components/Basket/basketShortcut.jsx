@@ -7,8 +7,8 @@ const BasketShortcut = () => {
   let [numberOfItems, setNumberItems] = useState(0);
 
   useEffect(() => {
-    console.log('loaded shortcut');
-    setNumberItems(items.length);
+    let itemFromStore = JSON.parse(sessionStorage.getItem('basket'));
+    if (itemFromStore) setNumberItems(itemFromStore.items.length);
   }, [items]);
 
   return (

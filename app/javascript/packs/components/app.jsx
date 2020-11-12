@@ -8,17 +8,21 @@ import ShowProduct from './Product/showProduct';
 import SignUp from './Auth/SignSup';
 import LogIn from './Auth/LogIn';
 import BasketPage from './Basket/basketPage';
+import ActionBar from './ActionBar/actionBar';
 
 const App = () => {
   return (
-    <Switch>
-      <Route exact path="/" component={Home} />
-      <Route exact path="/new/product" component={CreateProduct} />
-      <Route exact path="/show/product/:productId" component={ShowProduct} />
-      <Route exact path="/register" component={SignUp} />
-      <Route exact path="/log-in" component={LogIn} />
-      <Route exact path="/basket" component={BasketPage} />
-    </Switch>
+    <>
+      <ActionBar />
+      <Switch>
+        <Route exact path="/" component={Home} />
+        <Route exact path="/new/product" component={CreateProduct} />
+        <Route exact path="/show/product/:productId" component={ShowProduct} />
+        <Route exact path="/register" component={SignUp} />
+        <Route exact path="/log-in" component={LogIn} />
+        <Route exact path="/basket" component={BasketPage} />
+      </Switch>
+    </>
   );
 };
 

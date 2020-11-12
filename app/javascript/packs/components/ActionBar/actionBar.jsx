@@ -7,7 +7,7 @@ const ActionBar = () => {
   const [cookies, setCookie, removeCookie] = useCookies();
   return (
     <div>
-      <BasketShortcut />
+      <Link to="/">Home</Link> | <BasketShortcut />
       {cookies.user_token == undefined ? (
         <div>
           <Link to="/register">Sign Up</Link> | <Link to="/log-in">Log In</Link>
