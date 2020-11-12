@@ -11,10 +11,10 @@ const Home = () => {
   let products = useSelector((state) => state.products.all);
   const [cookies, setCookie, removeCookie] = useCookies();
 
-  let getFromStore = (data) => {
+  let setProducts = (data) => {
     data.map((item) => {
       dispatch({
-        type: 'GET_PRODUCTS',
+        type: 'SET_PRODUCTS',
         payload: item,
       });
     });
@@ -24,7 +24,7 @@ const Home = () => {
     axios
       .get('/api/v1/products')
       .then((res) => {
-        getFromStore(res.data);
+        setProducts(res.data);
       })
       .catch((err) => console.error(err.message));
 

@@ -7,7 +7,7 @@ const productsReducer = (state = initialState, action) => {
   const { type, payload } = action;
 
   switch (type) {
-    case 'GET_PRODUCTS':
+    case 'SET_PRODUCTS':
       return Object.assign({}, state, {
         all: [...state.all, payload],
       });

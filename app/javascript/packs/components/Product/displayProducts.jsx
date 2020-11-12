@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import AddToBasket from '../Basket/addToBasketBtn';
 
 const DisplayProducts = ({ products }) => {
   return (
@@ -10,7 +11,7 @@ const DisplayProducts = ({ products }) => {
           <p>{each.description}</p>
           <img src={each.image} alt="" style={{ width: '250px' }} />
           <p>£{each.price}</p>
-          <button>Add to basket</button>
+          <AddToBasket product={each} />
           <br />
         </span>
       ))}
