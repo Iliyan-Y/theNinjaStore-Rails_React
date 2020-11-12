@@ -7,6 +7,7 @@ const BasketShortcut = () => {
   let [numberOfItems, setNumberItems] = useState(0);
 
   useEffect(() => {
+    console.log('loaded shortcut');
     setNumberItems(items.length);
   }, [items]);
 
