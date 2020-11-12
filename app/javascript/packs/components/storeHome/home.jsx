@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { useCookies } from 'react-cookie';
 import DisplayProducts from '../Product/displayProducts';
+import BasketShortcut from '../Basket/basketShortcut';
 
 const Home = () => {
   let dispatch = useDispatch();
@@ -36,6 +37,7 @@ const Home = () => {
 
   return (
     <>
+      <BasketShortcut />
       {cookies.user_token == undefined ? (
         <div>
           <Link to="/register">Sign Up</Link> | <Link to="/log-in">Log In</Link>
