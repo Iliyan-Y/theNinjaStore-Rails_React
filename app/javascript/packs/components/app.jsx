@@ -7,6 +7,7 @@ import CreateProduct from './Product/createProduct';
 import ShowProduct from './Product/showProduct';
 import SignUp from './Auth/SignSup';
 import LogIn from './Auth/LogIn';
+import BasketPage from './Basket/basketPage';
 
 const App = () => {
   return (
@@ -16,6 +17,7 @@ const App = () => {
       <Route exact path="/show/product/:productId" component={ShowProduct} />
       <Route exact path="/register" component={SignUp} />
       <Route exact path="/log-in" component={LogIn} />
+      <Route exact path="/basket" component={BasketPage} />
     </Switch>
   );
 };

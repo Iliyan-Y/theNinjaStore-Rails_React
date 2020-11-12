@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 const BasketShortcut = () => {
   let items = useSelector((state) => state.basket.items);
@@ -11,7 +12,7 @@ const BasketShortcut = () => {
 
   return (
     <>
-      <p>Basket: {numberOfItems}</p>
+      <Link to="/basket">Basket: {numberOfItems}</Link>
     </>
   );
 };
