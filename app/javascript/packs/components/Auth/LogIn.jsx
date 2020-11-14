@@ -27,7 +27,6 @@ const LogIn = () => {
         setCookie('user_token', parsed.data.user.auth_token, {
           maxAge: 3600,
         });
-        // localStorage.setItem('user_token', parsed.data.user.auth_token);
         history.push('/');
       })
       .catch((err) => console.log(err.message));

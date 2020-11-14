@@ -1,10 +1,11 @@
-import { func } from 'prop-types';
 import React from 'react';
 import axios from 'axios';
 import { useCookies } from 'react-cookie';
+import { useHistory } from 'react-router-dom';
 
 const NewOrder = ({ productsId }) => {
-  const [cookies, setCookie] = useCookies();
+  const [cookies] = useCookies();
+  let history = useHistory();
 
   let confirmOrder = () => {
     let token = cookies.user_token;
@@ -14,7 +15,9 @@ const NewOrder = ({ productsId }) => {
 
     axios
       .post('/api/v1/orders', body)
-      .then((res) => console.log(res))
+      .then(() => {
+        sessionStorage.removeItem('basket'), history.push('/');
+      })
       .catch((err) => console.error(err.message));
   };
   return <button onClick={() => confirmOrder()}>Confirm Order</button>;

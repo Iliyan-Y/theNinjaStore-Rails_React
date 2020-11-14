@@ -9,7 +9,7 @@ const BasketShortcut = () => {
   useEffect(() => {
     let itemFromStore = JSON.parse(sessionStorage.getItem('basket'));
     if (itemFromStore) setNumberItems(itemFromStore.items.length);
-  }, [items]);
+  }, [items, sessionStorage.getItem('basket')]);
 
   return (
     <>

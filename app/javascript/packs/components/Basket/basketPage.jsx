@@ -2,11 +2,11 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { v4 as uuid } from 'uuid';
 import NewOrder from '../Orders/newOrder';
+import { useState } from 'react';
 
 const BasketPage = () => {
   let basket = JSON.parse(sessionStorage.getItem('basket'));
   let productsId = basket.items.map((item) => item.id);
-  console.log(productsId);
 
   return (
     <div>
