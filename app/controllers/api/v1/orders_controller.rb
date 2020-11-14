@@ -1,7 +1,7 @@
 class Api::V1::OrdersController < ActionController::API
 
   def create 
-    if find_user   
+    if find_user 
       create_order
     else 
       head 403
@@ -11,9 +11,9 @@ class Api::V1::OrdersController < ActionController::API
   protected
 
   def create_order
-    order = @user.orders.create(order_params)
+    order = @user.orders.create(products: params['order']['productsId'])
     if order.save 
-      head 200
+      render json: order, status: 200
     else 
       head 400
     end
@@ -21,15 +21,13 @@ class Api::V1::OrdersController < ActionController::API
 
   def find_user 
     token = User.decode(params['order']['token'])
-    return false unless token == nil
-    
-    @user = User.find_by_email(@token['email'])
-    return false unless @user == nil
+    return false unless token
 
+    @user = User.find_by_email(token['user'])
   end
 
   def order_params
-    params.require(:order).permit(:token, :products => [])
+    params.require(:order).permit(:token, :productsId => [])
   end
 
 end
