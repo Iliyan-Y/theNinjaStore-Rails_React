@@ -1,10 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { v4 as uuid } from 'uuid';
+import { useCookies } from 'react-cookie';
 import NewOrder from '../Orders/newOrder';
 
 const BasketPage = () => {
+  const [cookies] = useCookies();
   let basket = JSON.parse(sessionStorage.getItem('basket'));
+
+  if (cookies.user_token == undefined)
+    return <h3>Please Log in to be able see the basket</h3>;
 
   if (basket) {
     let productsId = basket.items.map((item) => item.id);

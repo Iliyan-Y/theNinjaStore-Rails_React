@@ -9,7 +9,7 @@ const CreateProduct = () => {
   let [description, setDescription] = useState('');
   let [price, setPrice] = useState('');
   let [image, setImage] = useState(null);
-  const [cookies, setCookie] = useCookies();
+  const [cookies] = useCookies();
 
   useEffect(() => {
     let token = cookies.user_token;

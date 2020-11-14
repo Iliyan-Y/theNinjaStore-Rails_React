@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 const BasketShortcut = () => {
   let items = useSelector((state) => state.basket.items);
   let [numberOfItems, setNumberItems] = useState(0);
-  console.log(sessionStorage.length);
 
   useEffect(() => {
     let itemFromStore = JSON.parse(sessionStorage.getItem('basket'));
@@ -14,11 +13,7 @@ const BasketShortcut = () => {
       : setNumberItems(0);
   }, [items, sessionStorage.length]);
 
-  return (
-    <>
-      <Link to="/basket">Basket: {numberOfItems}</Link>
-    </>
-  );
+  return <Link to="/basket">Basket: {numberOfItems}</Link>;
 };
 
 export default BasketShortcut;
