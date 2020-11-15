@@ -1,16 +1,22 @@
 import React from 'react';
 import axios from 'axios';
-import { useCookies } from 'react-cookie';
 import { useHistory } from 'react-router-dom';
 
-const NewOrder = ({ productsId }) => {
-  const [cookies] = useCookies();
+const NewOrder = ({ name, email, postCode, phone, address }) => {
   let history = useHistory();
 
   let placeOrder = () => {
-    let token = cookies.user_token;
+    let basket = JSON.parse(sessionStorage.getItem('basket'));
+    let productsId = basket.items.map((item) => item.id);
     let body = {
-      order: { token, productsId },
+      order: {
+        email,
+        customer_name: name,
+        address,
+        phone,
+        post_code: postCode,
+        productsId,
+      },
     };
 
     axios

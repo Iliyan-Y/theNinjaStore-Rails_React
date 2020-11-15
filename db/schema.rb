@@ -37,7 +37,6 @@ ActiveRecord::Schema.define(version: 2020_11_13_170501) do
   end
 
   create_table "orders", force: :cascade do |t|
-    t.bigint "user_id"
     t.string "email", null: false
     t.text "customer_name", null: false
     t.string "address", null: false
@@ -47,7 +46,6 @@ ActiveRecord::Schema.define(version: 2020_11_13_170501) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["productsId"], name: "index_orders_on_productsId", using: :gin
-    t.index ["user_id"], name: "index_orders_on_user_id"
   end
 
   create_table "products", force: :cascade do |t|
@@ -72,5 +70,4 @@ ActiveRecord::Schema.define(version: 2020_11_13_170501) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "orders", "users"
 end
