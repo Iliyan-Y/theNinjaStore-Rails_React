@@ -2,10 +2,11 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { v4 as uuid } from 'uuid';
 import { useCookies } from 'react-cookie';
-import NewOrder from '../Orders/newOrder';
+import { useHistory } from 'react-router-dom';
 
 const BasketPage = () => {
   const [cookies] = useCookies();
+  let history = useHistory();
   let basket = JSON.parse(sessionStorage.getItem('basket'));
 
   if (cookies.user_token == undefined)
@@ -24,7 +25,7 @@ const BasketPage = () => {
             <br />
           </span>
         ))}
-        <NewOrder productsId={productsId} />
+        <button onClick={() => history.push('/order')}>Confirm Order</button>
       </div>
     );
   }

@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   get "/register", to: "home#sign_up"
   get "/login", to: "home#log_in"
   get "/basket", to: "home#basket"
+  get '/order', to: "home#order"
 
   scope :api, defaults: { format: :json } do
     scope :v1 do

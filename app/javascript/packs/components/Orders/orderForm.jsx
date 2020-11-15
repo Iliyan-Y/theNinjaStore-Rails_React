@@ -1,4 +1,5 @@
 import React from 'react';
+import NewOrder from './newOrder';
 
 const OrderForm = () => {
   return (
@@ -36,6 +37,7 @@ const OrderForm = () => {
         id="postCode"
         placeholder="Post Code"
       />
+      <NewOrder />
     </div>
   );
 };

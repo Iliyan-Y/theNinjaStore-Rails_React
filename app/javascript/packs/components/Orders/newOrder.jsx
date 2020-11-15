@@ -7,7 +7,7 @@ const NewOrder = ({ productsId }) => {
   const [cookies] = useCookies();
   let history = useHistory();
 
-  let confirmOrder = () => {
+  let placeOrder = () => {
     let token = cookies.user_token;
     let body = {
       order: { token, productsId },
@@ -20,7 +20,7 @@ const NewOrder = ({ productsId }) => {
       })
       .catch((err) => console.error(err.message));
   };
-  return <button onClick={() => confirmOrder()}>Confirm Order</button>;
+  return <button onClick={() => placeOrder()}>Place Order</button>;
 };
 
 export default NewOrder;

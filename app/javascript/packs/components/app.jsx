@@ -9,6 +9,7 @@ import SignUp from './Auth/SignSup';
 import LogIn from './Auth/LogIn';
 import BasketPage from './Basket/basketPage';
 import ActionBar from './ActionBar/actionBar';
+import OrderForm from './Orders/orderForm';
 
 const App = () => {
   return (
@@ -21,6 +22,7 @@ const App = () => {
         <Route exact path="/register" component={SignUp} />
         <Route exact path="/log-in" component={LogIn} />
         <Route exact path="/basket" component={BasketPage} />
+        <Route exact path="/order" component={OrderForm} />
       </Switch>
     </>
   );
