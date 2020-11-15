@@ -40,13 +40,13 @@ ActiveRecord::Schema.define(version: 2020_11_13_170501) do
     t.bigint "user_id"
     t.string "email", null: false
     t.text "customer_name", null: false
-    t.string "adress", null: false
+    t.string "address", null: false
     t.string "phone", null: false
     t.string "post_code"
-    t.string "products", null: false, array: true
+    t.string "productsId", null: false, array: true
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["products"], name: "index_orders_on_products", using: :gin
+    t.index ["productsId"], name: "index_orders_on_productsId", using: :gin
     t.index ["user_id"], name: "index_orders_on_user_id"
   end
 
