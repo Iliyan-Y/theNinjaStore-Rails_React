@@ -37,8 +37,13 @@ ActiveRecord::Schema.define(version: 2020_11_13_170501) do
   end
 
   create_table "orders", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.string "products", array: true
+    t.bigint "user_id"
+    t.string "email", null: false
+    t.text "customer_name", null: false
+    t.string "adress", null: false
+    t.string "phone", null: false
+    t.string "post_code"
+    t.string "products", null: false, array: true
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["products"], name: "index_orders_on_products", using: :gin
