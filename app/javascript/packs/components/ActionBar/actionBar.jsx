@@ -10,7 +10,7 @@ const ActionBar = () => {
       <Link to="/">Home</Link> | <BasketShortcut />
       {cookies.user_token == undefined ? (
         <div>
-          <Link to="/register">Sign Up</Link> | <Link to="/log-in">Log In</Link>
+          <Link to="/">Sign Up</Link> | <Link to="/log-in">Log In</Link>
         </div>
       ) : (
         <div>
