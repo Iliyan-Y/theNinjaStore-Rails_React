@@ -38,19 +38,20 @@ ActiveRecord::Schema.define(version: 2020_11_13_170501) do
 
   create_table "orders", force: :cascade do |t|
     t.string "email", null: false
-    t.text "customer_name", null: false
+    t.string "customer_name", null: false
     t.string "address", null: false
     t.string "phone", null: false
     t.string "post_code"
     t.string "productsId", null: false, array: true
+    t.string "status", default: "New"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["productsId"], name: "index_orders_on_productsId", using: :gin
   end
 
   create_table "products", force: :cascade do |t|
-    t.text "name"
-    t.string "description"
+    t.string "name"
+    t.text "description"
     t.decimal "price", precision: 8, scale: 2
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
