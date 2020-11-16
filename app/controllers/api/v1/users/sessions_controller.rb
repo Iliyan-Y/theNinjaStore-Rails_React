@@ -18,8 +18,17 @@ class Api::V1::Users::SessionsController < Devise::SessionsController
         data: {}
       }, status: :unauthorized
     end
-    
   end
+
+  def verify
+    token = User.decode(request.headers['token'])
+    if token  
+      head 200
+    else 
+      head 403
+    end
+  end
+
 
   # DELETE /resource/sign_out
   # def destroy

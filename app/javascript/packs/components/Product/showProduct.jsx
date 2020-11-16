@@ -31,7 +31,6 @@ const ShowProduct = ({ match }) => {
         </>
       );
   }
-
   return <span>{renderProducts()}</span>;
 };
 

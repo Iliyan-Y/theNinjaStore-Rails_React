@@ -59,5 +59,4 @@ const EditProduct = ({ product }) => {
     </>
   );
 };
-
 export default EditProduct;

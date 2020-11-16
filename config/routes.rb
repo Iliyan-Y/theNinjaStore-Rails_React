@@ -6,15 +6,19 @@ Rails.application.routes.draw do
   get "/login", to: "home#log_in"
   get "/basket", to: "home#basket"
   get '/order', to: "home#order"
+ 
 
   scope :api, defaults: { format: :json } do
     scope :v1 do
-
       devise_for :users, controllers: {
         registrations: 'api/v1/users/registrations',
         sessions: 'api/v1/users/sessions',
       }
     end
+  end
+
+  devise_scope :user do
+    get "api/v1/users/verify", to: "api/v1/users/sessions#verify"
   end
 
   namespace :api, defaults: { format: :json } do
