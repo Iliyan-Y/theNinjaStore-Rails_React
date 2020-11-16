@@ -16,4 +16,5 @@ class User < ApplicationRecord
   rescue
     false
   end
+
 end

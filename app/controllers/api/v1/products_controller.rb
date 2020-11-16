@@ -1,5 +1,6 @@
 class Api::V1::ProductsController < ActionController::API
   before_action :find_product, only: [:show, :destroy, :update]
+  before_action :find_user, only: [:update, :destroy]
 
   def index 
     products = Product.all
@@ -47,7 +48,12 @@ class Api::V1::ProductsController < ActionController::API
   end
 
   def destroy
-    @product.destroy
+    if @user 
+      @product.destroy
+      head 200
+    else 
+      head 403
+    end
   end
 
   private 
@@ -55,6 +61,11 @@ class Api::V1::ProductsController < ActionController::API
   def find_product 
     @product = Product.find(params['id'])
   end
+
+  def find_user
+    @user = User.decode(request.headers['token'])
+  end
+
 
   def product_params
     params.require(:product).permit(:name, :description, :price, :image)
