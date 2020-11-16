@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
+import { useCookies } from 'react-cookie';
 
 const EditProduct = ({ product }) => {
   let history = useHistory();
@@ -9,8 +10,10 @@ const EditProduct = ({ product }) => {
   let [description, setDescription] = useState(product.description);
   let [price, setPrice] = useState(product.price);
   let [image, setImage] = useState();
+  const [cookies] = useCookies();
 
   let submit = () => {
+    let token = cookies.user_token;
     const body = new FormData();
     body.append('product[name]', name);
     body.append('product[description]', description);
@@ -18,7 +21,11 @@ const EditProduct = ({ product }) => {
     if (image) body.append('product[image]', image);
 
     axios
-      .patch('/api/v1/products/' + product.id, body)
+      .patch('/api/v1/products/' + product.id, body, {
+        headers: {
+          'token': token,
+        },
+      })
       .then(() => {
         history.push('/');
       })

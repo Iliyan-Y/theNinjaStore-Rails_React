@@ -40,7 +40,7 @@ class Api::V1::ProductsController < ActionController::API
   end
 
   def update
-    if @product.update(product_params)
+    if @user && @product.update(product_params)
       head 200
     else
       head 400
