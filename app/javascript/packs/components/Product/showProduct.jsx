@@ -3,6 +3,7 @@ import axios from 'axios';
 import DeleteProduct from './deleteProduct';
 import EditProduct from './editProduct';
 import { useCookies } from 'react-cookie';
+import { checkForUser } from '../../helpers/checkForuser';
 
 const ShowProduct = ({ match }) => {
   const {
@@ -10,6 +11,7 @@ const ShowProduct = ({ match }) => {
   } = match;
   let [product, setProduct] = useState();
   const [cookies] = useCookies();
+  let [token, setToken] = useState(cookies.user_token);
   let [isUser, setIsUser] = useState(false);
 
   useEffect(() => {
@@ -18,20 +20,8 @@ const ShowProduct = ({ match }) => {
       .then((res) => setProduct(res.data))
       .catch((err) => console.error(err.message));
 
-    checkForUser();
+    checkForUser(token, setIsUser);
   }, []);
-
-  let checkForUser = () => {
-    let token = cookies.user_token;
-    axios
-      .get('/api/v1/users/verify', {
-        headers: {
-          'token': token,
-        },
-      })
-      .then((res) => (res.status == 200 ? setIsUser(true) : ''))
-      .catch((err) => console.error(err.message));
-  };
 
   let renderOptions = () => {
     if (isUser)
