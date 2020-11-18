@@ -26,6 +26,7 @@ Rails.application.routes.draw do
     namespace :v1 do 
       resources :products, only: [:index, :create, :show, :destroy, :update]
       resources :orders, only: [:index, :create]
+      post "/orders/products", to: "orders#display_products"
     end
   end
 
