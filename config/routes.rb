@@ -1,9 +1,9 @@
 Rails.application.routes.draw do
   root 'home#index'
   get "new/product", to: "home#new"
-  get "show/product", to: "home#show"
+  get "show/product/:id", to: "home#show"
   # get "/register", to: "home#sign_up"
-  get "/login", to: "home#log_in"
+  get "/log-in", to: "home#log_in"
   get "/basket", to: "home#basket"
   get '/order', to: "home#order"
   get '/admin/all-orders', to: "home#all_orders"

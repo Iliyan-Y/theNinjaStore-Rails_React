@@ -11,10 +11,14 @@ class HomeController < ApplicationController
     end
   end
 
+  def log_in
+  end
+
   def sign_up
   end
 
   
   def all_orders
+    
   end
 end
