@@ -23,6 +23,7 @@ const ActionBar = () => {
       <Link to="/">Home</Link> | <BasketShortcut />
       {isUser ? (
         <div>
+          <Link to="/admin/all-orders">All Orders</Link> |
           <Link to="/new/product">New Product</Link> |
           <a href="/" onClick={() => logOut()}>
             Log Out

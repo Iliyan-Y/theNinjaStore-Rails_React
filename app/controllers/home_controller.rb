@@ -14,6 +14,7 @@ class HomeController < ApplicationController
   def sign_up
   end
 
-  def log_in
+  
+  def all_orders
   end
 end

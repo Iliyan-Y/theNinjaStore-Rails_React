@@ -10,6 +10,7 @@ import LogIn from './Auth/LogIn';
 import BasketPage from './Basket/basketPage';
 import ActionBar from './ActionBar/actionBar';
 import OrderForm from './Orders/orderForm';
+import ViewAllOrders from './AdminPanel/viewAllOrders';
 
 const App = () => {
   return (
@@ -23,6 +24,7 @@ const App = () => {
         <Route exact path="/log-in" component={LogIn} />
         <Route exact path="/basket" component={BasketPage} />
         <Route exact path="/order" component={OrderForm} />
+        <Route exact path="/admin/all-orders" component={ViewAllOrders} />
       </Switch>
     </>
   );
