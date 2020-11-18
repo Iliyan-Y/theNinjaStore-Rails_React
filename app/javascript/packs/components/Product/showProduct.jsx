@@ -11,7 +11,6 @@ const ShowProduct = ({ match }) => {
   } = match;
   let [product, setProduct] = useState();
   const [cookies] = useCookies();
-  let [token, setToken] = useState(cookies.user_token);
   let [isUser, setIsUser] = useState(false);
 
   useEffect(() => {
@@ -20,6 +19,7 @@ const ShowProduct = ({ match }) => {
       .then((res) => setProduct(res.data))
       .catch((err) => console.error(err.message));
 
+    let token = cookies.user_token;
     checkForUser(token, setIsUser);
   }, []);
 

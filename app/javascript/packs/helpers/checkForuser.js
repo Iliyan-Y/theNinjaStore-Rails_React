@@ -8,5 +8,5 @@ export let checkForUser = (token, setIsUser) => {
       },
     })
     .then((res) => (res.status == 200 ? setIsUser(true) : ''))
-    .catch((err) => console.error(err.message));
+    .catch(() => {});
 };

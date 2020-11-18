@@ -27,8 +27,8 @@ const LogIn = () => {
         setCookie('user_token', parsed.data.user.auth_token, {
           maxAge: 3600,
         });
-        history.push('/');
       })
+      .then(() => history.push('/'))
       .catch((err) => console.log(err.message));
 
     setEmail('');
