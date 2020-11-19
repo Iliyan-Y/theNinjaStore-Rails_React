@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useCookies } from 'react-cookie';
 import { useHistory } from 'react-router-dom';
 import ViewOrderProducts from './viewOrderProducts';
+import UpdateOrderStatus from './updateOrderStatus';
 
 const ViewAllOrders = () => {
   let history = useHistory();
@@ -41,6 +42,7 @@ const ViewAllOrders = () => {
             Products: {order.productsId.length}
           </button>
           <p>{order.status}</p>
+          <UpdateOrderStatus token={cookies.user_token} orderId={order.id} />
           <p>{order.created_at}</p>
           <br />
         </span>

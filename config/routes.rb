@@ -27,6 +27,7 @@ Rails.application.routes.draw do
       resources :products, only: [:index, :create, :show, :destroy, :update]
       resources :orders, only: [:index, :create]
       post "/orders/products", to: "orders#display_products"
+      patch "/orders/:id", to: "orders#change_status"
     end
   end
 

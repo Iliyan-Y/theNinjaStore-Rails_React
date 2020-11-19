@@ -2,7 +2,7 @@ class Api::V1::OrdersController < ActionController::API
   include ActionController::Helpers
   helper ApplicationHelper
 
-  before_action :find_user, only: [:index]
+  before_action :find_user, only: [:index, :change_status]
 
   def index 
     order = Order.all 
@@ -11,7 +11,6 @@ class Api::V1::OrdersController < ActionController::API
     else 
       head 403
     end
-
   end
 
   def create 
@@ -32,6 +31,15 @@ class Api::V1::OrdersController < ActionController::API
     end
   end
 
+  def change_status
+    if @user
+      Order.update(params["order"]["id"], status: params["order"]["status"])
+      head 200
+    else
+      head 403
+    end
+  end
+
   protected
 
   def find_user
@@ -39,7 +47,7 @@ class Api::V1::OrdersController < ActionController::API
   end
 
   def order_params
-    params.require(:order).permit(:email, :customer_name, :address, :phone, :post_code, :productsId => [] )
+    params.require(:order).permit(:email, :customer_name, :address, :phone, :post_code, :status, :productsId => [])
   end
 
 end
