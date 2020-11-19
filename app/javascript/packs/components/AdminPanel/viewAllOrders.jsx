@@ -2,10 +2,12 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useCookies } from 'react-cookie';
 import { useHistory } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import ViewOrderProducts from './viewOrderProducts';
 import UpdateOrderStatus from './updateOrderStatus';
 
 const ViewAllOrders = () => {
+  let refresh = useSelector((state) => state.general.refresh);
   let history = useHistory();
   const [cookies] = useCookies();
   let [orders, setOrders] = useState([]);
@@ -18,7 +20,7 @@ const ViewAllOrders = () => {
         setOrders(res.data);
       })
       .catch(() => history.push('/'));
-  }, []);
+  }, [refresh]);
 
   let displayProducts = (productsId) => {
     if (products.length == 0) {

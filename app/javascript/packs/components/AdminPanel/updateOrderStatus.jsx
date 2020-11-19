@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useDispatch } from 'react-redux';
 
 const UpdateOrderStatus = ({ token, orderId }) => {
   let [status, setStatus] = useState();
+  let dispatch = useDispatch();
 
   let updateStatus = () => {
     axios
@@ -10,6 +12,12 @@ const UpdateOrderStatus = ({ token, orderId }) => {
         '/api/v1/orders/' + orderId,
         { order: { id: orderId, status } },
         { headers: { token } }
+      )
+      .then(() =>
+        dispatch({
+          type: 'REFRESH',
+          payload: '',
+        })
       )
       .catch(() => {});
   };
