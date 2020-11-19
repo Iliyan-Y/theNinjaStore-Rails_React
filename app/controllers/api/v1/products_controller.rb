@@ -1,25 +1,17 @@
 class Api::V1::ProductsController < ActionController::API
+  include ActionController::Helpers
+  helper ApplicationHelper
+
   before_action :find_product, only: [:show, :destroy, :update]
   before_action :find_user, only: [:update, :destroy]
 
   def index 
     products = Product.all
-    products = products.map do |product|
-      {
-        id: product.id,
-        name: product.name,
-        description: product.description,
-        price: product.price,
-        created_at: product.created_at,
-        image: url_for(product.image)
-      } 
-    end
-    render json: products, status: :ok
+    render json: helpers.render_products(products), status: :ok
   end
 
   def create
     product = Product.create(product_params)
-
     if product.save 
       render json: product, status: :created
     else
@@ -62,10 +54,9 @@ class Api::V1::ProductsController < ActionController::API
     @product = Product.find(params['id'])
   end
 
-  def find_user
+  def find_user(token)
     @user = User.decode(request.headers['token'])
   end
-
 
   def product_params
     params.require(:product).permit(:name, :description, :price, :image)
