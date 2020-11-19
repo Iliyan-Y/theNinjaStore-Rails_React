@@ -11,9 +11,4 @@ module ApplicationHelper
       } 
     end
   end
-
-  def find_user(token)
-    @user = User.decode(token)
-  end
-  
 end

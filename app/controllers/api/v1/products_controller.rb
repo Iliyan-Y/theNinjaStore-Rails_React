@@ -54,7 +54,7 @@ class Api::V1::ProductsController < ActionController::API
     @product = Product.find(params['id'])
   end
 
-  def find_user(token)
+  def find_user
     @user = User.decode(request.headers['token'])
   end
 
