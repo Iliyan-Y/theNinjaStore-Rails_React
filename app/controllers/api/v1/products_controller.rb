@@ -3,7 +3,7 @@ class Api::V1::ProductsController < ActionController::API
   helper ApplicationHelper
 
   before_action :find_product, only: [:show, :destroy, :update]
-  before_action :find_user, only: [:update, :destroy]
+  before_action :find_user, only: [:update, :destroy, :create]
 
   def index 
     products = Product.all
@@ -12,7 +12,7 @@ class Api::V1::ProductsController < ActionController::API
 
   def create
     product = Product.create(product_params)
-    if product.save 
+    if product.save && @user
       render json: product, status: :created
     else
       render json: product.errors, status: :unprocessable_entity 

@@ -33,7 +33,9 @@ const CreateProduct = () => {
     body.append('product[image]', image);
 
     axios
-      .post('/api/v1/products', body)
+      .post('/api/v1/products', body, {
+        headers: { 'token': cookies.user_token },
+      })
       .then(() => {
         setName('');
         setDescription('');
