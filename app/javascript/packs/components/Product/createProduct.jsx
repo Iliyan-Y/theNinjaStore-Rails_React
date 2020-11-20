@@ -32,26 +32,32 @@ const CreateProduct = () => {
     body.append('product[description]', description);
     body.append('product[price]', price);
     body.append('product[image]', image);
-    let count = 0;
-    files.forEach((file) => {
-      body.append(count, file);
-      count++;
-    });
+    for (let i = 0; i < 5; i++) {
+      body.append(`photos[${i}]`, files[i]);
+    }
 
     axios
       .post('/api/v1/products', body, {
         headers: { 'token': cookies.user_token },
       })
-      .then((res) => {
+      .then(() => {
         setName('');
         setDescription('');
         setPrice('');
         setImage(undefined);
-        console.log(res.data);
-        // history.push('/');
+        history.push('/');
       })
       .catch((err) => console.log('Error : ' + err.message));
   };
+
+  let addMorePhotos = (e) => {
+    if (e.target.files.length <= 5) {
+      let f = [];
+      [...e.target.files].map((each) => f.push(each));
+      setFiles(f);
+    } else alert('Only 5 files allowed');
+  };
+
   return (
     <div>
       <input
@@ -84,11 +90,7 @@ const CreateProduct = () => {
         name="files"
         id="files"
         multiple
-        onChange={(e) => {
-          let f = [];
-          [...e.target.files].map((each) => f.push(each));
-          setFiles(f);
-        }}
+        onChange={(e) => addMorePhotos(e)}
       />
       <button onClick={() => submit()}>Submit</button>
     </div>

@@ -12,14 +12,7 @@ class Api::V1::ProductsController < ActionController::API
 
   def create
     product = Product.create(product_params)
-    product.photos.attach(params["0"])
-    product.photos.attach(params["1"])
-    5.times {p '--------------------------------------'}
-    product.photos.map{|img| p url_for(img)}
-
-   5.times {p '--------------------------------------'}
-   
-    
+    add_photos(product)
     if product.save && @user
       render json: product, status: :created
     else
@@ -69,4 +62,15 @@ class Api::V1::ProductsController < ActionController::API
   def product_params
     params.require(:product).permit(:name, :description, :price, :image)
   end
+
+  def photos_params
+    params.require(:photos).permit(:"0", :"1", :"2", :"3", :"4")
+  end
+
+  def add_photos(product)
+    for n in 0..4 do 
+      product.photos.attach(photos_params[:"#{n}"]) unless photos_params[:"#{n}"] == "undefined"
+    end
+  end
+
 end
