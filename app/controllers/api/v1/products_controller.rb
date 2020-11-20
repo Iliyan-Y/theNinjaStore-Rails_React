@@ -12,6 +12,14 @@ class Api::V1::ProductsController < ActionController::API
 
   def create
     product = Product.create(product_params)
+    product.photos.attach(params["0"])
+    product.photos.attach(params["1"])
+    5.times {p '--------------------------------------'}
+    product.photos.map{|img| p url_for(img)}
+
+   5.times {p '--------------------------------------'}
+   
+    
     if product.save && @user
       render json: product, status: :created
     else

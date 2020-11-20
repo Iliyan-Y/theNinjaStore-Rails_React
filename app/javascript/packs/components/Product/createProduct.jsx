@@ -9,6 +9,7 @@ const CreateProduct = () => {
   let [description, setDescription] = useState('');
   let [price, setPrice] = useState('');
   let [image, setImage] = useState(null);
+  let [files, setFiles] = useState([]);
   const [cookies] = useCookies();
 
   useEffect(() => {
@@ -31,17 +32,23 @@ const CreateProduct = () => {
     body.append('product[description]', description);
     body.append('product[price]', price);
     body.append('product[image]', image);
+    let count = 0;
+    files.forEach((file) => {
+      body.append(count, file);
+      count++;
+    });
 
     axios
       .post('/api/v1/products', body, {
         headers: { 'token': cookies.user_token },
       })
-      .then(() => {
+      .then((res) => {
         setName('');
         setDescription('');
         setPrice('');
         setImage(undefined);
-        history.push('/');
+        console.log(res.data);
+        // history.push('/');
       })
       .catch((err) => console.log('Error : ' + err.message));
   };
@@ -71,7 +78,18 @@ const CreateProduct = () => {
         type="file"
         onChange={(e) => setImage(e.target.files[0])}
       />
-
+      <label htmlFor="files">Select files:</label>
+      <input
+        type="file"
+        name="files"
+        id="files"
+        multiple
+        onChange={(e) => {
+          let f = [];
+          [...e.target.files].map((each) => f.push(each));
+          setFiles(f);
+        }}
+      />
       <button onClick={() => submit()}>Submit</button>
     </div>
   );
