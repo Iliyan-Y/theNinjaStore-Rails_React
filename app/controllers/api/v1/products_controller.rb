@@ -27,7 +27,8 @@ class Api::V1::ProductsController < ActionController::API
       description: @product.description,
       price: @product.price,
       created_at: @product.created_at,
-      image: url_for(@product.image)
+      image: url_for(@product.image),
+      galery: @product.photos.map{|img| url_for(img)}
     } 
     render json: product, status: :ok
   end

@@ -8,7 +8,7 @@ module ApplicationHelper
         price: product.price,
         created_at: product.created_at,
         image: url_for(product.image)
-       # galery: product.photos.map{|img| all = [] all.push(url_for(img))}
+        # galery: product.photos.map{|img| url_for(img)}
       } 
     end
   end

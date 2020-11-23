@@ -4,6 +4,7 @@ import DeleteProduct from './deleteProduct';
 import EditProduct from './editProduct';
 import { useCookies } from 'react-cookie';
 import { checkForUser } from '../../helpers/checkForuser';
+import { v4 as uuid } from 'uuid';
 
 const ShowProduct = ({ match }) => {
   const {
@@ -41,6 +42,9 @@ const ShowProduct = ({ match }) => {
           <p>{product.description}</p>
           <p>£{product.price}</p>
           <img src={product.image} alt="" style={{ width: '250px' }} />
+          {product.galery.map((url) => (
+            <img src={url} key={uuid()} style={{ width: '200px' }} />
+          ))}
           {renderOptions()}
         </>
       );
