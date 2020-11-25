@@ -21,14 +21,19 @@ const ActionBar = () => {
   };
 
   return (
-    <Navbar bg="light" expand="lg">
-      <Link className="navbar-brand" to="/">
-        Store
-      </Link>
+    <Navbar bg="light" expand="lg" sticky="top">
+      <Nav className="mx-auto">
+        <Link
+          style={{ fontFamily: 'Apple Chancery, cursive' }}
+          className="navbar-brand"
+          to="/"
+        >
+          The Ninja Store
+        </Link>
+      </Nav>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto">
-          <BasketShortcut />
           {isUser ? (
             <NavDropdown title="Menu" id="basic-nav-dropdown">
               <Link className="dropdown-item" href="/admin/all-orders">
@@ -47,6 +52,9 @@ const ActionBar = () => {
               Log In
             </Link>
           )}
+        </Nav>
+        <Nav className="ml-auto">
+          <BasketShortcut />
         </Nav>
       </Navbar.Collapse>
     </Navbar>
