@@ -6,10 +6,15 @@ const DisplayProducts = ({ products }) => {
   return (
     <div style={outerDiv}>
       {products.map((each) => (
-        <span key={each.id}>
-          <Link to={'/show/product/' + each.id}>{each.name}</Link>
-          <p>{each.description}</p>
-          <img src={each.image} style={{ width: '260px' }} />
+        <span
+          style={{ textAlign: 'center', marginBottom: '3em' }}
+          key={each.id}
+        >
+          <Link className="h4" to={'/show/product/' + each.id}>
+            {each.name}
+          </Link>
+          <p style={{ width: '33vh' }}>{each.description.slice(0, 80)}...</p>
+          <img src={each.image} style={{ width: '35vh' }} />
           <p>£{each.price}</p>
           <AddToBasket product={each} />
           <br />
