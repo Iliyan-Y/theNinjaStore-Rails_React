@@ -13,7 +13,11 @@ const BasketShortcut = () => {
       : setNumberItems(0);
   }, [items, sessionStorage.length]);
 
-  return <Link to="/basket">Basket: {numberOfItems}</Link>;
+  return (
+    <Link className="nav-link" to="/basket">
+      Basket: {numberOfItems}
+    </Link>
+  );
 };
 
 export default BasketShortcut;

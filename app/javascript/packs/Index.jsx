@@ -5,6 +5,7 @@ import App from './components/app';
 import { Provider } from 'react-redux';
 import store from './store';
 import { CookiesProvider } from 'react-cookie';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 document.addEventListener('DOMContentLoaded', () => {
   ReactDOM.render(
