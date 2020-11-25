@@ -5,6 +5,7 @@ import EditProduct from './editProduct';
 import { useCookies } from 'react-cookie';
 import { checkForUser } from '../../helpers/checkForuser';
 import { v4 as uuid } from 'uuid';
+import AddToBasket from '../Basket/addToBasketBtn';
 
 const ShowProduct = ({ match }) => {
   const {
@@ -27,7 +28,7 @@ const ShowProduct = ({ match }) => {
   let renderOptions = () => {
     if (isUser)
       return (
-        <div>
+        <div style={{ marginTop: '1.5em' }}>
           <DeleteProduct productId={productId} />
           <EditProduct product={product} />
         </div>
@@ -37,16 +38,47 @@ const ShowProduct = ({ match }) => {
   let renderProducts = () => {
     if (product)
       return (
-        <>
-          <p>{product.name}</p>
-          <p>{product.description}</p>
-          <p>£{product.price}</p>
-          <img src={product.image} alt="" style={{ width: '250px' }} />
-          {product.galery.map((url) => (
-            <img src={url} key={uuid()} style={{ width: '200px' }} />
-          ))}
+        <div
+          style={{
+            padding: '1em',
+            textAlign: 'center',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+          }}
+        >
+          <h4 style={{ fontFamily: 'Gill Sans, sans-serif' }}>
+            {product.name}
+          </h4>
+          <span
+            style={{
+              display: 'flex',
+              alignSelf: 'center',
+              alignItems: 'center',
+              flexWrap: 'wrap',
+              justifyContent: 'center',
+              marginBottom: '1em',
+            }}
+          >
+            <img src={product.image} alt="" style={{ width: '35vh' }} />
+            <p style={{ width: '50vh', margin: '0 auto', padding: '0.3em' }}>
+              {product.description}
+            </p>
+          </span>
+          <span>
+            {product.galery.map((url) => (
+              <img
+                src={url}
+                key={uuid()}
+                style={{ width: '30vh', margin: '0.3em' }}
+              />
+            ))}
+          </span>
+
+          <h5>£{product.price}</h5>
+          <AddToBasket product={product} />
           {renderOptions()}
-        </>
+        </div>
       );
   };
   return <span>{renderProducts()}</span>;

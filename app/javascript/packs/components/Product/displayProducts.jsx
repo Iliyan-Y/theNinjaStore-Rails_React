@@ -7,10 +7,17 @@ const DisplayProducts = ({ products }) => {
     <div style={outerDiv}>
       {products.map((each) => (
         <span
-          style={{ textAlign: 'center', marginBottom: '3em' }}
+          style={{
+            textAlign: 'center',
+            marginBottom: '3em',
+          }}
           key={each.id}
         >
-          <Link className="h4" to={'/show/product/' + each.id}>
+          <Link
+            style={{ fontFamily: 'Gill Sans, sans-serif' }}
+            className="h4"
+            to={'/show/product/' + each.id}
+          >
             {each.name}
           </Link>
           <p style={{ width: '33vh' }}>{each.description.slice(0, 80)}...</p>

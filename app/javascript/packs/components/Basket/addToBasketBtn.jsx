@@ -1,5 +1,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
+import { Button } from 'react-bootstrap';
 
 const AddToBasket = ({ product }) => {
   let dispatch = useDispatch();
@@ -20,7 +21,14 @@ const AddToBasket = ({ product }) => {
     sessionStorage.setItem('basket', JSON.stringify(newState));
   };
 
-  return <button onClick={() => addItem(product)}>Add to basket</button>;
+  return (
+    <Button
+      style={{ width: '165px', margin: '0 auto' }}
+      onClick={() => addItem(product)}
+    >
+      Add to basket
+    </Button>
+  );
 };
 
 export default AddToBasket;
