@@ -3,14 +3,15 @@ import axios from 'axios';
 import { useCookies } from 'react-cookie';
 import { useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import ViewOrderProducts from './viewOrderProducts';
 import UpdateOrderStatus from './updateOrderStatus';
+import OrderDetails from './orderDetails';
 
 const ViewAllOrders = () => {
   let refresh = useSelector((state) => state.general.refresh);
   let history = useHistory();
   const [cookies] = useCookies();
   let [orders, setOrders] = useState([]);
+  let [showOrder, setShowOrder] = useState('');
 
   useEffect(() => {
     axios
@@ -21,36 +22,52 @@ const ViewAllOrders = () => {
       .catch(() => history.push('/'));
   }, [refresh]);
 
+  let displaySelectedOrder = (id) => {
+    if (showOrder == '') {
+      setShowOrder(id);
+    } else setShowOrder('');
+  };
+
+  let orderColorStatus = {
+    'New': 'green',
+    'In progress': 'yellow',
+    'Canceled': 'red',
+    'Done': 'hotpink',
+  };
+
   return (
-    <div
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-      }}
-    >
+    <div style={{ marginTop: '1em' }}>
       {orders.map((order) => (
-        <span key={order.id}>
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            margin: 0,
+          }}
+          key={order.id}
+        >
           <span
             style={{
               display: 'flex',
-              margin: '0.5em',
+              alignSelf: 'center',
+              margin: 0,
             }}
           >
-            <p style={{ marginRight: '1em' }}>Status: {order.status}</p>
-            <p>Customer name: {order.customer_name}</p>
+            <p
+              style={{
+                cursor: 'pointer',
+                background: orderColorStatus[order.status],
+                margin: '0 1em 0 0 ',
+              }}
+              onClick={() => displaySelectedOrder(order.id)}
+            >
+              Status: {order.status} Customer name: {order.customer_name}
+            </p>
             <UpdateOrderStatus token={cookies.user_token} orderId={order.id} />
           </span>
-          <span>
-            <p>{order.created_at}</p>
-            <p>{order.email}</p>
-            <p>{order.address}</p>
-            <p>{order.post_code}</p>
-            <p>{order.phone}</p>
-            <ViewOrderProducts productsId={order.productsId} />
-          </span>
+          <OrderDetails showOrder={showOrder} order={order} />
           <br />
-        </span>
+        </div>
       ))}
     </div>
   );
