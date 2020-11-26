@@ -11,7 +11,6 @@ const ViewAllOrders = () => {
   let history = useHistory();
   const [cookies] = useCookies();
   let [orders, setOrders] = useState([]);
-  let [products, setProducts] = useState([]);
 
   useEffect(() => {
     axios
@@ -22,34 +21,37 @@ const ViewAllOrders = () => {
       .catch(() => history.push('/'));
   }, [refresh]);
 
-  let displayProducts = (productsId) => {
-    if (products.length == 0) {
-      axios
-        .post('/api/v1/orders/products', { order: { productsId } })
-        .then((res) => setProducts(res.data))
-        .catch((err) => console.error(err.message));
-    } else setProducts([]);
-  };
-
   return (
-    <div>
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+      }}
+    >
       {orders.map((order) => (
         <span key={order.id}>
-          <p>{order.customer_name}</p>
-          <p>{order.email}</p>
-          <p>{order.address}</p>
-          <p>{order.post_code}</p>
-          <p>{order.phone}</p>
-          <button onClick={() => displayProducts(order.productsId)}>
-            Products: {order.productsId.length}
-          </button>
-          <p>{order.status}</p>
-          <UpdateOrderStatus token={cookies.user_token} orderId={order.id} />
-          <p>{order.created_at}</p>
+          <span
+            style={{
+              display: 'flex',
+              margin: '0.5em',
+            }}
+          >
+            <p style={{ marginRight: '1em' }}>Status: {order.status}</p>
+            <p>Customer name: {order.customer_name}</p>
+            <UpdateOrderStatus token={cookies.user_token} orderId={order.id} />
+          </span>
+          <span>
+            <p>{order.created_at}</p>
+            <p>{order.email}</p>
+            <p>{order.address}</p>
+            <p>{order.post_code}</p>
+            <p>{order.phone}</p>
+            <ViewOrderProducts productsId={order.productsId} />
+          </span>
           <br />
         </span>
       ))}
-      <ViewOrderProducts products={products} />
     </div>
   );
 };
