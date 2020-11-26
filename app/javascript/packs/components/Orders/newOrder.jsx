@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
+import { Button } from 'react-bootstrap';
 
 const NewOrder = ({ name, email, postCode, phone, address }) => {
   let history = useHistory();
@@ -26,7 +27,11 @@ const NewOrder = ({ name, email, postCode, phone, address }) => {
       })
       .catch((err) => console.error(err.message));
   };
-  return <button onClick={() => placeOrder()}>Place Order</button>;
+  return (
+    <Button className="mt-2" onClick={() => placeOrder()}>
+      Place Order
+    </Button>
+  );
 };
 
 export default NewOrder;

@@ -36,14 +36,14 @@ const ActionBar = () => {
         <Nav className="mr-auto">
           {isUser ? (
             <NavDropdown title="Menu" id="basic-nav-dropdown">
-              <Link className="dropdown-item" href="/admin/all-orders">
+              <Link className="dropdown-item" to="/admin/all-orders">
                 Orders
               </Link>
               <Link className="dropdown-item" to="/new/product">
                 New Product
               </Link>
               <NavDropdown.Divider />
-              <Link className="dropdown-item" href="/" onClick={() => logOut()}>
+              <Link className="dropdown-item" to="/" onClick={() => logOut()}>
                 Log Out
               </Link>
             </NavDropdown>

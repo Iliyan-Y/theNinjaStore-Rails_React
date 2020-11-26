@@ -47,7 +47,7 @@ const BasketPage = () => {
               </Link>
               <img
                 src={each.image}
-                alt=""
+                alt={each.name}
                 style={{ width: '180px', margin: '0.3em 0' }}
               />
               <p>£{each.price}</p>

@@ -9,7 +9,14 @@ const OrderForm = () => {
   let [postCode, setPostCode] = useState('');
 
   return (
-    <div>
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        width: '48vh',
+        margin: '1em auto',
+      }}
+    >
       <label htmlFor="email">Email *</label>
       <input
         type="email"
