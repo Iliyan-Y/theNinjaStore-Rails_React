@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
+import { Form } from 'react-bootstrap';
 
-const UpdateOrderStatus = ({ token, orderId }) => {
-  let [status, setStatus] = useState();
+const UpdateOrderStatus = ({ token, orderId, currentStatus }) => {
   let dispatch = useDispatch();
 
-  let updateStatus = () => {
+  let updateStatus = (status) => {
     axios
       .patch(
         '/api/v1/orders/' + orderId,
@@ -23,14 +23,15 @@ const UpdateOrderStatus = ({ token, orderId }) => {
   };
 
   return (
-    <span>
-      <input
-        type="text"
-        placeholder="Status"
-        onChange={(e) => setStatus(e.target.value)}
-      />
-      <button onClick={() => updateStatus()}>Update</button>
-    </span>
+    <Form.Group onChange={(e) => updateStatus(e.target.value)}>
+      <Form.Control defaultValue={currentStatus} size="sm" as="select">
+        <option>In progress</option>
+        <option>Done</option>
+        <option>Canceled</option>
+        <option>New</option>
+        <option>Sent</option>
+      </Form.Control>
+    </Form.Group>
   );
 };
 

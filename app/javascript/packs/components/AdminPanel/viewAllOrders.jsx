@@ -29,10 +29,11 @@ const ViewAllOrders = () => {
   };
 
   let orderColorStatus = {
-    'New': 'green',
-    'In progress': 'yellow',
-    'Canceled': 'red',
-    'Done': 'hotpink',
+    'New': '#d3abed',
+    'Sent': '#8ab7ff',
+    'In progress': '#e6bd65',
+    'Canceled': '#f76f68',
+    'Done': '#7be070',
   };
 
   return (
@@ -63,7 +64,11 @@ const ViewAllOrders = () => {
             >
               Status: {order.status} Customer name: {order.customer_name}
             </p>
-            <UpdateOrderStatus token={cookies.user_token} orderId={order.id} />
+            <UpdateOrderStatus
+              token={cookies.user_token}
+              orderId={order.id}
+              currentStatus={order.status}
+            />
           </span>
           <OrderDetails showOrder={showOrder} order={order} />
           <br />
