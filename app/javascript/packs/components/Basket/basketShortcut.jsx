@@ -12,7 +12,7 @@ const BasketShortcut = () => {
     itemFromStore
       ? setNumberItems(itemFromStore.items.length)
       : setNumberItems(0);
-  }, [items, refresh]);
+  }, [items, refresh, sessionStorage.length]);
 
   return (
     <Link className="nav-link" to="/basket">

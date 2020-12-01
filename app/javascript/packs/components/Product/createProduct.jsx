@@ -59,36 +59,52 @@ const CreateProduct = () => {
   };
 
   return (
-    <div>
+    <div
+      style={{
+        textAlign: 'center',
+        display: 'flex',
+        flexDirection: 'column',
+        width: '50%',
+        minWidth: '300px',
+        margin: '1em auto',
+      }}
+    >
+      <p>Title</p>
       <input
         type="text"
         placeholder="title"
         value={name}
         onChange={(e) => setName(e.target.value)}
       ></input>
+      <p>Description</p>
       <textarea
+        placeholder="description"
         data-testid="description-area"
         cols="30"
         rows="5"
         value={description}
         onChange={(e) => setDescription(e.target.value)}
       ></textarea>
+      <p>Price</p>
       <input
         type="number"
         placeholder="price"
         value={price}
         onChange={(e) => setPrice(e.target.value)}
       />
+      <label htmlFor="photoCover">Photo Cover:</label>
       <input
         data-testid="photo-upload"
         type="file"
+        name="photoCover"
+        id="photoCover"
         onChange={(e) => setImage(e.target.files[0])}
       />
-      <label htmlFor="files">Select files:</label>
+      <label htmlFor="Galery">Galery:</label>
       <input
         type="file"
-        name="files"
-        id="files"
+        name="Galery"
+        id="Galery"
         multiple
         onChange={(e) => addMorePhotos(e)}
       />

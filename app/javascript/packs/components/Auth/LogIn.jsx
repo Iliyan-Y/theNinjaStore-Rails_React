@@ -36,24 +36,27 @@ const LogIn = () => {
   }
 
   return (
-    <form onSubmit={(action) => submit(action)}>
-      <input
-        onChange={(e) => setEmail(e.target.value)}
-        type="email"
-        name="email"
-        value={email}
-        placeholder="email"
-      />
-      <input
-        onChange={(e) => setPassword(e.target.value)}
-        value={password}
-        type="password"
-        name="Password"
-        placeholder="password"
-      />
+    <div style={{ textAlign: 'center' }}>
+      <h4>Log In</h4>
+      <form onSubmit={(action) => submit(action)}>
+        <input
+          onChange={(e) => setEmail(e.target.value)}
+          type="email"
+          name="email"
+          value={email}
+          placeholder="email"
+        />
+        <input
+          onChange={(e) => setPassword(e.target.value)}
+          value={password}
+          type="password"
+          name="Password"
+          placeholder="password"
+        />
 
-      <input type="submit" value="Submit" />
-    </form>
+        <input type="submit" value="Submit" />
+      </form>
+    </div>
   );
 };
 

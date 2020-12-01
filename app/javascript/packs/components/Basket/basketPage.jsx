@@ -95,7 +95,7 @@ const BasketPage = () => {
     );
   }
 
-  return <div>Basket is empty</div>;
+  return <div style={{ textAlign: 'center' }}>Basket is empty</div>;
 };
 
 export default BasketPage;
