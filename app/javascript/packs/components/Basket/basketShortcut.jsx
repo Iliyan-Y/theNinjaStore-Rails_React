@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 const BasketShortcut = () => {
+  let refresh = useSelector((state) => state.general.refresh);
   let items = useSelector((state) => state.basket.items);
   let [numberOfItems, setNumberItems] = useState(0);
 
@@ -11,7 +12,7 @@ const BasketShortcut = () => {
     itemFromStore
       ? setNumberItems(itemFromStore.items.length)
       : setNumberItems(0);
-  }, [items, sessionStorage.length]);
+  }, [items, refresh]);
 
   return (
     <Link className="nav-link" to="/basket">

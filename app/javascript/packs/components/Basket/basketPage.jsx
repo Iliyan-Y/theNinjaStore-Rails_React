@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { v4 as uuid } from 'uuid';
 import { useHistory } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
+import RemoveItem from './removeItem';
 
 const BasketPage = () => {
   let history = useHistory();
@@ -58,8 +59,20 @@ const BasketPage = () => {
                 alt={each.name}
                 style={{ width: '180px', margin: '0.3em 0' }}
               />
-              <p>£{each.price}</p>
-              <br />
+              <div
+                style={{
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                }}
+              >
+                <p>£{each.price}</p>
+                <RemoveItem
+                  itemId={each.id}
+                  items={basket.items}
+                  setBasket={setBasket}
+                />
+              </div>
             </div>
           ))}
         </span>
