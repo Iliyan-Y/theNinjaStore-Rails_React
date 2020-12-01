@@ -8,6 +8,7 @@ const OrderDetails = ({ order, showOrder }) => {
         display: showOrder == order.id ? 'flex' : 'none',
         flexDirection: 'column',
         alignSelf: 'center',
+        textAlign: 'center',
       }}
     >
       <p>{order.created_at}</p>
