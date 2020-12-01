@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { v4 as uuid } from 'uuid';
 import { useHistory } from 'react-router-dom';
@@ -6,7 +6,15 @@ import { Button } from 'react-bootstrap';
 
 const BasketPage = () => {
   let history = useHistory();
-  let basket = JSON.parse(sessionStorage.getItem('basket'));
+  let [basket, setBasket] = useState(
+    JSON.parse(sessionStorage.getItem('basket'))
+  );
+
+  let calcTotalPrice = () => {
+    let total = 0;
+    basket.items.map((product) => (total += parseFloat(product.price)));
+    return total.toFixed(2);
+  };
 
   if (basket) {
     return (
@@ -26,7 +34,7 @@ const BasketPage = () => {
           }}
         >
           {basket.items.map((each) => (
-            <span
+            <div
               style={{
                 display: 'flex',
                 flexDirection: 'column',
@@ -52,15 +60,24 @@ const BasketPage = () => {
               />
               <p>£{each.price}</p>
               <br />
-            </span>
+            </div>
           ))}
         </span>
-        <Button
-          style={{ width: '165px', margin: '0 auto' }}
-          onClick={() => history.push('/order')}
+        <div
+          style={{
+            display: 'flex',
+            alignSelf: 'center',
+            flexDirection: 'column',
+          }}
         >
-          Confirm Order
-        </Button>
+          <h4>Total: {calcTotalPrice()} </h4>
+          <Button
+            style={{ width: '165px' }}
+            onClick={() => history.push('/order')}
+          >
+            Confirm Order
+          </Button>
+        </div>
       </div>
     );
   }
