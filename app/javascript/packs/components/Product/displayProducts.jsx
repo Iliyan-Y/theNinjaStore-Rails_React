@@ -3,24 +3,22 @@ import { Link } from 'react-router-dom';
 import AddToBasket from '../Basket/addToBasketBtn';
 
 const DisplayProducts = ({ products }) => {
+  let summarize = (text, endChar) => {
+    return text.slice(0, endChar);
+  };
+
   return (
     <div style={outerDiv}>
       {products.map((each) => (
-        <span
-          style={{
-            textAlign: 'center',
-            marginBottom: '3em',
-          }}
-          key={each.id}
-        >
+        <span style={innerSpan} key={each.id}>
           <Link
-            style={{ fontFamily: 'Gill Sans, sans-serif' }}
+            style={productTitle}
             className="h4"
             to={'/show/product/' + each.id}
           >
             {each.name}
           </Link>
-          <p style={{ width: '33vh' }}>{each.description.slice(0, 80)}...</p>
+          <p style={{ width: '33vh' }}>{summarize(each.description, 80)}...</p>
           <img src={each.image} style={{ width: '35vh' }} />
           <p>£{each.price}</p>
           <AddToBasket product={each} />
@@ -30,6 +28,7 @@ const DisplayProducts = ({ products }) => {
     </div>
   );
 };
+export default DisplayProducts;
 
 let outerDiv = {
   display: 'flex',
@@ -39,4 +38,9 @@ let outerDiv = {
   padding: '0.8em',
 };
 
-export default DisplayProducts;
+let innerSpan = {
+  textAlign: 'center',
+  marginBottom: '3em',
+};
+
+let productTitle = { fontFamily: 'Gill Sans, sans-serif' };

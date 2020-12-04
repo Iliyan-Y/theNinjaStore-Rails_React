@@ -59,16 +59,7 @@ const CreateProduct = () => {
   };
 
   return (
-    <div
-      style={{
-        textAlign: 'center',
-        display: 'flex',
-        flexDirection: 'column',
-        width: '50%',
-        minWidth: '300px',
-        margin: '1em auto',
-      }}
-    >
+    <div style={outerDiv}>
       <p>Title</p>
       <input
         type="text"
@@ -114,3 +105,12 @@ const CreateProduct = () => {
 };
 
 export default CreateProduct;
+
+let outerDiv = {
+  textAlign: 'center',
+  display: 'flex',
+  flexDirection: 'column',
+  width: '50%',
+  minWidth: '300px',
+  margin: '1em auto',
+};
