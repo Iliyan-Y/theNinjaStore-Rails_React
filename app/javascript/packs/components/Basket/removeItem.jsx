@@ -16,8 +16,11 @@ const RemoveItem = ({ itemId, items, setBasket }) => {
 
   let filterItems = () => {
     let updatedBasket = [];
+    let count = 0;
     items.map((item) => {
-      if (item.id != itemId) updatedBasket.push(item);
+      if (item.id == itemId && count == 0) {
+        count++;
+      } else updatedBasket.push(item);
     });
     return updatedBasket;
   };
