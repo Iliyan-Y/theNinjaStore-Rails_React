@@ -16,19 +16,25 @@ const Home = () => {
     });
   };
 
-  useEffect(() => {
+  let clearReduxData = () => {
+    dispatch({
+      type: 'CLEAR_PRODUCTS',
+      payload: '',
+    });
+  };
+
+  let fetchProducts = () => {
     axios
       .get('/api/v1/products')
       .then((res) => {
         setProducts(res.data);
       })
       .catch((err) => console.error(err.message));
+  };
 
-    return () =>
-      dispatch({
-        type: 'CLEAR_PRODUCTS',
-        payload: '',
-      });
+  useEffect(() => {
+    fetchProducts();
+    return clearReduxData();
   }, []);
 
   return (
