@@ -1,24 +1,40 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+- Ruby version
 
-Things you may want to cover:
+* '2.7.1'
 
-* Ruby version
+- System dependencies
 
-* System dependencies
+- Configuration
 
-* Configuration
+```
+> bundle install
+> npm install
+```
 
-* Database creation
+- Database creation
 
-* Database initialization
+```
+> rails db:create
+```
 
-* How to run the test suite
+- Database initialization
 
-* Services (job queues, cache servers, search engines, etc.)
+```
+> rails db:migrate
+```
 
-* Deployment instructions
+- How to run the test suite
 
-* ...
+```
+> bundle exec rspec
+> npm test
+```
+
+- To start the app
+  - Start the server
+  ```
+   rails server
+  ```
+  - Navigate to http://localhost:3000/
