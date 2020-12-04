@@ -18,25 +18,18 @@ const ViewOrderProducts = ({ productsId }) => {
 
   return (
     <>
-      <Button
-        style={{ width: '150px', margin: '0 auto' }}
-        onClick={() => displayProducts()}
-      >
+      <Button style={displayBtn} onClick={() => displayProducts()}>
         Products: {productsId.length}
       </Button>
-      <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+      <div style={outerDiv}>
         {products.map((each) => (
-          <span
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              textAlign: 'center',
-              margin: '0.5em',
-            }}
-            key={uuid()}
-          >
+          <span style={productSpan} key={uuid()}>
             <Link to={'/show/product/' + each.id}>{each.name}</Link>
-            <img src={each.image} alt="" style={{ width: '150px' }} />
+            <img
+              src={each.image}
+              alt="product image"
+              style={{ width: '150px' }}
+            />
             <p>£{each.price}</p>
           </span>
         ))}
@@ -46,3 +39,14 @@ const ViewOrderProducts = ({ productsId }) => {
 };
 
 export default ViewOrderProducts;
+
+let productSpan = {
+  display: 'flex',
+  flexDirection: 'column',
+  textAlign: 'center',
+  margin: '0.5em',
+};
+
+let displayBtn = { width: '150px', margin: '0 auto' };
+
+let outerDiv = { display: 'flex', flexWrap: 'wrap' };

@@ -28,38 +28,13 @@ const ViewAllOrders = () => {
     } else setShowOrder('');
   };
 
-  let orderColorStatus = {
-    'New': '#d3abed',
-    'Sent': '#8ab7ff',
-    'In progress': '#e6bd65',
-    'Canceled': '#f76f68',
-    'Done': '#7be070',
-  };
-
   return (
     <div style={{ marginTop: '1em' }}>
       {orders.map((order) => (
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            margin: 0,
-          }}
-          key={order.id}
-        >
-          <span
-            style={{
-              display: 'flex',
-              alignSelf: 'center',
-              margin: 0,
-            }}
-          >
+        <div style={innerDiv} key={order.id}>
+          <span style={eachOrderSpan}>
             <p
-              style={{
-                cursor: 'pointer',
-                background: orderColorStatus[order.status],
-                margin: '0 1em 0 0 ',
-              }}
+              style={orderInfoP(order.status)}
               onClick={() => displaySelectedOrder(order.id)}
             >
               Status: {order.status} Customer name: {order.customer_name}
@@ -79,3 +54,33 @@ const ViewAllOrders = () => {
 };
 
 export default ViewAllOrders;
+
+// style
+
+let orderColorStatus = {
+  'New': '#d3abed',
+  'Sent': '#8ab7ff',
+  'In progress': '#e6bd65',
+  'Canceled': '#f76f68',
+  'Done': '#7be070',
+};
+
+let innerDiv = {
+  display: 'flex',
+  flexDirection: 'column',
+  margin: 0,
+};
+
+let eachOrderSpan = {
+  display: 'flex',
+  alignSelf: 'center',
+  margin: 0,
+};
+
+let orderInfoP = (status) => {
+  return {
+    cursor: 'pointer',
+    background: orderColorStatus[status],
+    margin: '0 1em 0 0 ',
+  };
+};
