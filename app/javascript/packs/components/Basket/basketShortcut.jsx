@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { Nav } from 'react-bootstrap';
 
 const BasketShortcut = () => {
   let refresh = useSelector((state) => state.general.refresh);
@@ -15,9 +16,11 @@ const BasketShortcut = () => {
   }, [items, refresh, sessionStorage.length]);
 
   return (
-    <Link className="nav-link" to="/basket">
-      Basket: {numberOfItems}
-    </Link>
+    <Nav className="ml-auto">
+      <Link className="nav-link" to="/basket">
+        Basket: {numberOfItems}
+      </Link>
+    </Nav>
   );
 };
 
