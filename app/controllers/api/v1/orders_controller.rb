@@ -16,6 +16,7 @@ class Api::V1::OrdersController < ActionController::API
   def create 
     order = Order.create(order_params)
     if order.save  
+      OrderMailer.with(order: order).new_order_email.deliver_now
       render json: order, status: 200
     else 
       head 403
