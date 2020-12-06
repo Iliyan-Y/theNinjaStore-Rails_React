@@ -7,11 +7,11 @@ class User < ApplicationRecord
     exp = 1.hours.from_now.to_i
     #exp = Time.now.to_i - 60
     payload = {user: email, exp: exp}
-    JWT.encode(payload, "SuperSecret")
+    JWT.encode(payload, ENV["JWT_SECRET"])
   end
 
   def self.decode(token)
-    body = JWT.decode(token, "SuperSecret")[0]
+    body = JWT.decode(token, ENV["JWT_SECRET"])[0]
     HashWithIndifferentAccess.new body
   rescue
     false

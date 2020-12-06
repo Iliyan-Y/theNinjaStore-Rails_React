@@ -49,3 +49,5 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem "devise", "~> 4.7"
 
 gem "jwt", "~> 2.2"
+
+gem "dotenv-rails", "~> 2.7"
