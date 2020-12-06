@@ -10,9 +10,18 @@ const NewOrder = ({ name, email, postCode, phone, address }) => {
   toast.configure();
 
   let placeOrder = () => {
+    let body = createFormBody(getItemsId());
+    sendToApi(body);
+  };
+
+  let getItemsId = () => {
     let basket = JSON.parse(sessionStorage.getItem('basket'));
     let productsId = basket.items.map((item) => item.id);
-    let body = {
+    return productsId;
+  };
+
+  let createFormBody = (productsId) => {
+    return {
       order: {
         email,
         customer_name: name,
@@ -22,19 +31,23 @@ const NewOrder = ({ name, email, postCode, phone, address }) => {
         productsId,
       },
     };
+  };
 
+  let sendToApi = (body) => {
     axios
       .post('/api/v1/orders', body)
-      .then((res) => {
-        toast('Your order has been sent');
-        sessionStorage.removeItem('basket');
-
-        setTimeout(() => {
-          history.push('/');
-        }, 3000);
-      })
+      .then(() => confirmStatus())
       .catch((err) => console.error(err.message));
   };
+
+  let confirmStatus = () => {
+    toast('Your order has been sent');
+    sessionStorage.removeItem('basket');
+    setTimeout(() => {
+      history.push('/');
+    }, 500);
+  };
+
   return (
     <Button className="mt-2" onClick={() => placeOrder()}>
       Place Order
