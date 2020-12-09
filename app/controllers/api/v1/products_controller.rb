@@ -13,7 +13,7 @@ class Api::V1::ProductsController < ActionController::API
   def create
     product = Product.create(product_params)
     add_photos(product)
-    if product.save && @user
+    if product.save && @user.admin
       render json: product, status: :created
     else
       render json: product.errors, status: :unprocessable_entity 
@@ -34,7 +34,7 @@ class Api::V1::ProductsController < ActionController::API
   end
 
   def update
-    if @user && @product.update(product_params)
+    if @user.admin && @product.update(product_params)
       head 200
     else
       head 400
@@ -42,7 +42,8 @@ class Api::V1::ProductsController < ActionController::API
   end
 
   def destroy
-    if @user 
+
+    if @user.admin
       @product.destroy
       head 200
     else 
@@ -57,7 +58,8 @@ class Api::V1::ProductsController < ActionController::API
   end
 
   def find_user
-    @user = User.decode(request.headers['token'])
+    user_from_token = User.decode(request.headers['token'])
+    @user = User.find_by_email(user_from_token['user'])
   end
 
   def product_params

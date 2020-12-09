@@ -6,7 +6,7 @@ class Api::V1::OrdersController < ActionController::API
 
   def index 
     order = Order.all 
-    if @user  
+    if @user.admin  
       render json: order, status: 200
     else 
       head 403
@@ -33,7 +33,7 @@ class Api::V1::OrdersController < ActionController::API
   end
 
   def change_status
-    if @user
+    if @user.admin
       Order.update(params["order"]["id"], status: params["order"]["status"])
       head 200
     else
@@ -44,7 +44,8 @@ class Api::V1::OrdersController < ActionController::API
   protected
 
   def find_user
-    @user = User.decode(request.headers['token'])
+    user_from_token = User.decode(request.headers['token'])
+    @user = User.find_by_email(user_from_token['user'])
   end
 
   def order_params
