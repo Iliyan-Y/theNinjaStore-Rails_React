@@ -1,6 +1,7 @@
 import React from 'react';
 import { Nav, NavDropdown } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import NoUser from './menuOptions/noUser';
 
 const Menu = ({ isAdmin, isUser, logOut }) => {
   let adminPanel = () => {
@@ -32,25 +33,11 @@ const Menu = ({ isAdmin, isUser, logOut }) => {
       );
   };
 
-  let noUser = () => {
-    if (!isUser)
-      return (
-        <>
-          <Link className="nav-link" to="/log-in">
-            Log In
-          </Link>
-          <Link className="nav-link" to="/register">
-            Sign Up
-          </Link>
-        </>
-      );
-  };
-
   return (
     <Nav className="mr-auto">
       {adminPanel()}
       {userPanel()}
-      {noUser()}
+      <NoUser isUser={isUser} />
     </Nav>
   );
 };
