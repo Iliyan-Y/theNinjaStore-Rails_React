@@ -3,24 +3,21 @@ class  Api::V1::Users::RegistrationsController < Devise::RegistrationsController
    #protect_from_forgery with: :null_session
  
   def create
-    # token = User.generate_token(params[:user][:email])
-    # user = User.new(user_params.merge(auth_token: token))
-    #   if user.save
-    #     render json: {
-    #       messages: "Sign Up Successfully",
-    #       is_success: true,
-    #       data: {user: user}
-    #     }, status: :ok
-    #   else
-    #     render json: {
-    #       messages: "Sign Up Failed",
-    #       is_success: false,
-    #       data: {}
-    #     }, status: :unprocessable_entity
-    #   end
-
-    head 403
-  
+    token = User.generate_token(params[:user][:email])
+    user = User.new(user_params.merge(auth_token: token))
+      if user.save
+        render json: {
+          messages: "Sign Up Successfully",
+          is_success: true,
+          data: {user: user}
+        }, status: :ok
+      else
+        render json: {
+          messages: "Sign Up Failed",
+          is_success: false,
+          data: {}
+        }, status: :unprocessable_entity
+      end
   end
 
   protected

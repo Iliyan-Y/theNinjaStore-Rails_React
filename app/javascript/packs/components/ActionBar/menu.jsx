@@ -19,9 +19,14 @@ const Menu = ({ isUser, logOut }) => {
           </Link>
         </NavDropdown>
       ) : (
-        <Link className="nav-link" to="/log-in">
-          Log In
-        </Link>
+        <>
+          <Link className="nav-link" to="/log-in">
+            Log In
+          </Link>
+          <Link className="nav-link" to="/register">
+            Sign Up
+          </Link>
+        </>
       )}
     </Nav>
   );
