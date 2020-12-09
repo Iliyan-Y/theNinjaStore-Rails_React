@@ -5,7 +5,7 @@ import EditProduct from './editProduct';
 import { useCookies } from 'react-cookie';
 
 //local
-import { checkForUser } from '../../helpers/checkForuser';
+import { checkForUser } from '../../helpers/checkForUser';
 import AddToBasket from '../Basket/addToBasketBtn';
 import RenderGallery from './renderGallery';
 
@@ -31,7 +31,7 @@ const ShowProduct = ({ match }) => {
   }, []);
 
   let renderOptions = () => {
-    if (isUser)
+    if (isUser.admin)
       return (
         <div style={{ marginTop: '1.5em' }}>
           <DeleteProduct productId={productId} />

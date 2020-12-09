@@ -2,7 +2,7 @@ import React from 'react';
 import { Nav, NavDropdown } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
-const Menu = ({ isUser, logOut }) => {
+const AdminMenu = ({ isUser, logOut }) => {
   return (
     <Nav className="mr-auto">
       {isUser ? (
@@ -32,4 +32,4 @@ const Menu = ({ isUser, logOut }) => {
   );
 };
 
-export default Menu;
+export default AdminMenu;
