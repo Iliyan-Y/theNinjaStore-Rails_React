@@ -5,7 +5,7 @@ import { checkForUser } from '../../helpers/checkForUser';
 //bootstrap
 import { Navbar } from 'react-bootstrap';
 import NavBrand from './navBrand';
-import AdminMenu from './adminMenu';
+import Menu from './menu';
 
 const ActionBar = () => {
   const [cookies, setCookie, removeCookie] = useCookies();
@@ -26,7 +26,7 @@ const ActionBar = () => {
       <NavBrand />
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
-        <AdminMenu isUser={isUser.admin} logOut={logOut} />
+        <Menu isAdmin={isUser.admin} isUser={isUser.user} logOut={logOut} />
         <BasketShortcut />
       </Navbar.Collapse>
     </Navbar>
