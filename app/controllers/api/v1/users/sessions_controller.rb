@@ -22,8 +22,9 @@ class Api::V1::Users::SessionsController < Devise::SessionsController
 
   def verify
     token = User.decode(request.headers['token'])
+    user = User.find_by_email(token['user'])
     if token  
-      head 200
+      render json:{user:true, admin: user.admin}, status: 200
     else 
       head 403
     end

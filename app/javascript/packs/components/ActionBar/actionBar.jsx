@@ -26,7 +26,7 @@ const ActionBar = () => {
       <NavBrand />
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
-        <Menu isUser={isUser} logOut={logOut} />
+        <Menu isUser={isUser.user} logOut={logOut} />
         <BasketShortcut />
       </Navbar.Collapse>
     </Navbar>
