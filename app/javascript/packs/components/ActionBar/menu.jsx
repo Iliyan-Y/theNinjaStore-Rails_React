@@ -1,42 +1,14 @@
 import React from 'react';
-import { Nav, NavDropdown } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Nav } from 'react-bootstrap';
+import AdminMenu from './menuOptions/adminMenu';
 import NoUser from './menuOptions/noUser';
+import UserMenu from './menuOptions/userMenu';
 
 const Menu = ({ isAdmin, isUser, logOut }) => {
-  let adminPanel = () => {
-    if (isAdmin)
-      return (
-        <NavDropdown title="Menu" id="basic-nav-dropdown">
-          <Link className="dropdown-item" to="/admin/all-orders">
-            Orders
-          </Link>
-          <Link className="dropdown-item" to="/new/product">
-            New Product
-          </Link>
-          <NavDropdown.Divider />
-          <Link className="dropdown-item" to="/" onClick={() => logOut()}>
-            Log Out
-          </Link>
-        </NavDropdown>
-      );
-  };
-
-  let userPanel = () => {
-    if (isUser && !isAdmin)
-      return (
-        <NavDropdown title="Menu" id="basic-nav-dropdown">
-          <Link className="dropdown-item" to="/" onClick={() => logOut()}>
-            Log Out
-          </Link>
-        </NavDropdown>
-      );
-  };
-
   return (
     <Nav className="mr-auto">
-      {adminPanel()}
-      {userPanel()}
+      <AdminMenu isAdmin={isAdmin} logOut={logOut} />
+      <UserMenu isUser={isUser} isAdmin={isAdmin} logOut={logOut} />
       <NoUser isUser={isUser} />
     </Nav>
   );
