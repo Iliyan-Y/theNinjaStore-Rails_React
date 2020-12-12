@@ -11,6 +11,7 @@ import BasketPage from './Basket/basketPage';
 import ActionBar from './ActionBar/actionBar';
 import OrderForm from './Orders/orderForm';
 import ViewAllOrders from './AdminPanel/viewAllOrders';
+import UserOrders from './UserPanel/userOrders';
 
 const App = () => {
   return (
@@ -25,6 +26,7 @@ const App = () => {
         <Route exact path="/basket" component={BasketPage} />
         <Route exact path="/order" component={OrderForm} />
         <Route exact path="/admin/all-orders" component={ViewAllOrders} />
+        <Route exact path="/user/orders" component={UserOrders} />
       </Switch>
     </>
   );

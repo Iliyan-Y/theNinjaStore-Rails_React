@@ -48,7 +48,7 @@ class Api::V1::OrdersController < ActionController::API
 
   def user_orders
     if @user
-      render json: @user.orders, status 200
+      render json: @user.orders, status: 200
     else
       head 400
     end

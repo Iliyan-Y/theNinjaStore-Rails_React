@@ -22,6 +22,9 @@ class HomeController < ApplicationController
   def all_orders
   end
 
+  def user_orders
+  end
+
   private 
 
   def find_user
