@@ -2,7 +2,7 @@ class Api::V1::OrdersController < ActionController::API
   include ActionController::Helpers
   helper ApplicationHelper
 
-  before_action :find_user, only: [:index, :change_status, :create]
+  before_action :find_user, only: [:index, :change_status, :create, :user_orders]
 
   def index 
     order = Order.all 
@@ -43,6 +43,14 @@ class Api::V1::OrdersController < ActionController::API
       head 200
     else
       head 403
+    end
+  end
+
+  def user_orders
+    if @user
+      render json: @user.orders, status 200
+    else
+      head 400
     end
   end
 

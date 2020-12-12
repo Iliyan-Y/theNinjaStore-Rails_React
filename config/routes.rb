@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   get '/order', to: "home#order"
   get '/admin/all-orders', to: "home#all_orders"
  
-
+ 
   scope :api, defaults: { format: :json } do
     scope :v1 do
       devise_for :users, controllers: {
@@ -28,6 +28,7 @@ Rails.application.routes.draw do
       resources :orders, only: [:index, :create]
       post "/orders/products", to: "orders#display_products"
       patch "/orders/:id", to: "orders#change_status"
+      get "/orders/user", to: "orders#user_orders"
     end
   end
 
@@ -35,7 +36,6 @@ Rails.application.routes.draw do
   get '*path', to: redirect('/'), constraints: lambda { |req|
   req.path.exclude? 'rails/active_storage'}
 
-  
   
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
