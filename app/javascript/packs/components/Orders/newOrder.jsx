@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
@@ -9,20 +9,28 @@ import { useCookies } from 'react-cookie';
 const NewOrder = ({ name, email, postCode, phone, address }) => {
   let history = useHistory();
   const [cookies] = useCookies();
+  let [basket, setBasket] = useState(
+    JSON.parse(sessionStorage.getItem('basket'))
+  );
   toast.configure();
 
   let placeOrder = () => {
-    let body = createFormBody(getItemsId());
+    let body = createFormBody();
     sendToApi(body);
   };
 
   let getItemsId = () => {
-    let basket = JSON.parse(sessionStorage.getItem('basket'));
     let productsId = basket.items.map((item) => item.id);
     return productsId;
   };
 
-  let createFormBody = (productsId) => {
+  let calcTotalPrice = () => {
+    let total = 0;
+    basket.items.map((product) => (total += parseFloat(product.price)));
+    return total.toFixed(2);
+  };
+
+  let createFormBody = () => {
     return {
       order: {
         email,
@@ -30,8 +38,9 @@ const NewOrder = ({ name, email, postCode, phone, address }) => {
         address,
         phone,
         post_code: postCode,
-        productsId,
-        number_of_items: productsId.length,
+        productsId: getItemsId(),
+        number_of_items: getItemsId().length,
+        total_price: calcTotalPrice(),
       },
     };
   };
