@@ -2,7 +2,7 @@ class Api::V1::OrdersController < ActionController::API
   include ActionController::Helpers
   helper ApplicationHelper
 
-  before_action :find_user, only: [:index, :change_status]
+  before_action :find_user, only: [:index, :change_status, :create]
 
   def index 
     order = Order.all 
@@ -14,7 +14,12 @@ class Api::V1::OrdersController < ActionController::API
   end
 
   def create 
-    order = Order.create(order_params)
+    if @user
+      order = @user.orders.create(order_params)
+    else 
+      order = Order.create(order_params)
+    end
+
     if order.save  
       OrderMailer.with(order: order).new_order_email.deliver_now
       render json: order, status: 200
@@ -44,6 +49,8 @@ class Api::V1::OrdersController < ActionController::API
   protected
 
   def find_user
+    return false if request.headers['token'] == "undefined"
+    
     user_from_token = User.decode(request.headers['token'])
     @user = User.find_by_email(user_from_token['user'])
   end

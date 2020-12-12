@@ -28,7 +28,7 @@ const SignUp = () => {
   }
 
   return (
-    <form onSubmit={(action) => submit(action)}>
+    <form style={{ textAlign: 'center' }} onSubmit={(action) => submit(action)}>
       <input
         onChange={(e) => setEmail(e.target.value)}
         type="email"

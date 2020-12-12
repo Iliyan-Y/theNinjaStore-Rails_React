@@ -4,9 +4,11 @@ import { useHistory } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useCookies } from 'react-cookie';
 
 const NewOrder = ({ name, email, postCode, phone, address }) => {
   let history = useHistory();
+  const [cookies] = useCookies();
   toast.configure();
 
   let placeOrder = () => {
@@ -34,8 +36,13 @@ const NewOrder = ({ name, email, postCode, phone, address }) => {
   };
 
   let sendToApi = (body) => {
+    let headers = {
+      headers: {
+        'token': cookies.user_token,
+      },
+    };
     axios
-      .post('/api/v1/orders', body)
+      .post('/api/v1/orders', body, headers)
       .then(() => confirmStatus())
       .catch((err) => console.error(err.message));
   };
