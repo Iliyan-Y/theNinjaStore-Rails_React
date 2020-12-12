@@ -1,5 +1,6 @@
 import React from 'react';
 import ViewOrderProducts from './viewOrderProducts';
+import { dateTimeString } from '../../helpers/covertDate';
 
 const OrderDetails = ({ order, showOrder }) => {
   return (
@@ -11,7 +12,7 @@ const OrderDetails = ({ order, showOrder }) => {
         textAlign: 'center',
       }}
     >
-      <p>{order.created_at}</p>
+      <p>{dateTimeString(order.created_at)}</p>
       <p>{order.email}</p>
       <p>{order.address}</p>
       <p>{order.post_code}</p>
