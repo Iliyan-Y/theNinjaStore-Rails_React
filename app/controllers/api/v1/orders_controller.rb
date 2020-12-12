@@ -64,7 +64,7 @@ class Api::V1::OrdersController < ActionController::API
   end
 
   def order_params
-    params.require(:order).permit(:email, :customer_name, :address, :phone, :post_code, :status, :productsId => [])
+    params.require(:order).permit(:email, :customer_name, :address, :phone, :post_code, :status, :number_of_items, :productsId => [])
   end
 
 end

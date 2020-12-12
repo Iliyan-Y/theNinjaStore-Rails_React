@@ -31,6 +31,7 @@ const NewOrder = ({ name, email, postCode, phone, address }) => {
         phone,
         post_code: postCode,
         productsId,
+        number_of_items: productsId.length,
       },
     };
   };

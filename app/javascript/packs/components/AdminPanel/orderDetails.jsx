@@ -12,7 +12,7 @@ const OrderDetails = ({ order, showOrder }) => {
         textAlign: 'center',
       }}
     >
-      <p>{dateTimeString(order.created_at)}</p>
+      <p>Created at: {dateTimeString(order.created_at)}</p>
       <p>{order.email}</p>
       <p>{order.address}</p>
       <p>{order.post_code}</p>
