@@ -31,8 +31,9 @@ class Api::V1::OrdersController < ActionController::API
       cancel_url: "http://localhost:3000/" + '?canceled=true',
     })
 
-    3.times {p session}
-
+    4.times {p "-------------------------"}
+    p session
+    4.times {p "-------------------------"}
     # if order.save  
     #   OrderMailer.with(order: order).new_order_email.deliver_now
     #   render json: order, status: 200
