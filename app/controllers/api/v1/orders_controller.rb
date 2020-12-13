@@ -14,18 +14,31 @@ class Api::V1::OrdersController < ActionController::API
   end
 
   def create 
-    if @user
-      order = @user.orders.create(order_params)
-    else 
-      order = Order.create(order_params)
-    end
+    # if @user
+    #   order = @user.orders.create(order_params)
+    # else 
+    #   order = Order.create(order_params)
+    # end
 
-    if order.save  
-      OrderMailer.with(order: order).new_order_email.deliver_now
-      render json: order, status: 200
-    else 
-      head 403
-    end
+
+    products = Order.find_products(params["order"]["productsId"])
+
+    session = Stripe::Checkout::Session.create({
+      payment_method_types: ['card'],
+      line_items: helpers.create_line_items(products),
+      mode: 'payment',
+      success_url: "http://localhost:3000/" + '?success=true',
+      cancel_url: "http://localhost:3000/" + '?canceled=true',
+    })
+
+    3.times {p session}
+
+    # if order.save  
+    #   OrderMailer.with(order: order).new_order_email.deliver_now
+    #   render json: order, status: 200
+    # else 
+    #   head 403
+    # end
   end
 
   def display_products
