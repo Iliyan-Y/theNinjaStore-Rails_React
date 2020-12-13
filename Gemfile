@@ -51,3 +51,5 @@ gem "devise", "~> 4.7"
 gem "jwt", "~> 2.2"
 
 gem "dotenv-rails", "~> 2.7"
+
+gem "stripe", "~> 5.28"
