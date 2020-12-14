@@ -8,8 +8,12 @@ Rails.application.routes.draw do
   get '/order', to: "home#order"
   get '/admin/all-orders', to: "home#all_orders"
   get '/user/orders', to: "home#user_orders" 
- 
- 
+  
+  scope '/checkout' do 
+    get 'success', to: 'checkout#success', as: 'checkout_success'
+    get 'cancel', to: 'checkout#cancel', as: 'checkout_cancel'
+  end
+  
   scope :api, defaults: { format: :json } do
     scope :v1 do
       devise_for :users, controllers: {

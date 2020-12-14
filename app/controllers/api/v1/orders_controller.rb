@@ -3,6 +3,7 @@ class Api::V1::OrdersController < ActionController::API
   helper ApplicationHelper
 
   before_action :find_user, only: [:index, :change_status, :create, :user_orders]
+  before_action :find_order_products, only: [:create, :display_products]
 
   def index 
     order = Order.all 
@@ -14,42 +15,31 @@ class Api::V1::OrdersController < ActionController::API
   end
 
   def create 
-    # if @user
-    #   order = @user.orders.create(order_params)
-    # else 
-    #   order = Order.create(order_params)
-    # end
-
-
-    products = Order.find_products(params["order"]["productsId"])
+    if @user
+      order = @user.orders.create(order_params)
+    else 
+      order = Order.create(order_params)
+    end
 
     session = Stripe::Checkout::Session.create({
       payment_method_types: ['card'],
-      line_items: helpers.create_line_items(products),
+      line_items: helpers.create_line_items(@order_products),
       mode: 'payment',
-      success_url: "http://localhost:3000/" + '?success=true',
-      cancel_url: "http://localhost:3000/" + '?canceled=true',
+      success_url: checkout_success_url,
+      cancel_url: checkout_cancel_url,
     })
-
   
-    if session 
+    if session && order.save
+      # OrderMailer.with(order: order).new_order_email.deliver_now
       render json: { sessionId: session.id }, status: 200
     else
       head 400
     end
-
-    # if order.save  
-    #   OrderMailer.with(order: order).new_order_email.deliver_now
-    #   render json: order, status: 200
-    # else 
-    #   head 403
-    # end
   end
 
   def display_products
-    products = Order.find_products(params["order"]["productsId"])
-    if products
-      render json: helpers.render_products(products), status: 200
+    if @order_products
+      render json: helpers.render_products(@order_products), status: 200
     else
       head 400
     end
@@ -73,6 +63,10 @@ class Api::V1::OrdersController < ActionController::API
   end
 
   protected
+
+  def find_order_products
+    @order_products = Order.find_products(params["order"]["productsId"])
+  end
 
   def find_user
     return false if request.headers['token'] == "undefined"
