@@ -34,6 +34,13 @@ class Api::V1::OrdersController < ActionController::API
     4.times {p "-------------------------"}
     p session
     4.times {p "-------------------------"}
+
+    if session 
+      render json: { sessionId: session.id }, status: 200
+    else
+      head 400
+    end
+
     # if order.save  
     #   OrderMailer.with(order: order).new_order_email.deliver_now
     #   render json: order, status: 200

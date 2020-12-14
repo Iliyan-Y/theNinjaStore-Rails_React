@@ -5,7 +5,10 @@ import { Button } from 'react-bootstrap';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useCookies } from 'react-cookie';
-
+import { loadStripe } from '@stripe/stripe-js';
+const stripePromise = loadStripe(
+  'pk_test_51HxwzUFr1fOlo3WtjiUKn9CcA3UkYmgYf4EkQ9GBbb8Qk3NCOkLc6htsEoyLV2IG989T7uCkdGfwMUJQszUcHeLq00ZbXFjQum'
+);
 const NewOrder = ({ name, email, postCode, phone, address }) => {
   let history = useHistory();
   const [cookies] = useCookies();
@@ -48,7 +51,7 @@ const NewOrder = ({ name, email, postCode, phone, address }) => {
   let sendToApi = (body) => {
     let headers = {
       headers: {
-        'token': cookies.user_token,
+        token: cookies.user_token,
       },
     };
     axios
