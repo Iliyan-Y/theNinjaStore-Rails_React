@@ -48,15 +48,16 @@ const NewOrder = ({ name, email, postCode, phone, address }) => {
     };
   };
 
-  let sendToApi = (body) => {
+  let sendToApi = async (body) => {
     let headers = {
       headers: {
         token: cookies.user_token,
       },
     };
+    const stripe = await stripePromise;
     axios
       .post('/api/v1/orders', body, headers)
-      .then(() => confirmStatus())
+      .then(async (res) => await stripe.redirectToCheckout(res.data))
       .catch((err) => console.error(err.message));
   };
 

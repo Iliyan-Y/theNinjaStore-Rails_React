@@ -31,10 +31,7 @@ class Api::V1::OrdersController < ActionController::API
       cancel_url: "http://localhost:3000/" + '?canceled=true',
     })
 
-    4.times {p "-------------------------"}
-    p session
-    4.times {p "-------------------------"}
-
+  
     if session 
       render json: { sessionId: session.id }, status: 200
     else
