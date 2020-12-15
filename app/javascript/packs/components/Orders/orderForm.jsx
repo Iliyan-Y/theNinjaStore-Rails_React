@@ -4,9 +4,7 @@ import NewOrder from './newOrder';
 const OrderForm = () => {
   let [email, setEmail] = useState('');
   let [name, setName] = useState('');
-  let [address, setAddress] = useState('');
   let [phone, setPhone] = useState('');
-  let [postCode, setPostCode] = useState('');
 
   return (
     <div style={formStyle}>
@@ -28,15 +26,6 @@ const OrderForm = () => {
         placeholder="Name"
         onChange={(e) => setName(e.target.value)}
       />
-      <label htmlFor="address">Delivery address</label>
-      <input
-        required
-        id="address"
-        name="address"
-        type="text"
-        placeholder="Address"
-        onChange={(e) => setAddress(e.target.value)}
-      />
       <label htmlFor="phone">Contact number *</label>
       <input
         required
@@ -45,14 +34,6 @@ const OrderForm = () => {
         id="phone"
         placeholder="Phone Number"
         onChange={(e) => setPhone(e.target.value)}
-      />
-      <label htmlFor="postCode">Post Code</label>
-      <input
-        type="text"
-        name="postCode"
-        id="postCode"
-        placeholder="Post Code"
-        onChange={(e) => setPostCode(e.target.value)}
       />
       <NewOrder
         email={email}

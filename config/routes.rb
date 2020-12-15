@@ -34,6 +34,7 @@ Rails.application.routes.draw do
       post "/orders/products", to: "orders#display_products"
       patch "/orders/:id", to: "orders#change_status"
       get "/orders/user", to: "orders#user_orders"
+      post '/orders/confirm', to: "orders#confirm_order"
     end
   end
 

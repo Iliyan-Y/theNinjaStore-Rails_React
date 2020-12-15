@@ -6,7 +6,7 @@ import { loadStripe } from '@stripe/stripe-js';
 const stripePromise = loadStripe(
   'pk_test_51HxwzUFr1fOlo3WtjiUKn9CcA3UkYmgYf4EkQ9GBbb8Qk3NCOkLc6htsEoyLV2IG989T7uCkdGfwMUJQszUcHeLq00ZbXFjQum'
 );
-const NewOrder = ({ name, email, postCode, phone, address }) => {
+const NewOrder = ({ name, email, phone }) => {
   const [cookies] = useCookies();
   let [basket, setBasket] = useState(
     JSON.parse(sessionStorage.getItem('basket'))
@@ -22,23 +22,14 @@ const NewOrder = ({ name, email, postCode, phone, address }) => {
     return productsId;
   };
 
-  let calcTotalPrice = () => {
-    let total = 0;
-    basket.items.map((product) => (total += parseFloat(product.price)));
-    return total.toFixed(2);
-  };
-
   let createFormBody = () => {
     return {
       order: {
         email,
         customer_name: name,
-        address,
         phone,
-        post_code: postCode,
         productsId: getItemsId(),
         number_of_items: getItemsId().length,
-        total_price: calcTotalPrice(),
       },
     };
   };

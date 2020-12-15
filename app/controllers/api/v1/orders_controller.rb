@@ -28,7 +28,6 @@ class Api::V1::OrdersController < ActionController::API
 
     session = Stripe::Checkout::Session.create({
       customer: customer.id,
-      billing_address_collection: 'auto',
       shipping_address_collection: {
         allowed_countries: ['GB', 'BG', 'FR', 'DE', 'BE', 'DK', 'IE', 'IT', 'ES']
       },  
@@ -37,6 +36,11 @@ class Api::V1::OrdersController < ActionController::API
       mode: 'payment',
       success_url: checkout_success_url,
       cancel_url: checkout_cancel_url,
+      metadata: { 
+        name: params["order"]["customer_name"],
+        phone: params["order"]["phone"],
+        email: params["order"]["email"] 
+      }
     })
 
     if session 
@@ -45,6 +49,43 @@ class Api::V1::OrdersController < ActionController::API
     else
       head 400
     end
+  end
+
+  def confirm_order
+    payload = request.body.read
+    event = nil
+
+    begin
+      event = Stripe::Event.construct_from(
+        JSON.parse(payload, symbolize_names: true)
+      )
+    rescue JSON::ParserError => e
+      # Invalid payload
+      status 400
+      return
+    end
+
+    # Handle the event
+    case event.type
+    when 'payment_intent.succeeded'
+      payment_intent = event.data.object # contains a Stripe::PaymentIntent
+      # Then define and call a method to handle the successful payment intent.
+      # handle_payment_intent_succeeded(payment_intent)
+      2.times {p "------------ payment intent succeeded-----------------"}
+      p payment_intent
+      2.times {p "------------ payment intent succeeded-----------------"}
+    when 'checkout.session.async_payment_succeeded'
+      payment_intent = event.data.object # contains a Stripe::PaymentIntent
+      # Then define and call a method to handle the successful payment intent.
+      # handle_payment_intent_succeeded(payment_intent)
+      2.times {p "------------checkout.session.async_payment_succeeded-----------------"}
+      p payment_intent
+      2.times {p "------------checkout.session.async_payment_succeeded-----------------"}
+    else
+      puts "Unhandled event type: #{event.type}"
+    end
+
+    head 200
   end
 
   def display_products
@@ -86,7 +127,7 @@ class Api::V1::OrdersController < ActionController::API
   end
 
   def order_params
-    params.require(:order).permit(:email, :customer_name, :address, :phone, :post_code, :status, :number_of_items, :total_price, :productsId => [])
+    params.require(:order).permit(:email, :customer_name, :phone, :status, :number_of_items, :productsId => [])
   end
 
 end
