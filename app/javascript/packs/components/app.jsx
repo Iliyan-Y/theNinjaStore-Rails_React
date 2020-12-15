@@ -12,6 +12,8 @@ import ActionBar from './ActionBar/actionBar';
 import OrderForm from './Orders/orderForm';
 import ViewAllOrders from './AdminPanel/viewAllOrders';
 import UserOrders from './UserPanel/userOrders';
+import CheckoutCansel from './checkout/cansel';
+import CheckoutSuccess from './checkout/success';
 
 const App = () => {
   return (
@@ -27,6 +29,8 @@ const App = () => {
         <Route exact path="/order" component={OrderForm} />
         <Route exact path="/admin/all-orders" component={ViewAllOrders} />
         <Route exact path="/user/orders" component={UserOrders} />
+        <Route exact path="/checkout/success" component={CheckoutSuccess} />
+        <Route exact path="/checkout/cancel" component={CheckoutCansel} />
       </Switch>
     </>
   );

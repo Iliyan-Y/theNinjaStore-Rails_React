@@ -3,6 +3,7 @@ class Api::V1::OrdersController < ActionController::API
   helper ApplicationHelper
 
   before_action :find_user, only: [:index, :change_status, :create, :user_orders]
+  before_action :find_order_products, only: [:create, :display_products]
 
   def index 
     order = Order.all 
@@ -14,24 +15,82 @@ class Api::V1::OrdersController < ActionController::API
   end
 
   def create 
-    if @user
-      order = @user.orders.create(order_params)
-    else 
-      order = Order.create(order_params)
-    end
+    # if @user
+    #   order = @user.orders.create(order_params)
+    # else 
+    #   order = Order.create(order_params)
+    # end
+    customer = Stripe::Customer.create({
+      name: params["order"]["customer_name"],
+      phone: params["order"]["phone"],
+      email: params["order"]["email"]
+    })
 
-    if order.save  
-      OrderMailer.with(order: order).new_order_email.deliver_now
-      render json: order, status: 200
-    else 
-      head 403
+    session = Stripe::Checkout::Session.create({
+      customer: customer.id,
+      shipping_address_collection: {
+        allowed_countries: ['GB', 'BG', 'FR', 'DE', 'BE', 'DK', 'IE', 'IT', 'ES']
+      },  
+      payment_method_types: ['card'],
+      line_items: helpers.create_line_items(@order_products),
+      mode: 'payment',
+      success_url: checkout_success_url,
+      cancel_url: checkout_cancel_url,
+      metadata: { 
+        name: params["order"]["customer_name"],
+        phone: params["order"]["phone"],
+        email: params["order"]["email"] 
+      }
+    })
+
+    if session 
+      # OrderMailer.with(order: order).new_order_email.deliver_now
+      render json: { sessionId: session.id }, status: 200
+    else
+      head 400
     end
   end
 
+  def confirm_order
+    payload = request.body.read
+    event = nil
+
+    begin
+      event = Stripe::Event.construct_from(
+        JSON.parse(payload, symbolize_names: true)
+      )
+    rescue JSON::ParserError => e
+      # Invalid payload
+      status 400
+      return
+    end
+
+    # Handle the event
+    case event.type
+    when 'payment_intent.succeeded'
+      payment_intent = event.data.object # contains a Stripe::PaymentIntent
+      # Then define and call a method to handle the successful payment intent.
+      # handle_payment_intent_succeeded(payment_intent)
+      2.times {p "------------ payment intent succeeded-----------------"}
+      p payment_intent
+      2.times {p "------------ payment intent succeeded-----------------"}
+    when 'checkout.session.async_payment_succeeded'
+      payment_intent = event.data.object # contains a Stripe::PaymentIntent
+      # Then define and call a method to handle the successful payment intent.
+      # handle_payment_intent_succeeded(payment_intent)
+      2.times {p "------------checkout.session.async_payment_succeeded-----------------"}
+      p payment_intent
+      2.times {p "------------checkout.session.async_payment_succeeded-----------------"}
+    else
+      puts "Unhandled event type: #{event.type}"
+    end
+
+    head 200
+  end
+
   def display_products
-    products = Order.find_products(params["order"]["productsId"])
-    if products
-      render json: helpers.render_products(products), status: 200
+    if @order_products
+      render json: helpers.render_products(@order_products), status: 200
     else
       head 400
     end
@@ -56,6 +115,10 @@ class Api::V1::OrdersController < ActionController::API
 
   protected
 
+  def find_order_products
+    @order_products = Order.find_products(params["order"]["productsId"])
+  end
+
   def find_user
     return false if request.headers['token'] == "undefined"
     
@@ -64,7 +127,7 @@ class Api::V1::OrdersController < ActionController::API
   end
 
   def order_params
-    params.require(:order).permit(:email, :customer_name, :address, :phone, :post_code, :status, :number_of_items, :total_price, :productsId => [])
+    params.require(:order).permit(:email, :customer_name, :phone, :status, :number_of_items, :productsId => [])
   end
 
 end

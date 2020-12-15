@@ -8,8 +8,12 @@ Rails.application.routes.draw do
   get '/order', to: "home#order"
   get '/admin/all-orders', to: "home#all_orders"
   get '/user/orders', to: "home#user_orders" 
- 
- 
+  
+  scope '/checkout' do 
+    get 'success', to: 'checkout#success', as: 'checkout_success'
+    get 'cancel', to: 'checkout#cancel', as: 'checkout_cancel'
+  end
+  
   scope :api, defaults: { format: :json } do
     scope :v1 do
       devise_for :users, controllers: {
@@ -30,6 +34,7 @@ Rails.application.routes.draw do
       post "/orders/products", to: "orders#display_products"
       patch "/orders/:id", to: "orders#change_status"
       get "/orders/user", to: "orders#user_orders"
+      post '/orders/confirm', to: "orders#confirm_order"
     end
   end
 
