@@ -15,21 +15,31 @@ class Api::V1::OrdersController < ActionController::API
   end
 
   def create 
-    if @user
-      order = @user.orders.create(order_params)
-    else 
-      order = Order.create(order_params)
-    end
+    # if @user
+    #   order = @user.orders.create(order_params)
+    # else 
+    #   order = Order.create(order_params)
+    # end
+    customer = Stripe::Customer.create({
+      name: params["order"]["customer_name"],
+      phone: params["order"]["phone"],
+      email: params["order"]["email"]
+    })
 
     session = Stripe::Checkout::Session.create({
+      customer: customer.id,
+      billing_address_collection: 'auto',
+      shipping_address_collection: {
+        allowed_countries: ['GB', 'BG', 'FR', 'DE', 'BE', 'DK', 'IE', 'IT', 'ES']
+      },  
       payment_method_types: ['card'],
       line_items: helpers.create_line_items(@order_products),
       mode: 'payment',
       success_url: checkout_success_url,
       cancel_url: checkout_cancel_url,
     })
-  
-    if session && order.save
+
+    if session 
       # OrderMailer.with(order: order).new_order_email.deliver_now
       render json: { sessionId: session.id }, status: 200
     else
