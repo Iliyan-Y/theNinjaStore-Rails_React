@@ -16,16 +16,17 @@ set :nvm_type, :user
 set :nvm_node, 'v12.20.0'
 set :nvm_map_bins, %w{node npm yarn}
 set :yarn_flags, %w(--silent --no-progress)
-namespace :deploy do
-  task :yarn_deploy do
-    on roles fetch(:yarn_roles) do
-      within fetch(:yarn_target_path, release_path) do
-        execute fetch(:yarn_bin), 'yarn'
-      end
-    end
-  end
-  before 'symlink:release', :yarn_deploy
-end
+
+# namespace :deploy do
+#   task :yarn_deploy do
+#     on roles fetch(:yarn_roles) do
+#       within fetch(:yarn_target_path, release_path) do
+#         execute fetch(:yarn_bin), 'yarn run build'
+#       end
+#     end
+#   end
+#   before 'symlink:release', :yarn_deploy
+# end
 
 # Only keep the last 5 releases to save disk space
 set :keep_releases, 5

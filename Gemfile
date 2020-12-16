@@ -64,6 +64,5 @@ gem "bcrypt_pbkdf", "~> 1.0"
 
 gem "capistrano-yarn", "~> 2.0"
 
-gem "capistrano-webpacker-precompile", "~> 0.2"
 
 gem "capistrano-nvm", "~> 0.0.7", require: false
