@@ -20,7 +20,7 @@ namespace :deploy do
   task :yarn_deploy do
     on roles fetch(:yarn_roles) do
       within fetch(:yarn_target_path, release_path) do
-        execute fetch(:yarn_bin), 'build'
+        execute fetch(:yarn_bin), 'yarn'
       end
     end
   end
