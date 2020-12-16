@@ -53,3 +53,15 @@ gem "jwt", "~> 2.2"
 gem "dotenv-rails", "~> 2.7"
 
 gem "stripe", "~> 5.28"
+
+gem "capistrano", "~> 3.14"
+gem "capistrano-rails", "~> 1.6"
+gem "capistrano-passenger", "~> 0.2.0"
+gem "capistrano-rbenv", "~> 2.2"
+
+gem "ed25519", "~> 1.2"
+gem "bcrypt_pbkdf", "~> 1.0"
+
+gem "capistrano-yarn", "~> 2.0"
+
+gem "capistrano-webpacker-precompile", "~> 0.2"
