@@ -37,6 +37,7 @@ require 'capistrano/rails'
 require 'capistrano/passenger'
 require 'capistrano/rbenv'
 require "capistrano/webpacker/precompile"
+require 'capistrano-yarn'
 
 set :rbenv_type, :user
 set :rbenv_ruby, '2.7.1'

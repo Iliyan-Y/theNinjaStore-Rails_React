@@ -1,5 +1,5 @@
 {
-  "name": "theNinjaStore",
+  "name": "theninjastore",
   "private": true,
   "dependencies": {
     "@babel/preset-react": "^7.10.4",
@@ -10,8 +10,10 @@
     "@stripe/react-stripe-js": "^1.1.2",
     "@stripe/stripe-js": "^1.11.0",
     "axios": "^0.20.0",
+    "babel-core": "^7.0.0-0",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
     "bootstrap": "^4.5.3",
+    "jquery": "1.9.1",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
     "react-bootstrap": "^1.4.0",
