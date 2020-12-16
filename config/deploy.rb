@@ -10,7 +10,22 @@ set :repo_url, "git@github.com:Iliyan-Y/theNinjaStore-Rails_React.git"
 # Deploy to the user's home directory
 set :deploy_to, "/home/deploy/#{fetch :application}"
 
-append :linked_dirs, 'log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bundle', '.bundle', 'public/system', 'public/uploads', 'public/packs', 'node_modules', 'client/node_modules'
+append :linked_dirs, 'log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bundle', '.bundle', 'public/system', 'public/uploads', 'node_modules'
+
+set :nvm_type, :user
+set :nvm_node, 'v12.20.0'
+set :nvm_map_bins, %w{node npm yarn}
+set :yarn_flags, %w(--silent --no-progress)
+namespace :deploy do
+  task :yarn_deploy do
+    on roles fetch(:yarn_roles) do
+      within fetch(:yarn_target_path, release_path) do
+        execute fetch(:yarn_bin), 'build'
+      end
+    end
+  end
+  before 'symlink:release', :yarn_deploy
+end
 
 # Only keep the last 5 releases to save disk space
 set :keep_releases, 5
