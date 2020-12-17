@@ -3,10 +3,10 @@ FROM ruby:2.7.2-buster
 ENV RAILS_ROOT /deploy
 
 # Add node js to source list 
-RUN curl -sL https://deb.nodesource.com/setup_15.x | sudo -E bash -
+RUN curl -sL https://deb.nodesource.com/setup_15.x | bash -
 
 # Add yarn to source list 
-RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add - \
+RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
 && echo "deb https://dl.yarnpkg.com/debian/ stable main" > /etc/apt/sources.list.d/yarn.list 
 
 RUN apt-get update && \
@@ -28,12 +28,12 @@ ENV RAILS_ENV='production'
 COPY Gemfile Gemfile
 COPY Gemfile.lock Gemfile.lock
 
-RUN bundle install --jobs 20 --retry 5
+RUN bundle install --jobs 20
 
 COPY package.json package.json
 COPY yarn.lock yarn.lock
 
-RUN yarn install --check-files
+RUN yarn install
 
 COPY . .
 
