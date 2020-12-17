@@ -22,8 +22,8 @@ RUN apt-get update && \
 
 WORKDIR ${RAILS_ROOT}
 
-ENV RAILS_ENV='development'
-# ENV RAILS_ENV='production'
+#ENV RAILS_ENV='development'
+ENV RAILS_ENV='production'
 ENV SECRET_KEY_BASE='329290263de0022b211b97ed9192ed987a8f8f56213d2fc220700ce228aecc4cd796948f41cc1587e4789832b0682be7a57659a3f45ff5e299adc8f5210938fc'
 
 COPY Gemfile Gemfile
