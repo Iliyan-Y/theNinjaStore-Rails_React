@@ -16,7 +16,8 @@ services:
       dockerfile: Dockerfile
     command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
     environment:
-      - DATABASE_URL=postgres://postgres:oktonokto1@db:5432
+      - SECRET_KEY_BASE="${KEY_BASE}"
+      - DATABASE_URL="${PSQL}"
       - RAILS_SERVE_STATIC_FILES=true
     # volumes:
     #   - .:/project #only in development
