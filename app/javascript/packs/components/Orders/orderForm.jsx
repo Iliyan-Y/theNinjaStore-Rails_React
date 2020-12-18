@@ -35,13 +35,7 @@ const OrderForm = () => {
         placeholder="Phone Number"
         onChange={(e) => setPhone(e.target.value)}
       />
-      <NewOrder
-        email={email}
-        name={name}
-        address={address}
-        phone={phone}
-        postCode={postCode}
-      />
+      <NewOrder email={email} name={name} phone={phone} />
     </div>
   );
 };
