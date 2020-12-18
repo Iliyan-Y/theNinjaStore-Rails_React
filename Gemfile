@@ -55,3 +55,4 @@ gem "dotenv-rails", "~> 2.7"
 gem "stripe", "~> 5.28"
 
 gem "sassc", "2.0.1"
+gem "uglifier", "~> 4.2"

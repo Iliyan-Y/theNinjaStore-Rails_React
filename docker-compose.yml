@@ -19,10 +19,7 @@ services:
       - SECRET_KEY_BASE="${KEY_BASE}"
       - 'DATABASE_URL=postgres://postgres:${PG_PASS}@db:5432'
       - RAILS_SERVE_STATIC_FILES=true
-    # volumes:
-    #   - .:/project #only in development
     ports:
       - '3000:3000'
     depends_on:
       - db
-    # restart: always
