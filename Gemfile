@@ -53,3 +53,5 @@ gem "jwt", "~> 2.2"
 gem "dotenv-rails", "~> 2.7"
 
 gem "stripe", "~> 5.28"
+
+gem "sassc", "2.0.1"
