@@ -24,6 +24,7 @@ class Api::V1::OrdersController < ActionController::API
       name: params["order"]["customer_name"],
       phone: params["order"]["phone"],
       email: params["order"]["email"]
+      metadata: { products: params["order"]["productsId"] }
     })
 
     session = Stripe::Checkout::Session.create({
@@ -65,34 +66,19 @@ class Api::V1::OrdersController < ActionController::API
       return
     end
 
-    # begin
-    #   event = Stripe::Event.construct_from(
-    #     JSON.parse(payload, symbolize_names: true)
-    #   )
-    # rescue JSON::ParserError => e
-    #   # Invalid payload
-    #   status 400
-    #   return
-    # end
-
     # Handle the event
     case event.type
     when 'payment_intent.succeeded'
-      payment_intent = event.data.object # contains a Stripe::PaymentIntent
-      # Then define and call a method to handle the successful payment intent.
-      # handle_payment_intent_succeeded(payment_intent)
+      payment_intent = event.data.object 
       2.times {p "------------ payment intent succeeded-----------------"}
       customer_info = Stripe::Customer.retrieve(payment_intent.customer)
+      payment_id = payment_intent.id
+      total_amount = payment_intent.amount / 100
+      p "Payment id: #{payment_id} total amount: #{total_amount}"
       p payment_intent.shipping
       p customer_info
+      
       2.times {p "------------ payment intent succeeded-----------------"}
-    when 'checkout.session.async_payment_succeeded'
-      payment_intent = event.data.object # contains a Stripe::PaymentIntent
-      # Then define and call a method to handle the successful payment intent.
-      # handle_payment_intent_succeeded(payment_intent)
-      2.times {p "------------checkout.session.async_payment_succeeded-----------------"}
-      p payment_intent
-      2.times {p "------------checkout.session.async_payment_succeeded-----------------"}
     else
       puts "Unhandled event type: #{event.type}"
     end
