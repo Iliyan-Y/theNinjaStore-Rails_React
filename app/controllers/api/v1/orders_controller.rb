@@ -35,12 +35,7 @@ class Api::V1::OrdersController < ActionController::API
       line_items: helpers.create_line_items(@order_products),
       mode: 'payment',
       success_url: checkout_success_url,
-      cancel_url: checkout_cancel_url,
-      metadata: { 
-        name: params["order"]["customer_name"],
-        phone: params["order"]["phone"],
-        email: params["order"]["email"] 
-      }
+      cancel_url: checkout_cancel_url
     })
 
     if session 
@@ -87,8 +82,9 @@ class Api::V1::OrdersController < ActionController::API
       # Then define and call a method to handle the successful payment intent.
       # handle_payment_intent_succeeded(payment_intent)
       2.times {p "------------ payment intent succeeded-----------------"}
-      p payment_intent
-     
+      customer_info = Stripe::Customer.retrieve(payment_intent.customer)
+      p payment_intent.shipping
+      p customer_info
       2.times {p "------------ payment intent succeeded-----------------"}
     when 'checkout.session.async_payment_succeeded'
       payment_intent = event.data.object # contains a Stripe::PaymentIntent
