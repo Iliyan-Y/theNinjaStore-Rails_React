@@ -53,17 +53,32 @@ class Api::V1::OrdersController < ActionController::API
 
   def confirm_order
     payload = request.body.read
+    sig_header = request.env['HTTP_STRIPE_SIGNATURE']
     event = nil
 
     begin
-      event = Stripe::Event.construct_from(
-        JSON.parse(payload, symbolize_names: true)
+      event = Stripe::Webhook.construct_event(
+        payload, sig_header, ENV['END_POINT']
       )
     rescue JSON::ParserError => e
       # Invalid payload
       status 400
       return
+    rescue Stripe::SignatureVerificationError => e
+      # Invalid signature
+      status 400
+      return
     end
+
+    # begin
+    #   event = Stripe::Event.construct_from(
+    #     JSON.parse(payload, symbolize_names: true)
+    #   )
+    # rescue JSON::ParserError => e
+    #   # Invalid payload
+    #   status 400
+    #   return
+    # end
 
     # Handle the event
     case event.type
@@ -72,15 +87,16 @@ class Api::V1::OrdersController < ActionController::API
       # Then define and call a method to handle the successful payment intent.
       # handle_payment_intent_succeeded(payment_intent)
       2.times {p "------------ payment intent succeeded-----------------"}
-      @payment_success = payment_intent
+      p payment_intent
+     
       2.times {p "------------ payment intent succeeded-----------------"}
-    # when 'checkout.session.async_payment_succeeded'
-    #   payment_intent = event.data.object # contains a Stripe::PaymentIntent
-    #   # Then define and call a method to handle the successful payment intent.
-    #   # handle_payment_intent_succeeded(payment_intent)
-    #   2.times {p "------------checkout.session.async_payment_succeeded-----------------"}
-    #   p payment_intent
-    #   2.times {p "------------checkout.session.async_payment_succeeded-----------------"}
+    when 'checkout.session.async_payment_succeeded'
+      payment_intent = event.data.object # contains a Stripe::PaymentIntent
+      # Then define and call a method to handle the successful payment intent.
+      # handle_payment_intent_succeeded(payment_intent)
+      2.times {p "------------checkout.session.async_payment_succeeded-----------------"}
+      p payment_intent
+      2.times {p "------------checkout.session.async_payment_succeeded-----------------"}
     else
       puts "Unhandled event type: #{event.type}"
     end
@@ -89,11 +105,13 @@ class Api::V1::OrdersController < ActionController::API
   end
 
   def check_payment
-    if @payment_success
-      render json: @payment_success, status: 200
-    else
-      head 400
-    end
+    
+    5.times {p "mqlmql mlq"}
+    # if @payment_success
+    #   render json: @payment_success, status: 200
+    # else
+    #   head 400
+    # end
   end
 
   def display_products
