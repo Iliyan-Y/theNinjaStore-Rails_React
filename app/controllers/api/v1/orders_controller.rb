@@ -72,20 +72,28 @@ class Api::V1::OrdersController < ActionController::API
       # Then define and call a method to handle the successful payment intent.
       # handle_payment_intent_succeeded(payment_intent)
       2.times {p "------------ payment intent succeeded-----------------"}
-      p payment_intent
+      @payment_success = payment_intent
       2.times {p "------------ payment intent succeeded-----------------"}
-    when 'checkout.session.async_payment_succeeded'
-      payment_intent = event.data.object # contains a Stripe::PaymentIntent
-      # Then define and call a method to handle the successful payment intent.
-      # handle_payment_intent_succeeded(payment_intent)
-      2.times {p "------------checkout.session.async_payment_succeeded-----------------"}
-      p payment_intent
-      2.times {p "------------checkout.session.async_payment_succeeded-----------------"}
+    # when 'checkout.session.async_payment_succeeded'
+    #   payment_intent = event.data.object # contains a Stripe::PaymentIntent
+    #   # Then define and call a method to handle the successful payment intent.
+    #   # handle_payment_intent_succeeded(payment_intent)
+    #   2.times {p "------------checkout.session.async_payment_succeeded-----------------"}
+    #   p payment_intent
+    #   2.times {p "------------checkout.session.async_payment_succeeded-----------------"}
     else
       puts "Unhandled event type: #{event.type}"
     end
 
     head 200
+  end
+
+  def check_payment
+    if @payment_success
+      render json: @payment_success, status: 200
+    else
+      head 400
+    end
   end
 
   def display_products

@@ -6,6 +6,7 @@ import { checkForUser } from '../../helpers/checkForUser';
 import { Navbar } from 'react-bootstrap';
 import NavBrand from './navBrand';
 import Menu from './menu';
+import axios from 'axios';
 
 const ActionBar = () => {
   const [cookies, setCookie, removeCookie] = useCookies();
@@ -21,6 +22,13 @@ const ActionBar = () => {
     setIsUser(false);
   };
 
+  const checkPay = () => {
+    axios
+      .get('/api/v1/orders/status')
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err.message));
+  };
+
   return (
     <Navbar bg="light" expand="lg" sticky="top">
       <NavBrand />
@@ -29,6 +37,7 @@ const ActionBar = () => {
         <Menu isAdmin={isUser.admin} isUser={isUser.user} logOut={logOut} />
         <BasketShortcut />
       </Navbar.Collapse>
+      <button onClick={() => checkPay()}>Check me</button>
     </Navbar>
   );
 };

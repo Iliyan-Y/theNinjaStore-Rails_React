@@ -1,7 +1,5 @@
 FROM ruby:2.7.2-buster
 
-ENV RAILS_ROOT /deploy
-
 # Add node js to source list 
 RUN curl -sL https://deb.nodesource.com/setup_15.x | bash -
 
@@ -15,14 +13,14 @@ RUN apt-get update && \
   nodejs \
   yarn \
   libpq-dev && \
-  mkdir -p ${RAILS_ROOT} && \
+  mkdir -p ninja-app && \
   apt-get clean autoclean && \
   apt-get autoremove -y && \
   rm -rf /var/lib/apt /var/lib/dpkg /var/lib/cache /var/lib/log
 
-WORKDIR ${RAILS_ROOT}
+WORKDIR /ninja-app
 
-ENV RAILS_ENV='production'
+#ENV RAILS_ENV='production'
 
 COPY Gemfile Gemfile
 COPY Gemfile.lock Gemfile.lock
@@ -37,4 +35,4 @@ RUN yarn install
 COPY . .
 
 #RUN bundle exec rails assets:precompile
-#RAILS_ENV=production bundle exec rake assets:precompile
+#RAILS_ENV=production NODE_ENV=production SECRET_KEY_BASE=XXX bundle exec rake assets:precompile
