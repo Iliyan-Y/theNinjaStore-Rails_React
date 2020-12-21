@@ -23,8 +23,8 @@ class Api::V1::OrdersController < ActionController::API
     customer = Stripe::Customer.create({
       name: params["order"]["customer_name"],
       phone: params["order"]["phone"],
-      email: params["order"]["email"]
-      metadata: { products: params["order"]["productsId"] }
+      email: params["order"]["email"],
+      metadata: { products: params["order"]["productsId"].join(",") }
     })
 
     session = Stripe::Checkout::Session.create({
