@@ -2,3 +2,5 @@
 .dockerignore
 node_modules
 buildCMD.txt
+.env
+Dockerfile
