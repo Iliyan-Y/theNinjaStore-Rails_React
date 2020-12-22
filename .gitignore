@@ -39,4 +39,3 @@ yarn-debug.log*
 .env
 
 buildCMD.txt
-Dockerfile
