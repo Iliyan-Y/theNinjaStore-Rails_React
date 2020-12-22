@@ -2,7 +2,7 @@ class Api::V1::OrdersController < ActionController::API
   include ActionController::Helpers
   helper ApplicationHelper
 
-  before_action :find_user, only: [:index, :change_status, :create, :user_orders]
+  before_action :find_user, only: [:index, :change_status, :confirm_order, :user_orders]
   before_action :find_order_products, only: [:create, :display_products]
 
   def index 
@@ -15,18 +15,13 @@ class Api::V1::OrdersController < ActionController::API
   end
 
   def create 
-    # if @user
-    #   order = @user.orders.create(order_params)
-    # else 
-    #   order = Order.create(order_params)
-    # end
     customer = Stripe::Customer.create({
       name: params["order"]["customer_name"],
       phone: params["order"]["phone"],
       email: params["order"]["email"],
       metadata: { products: params["order"]["productsId"].join(",") }
     })
-
+    
     session = Stripe::Checkout::Session.create({
       customer: customer.id,
       shipping_address_collection: {
@@ -70,29 +65,9 @@ class Api::V1::OrdersController < ActionController::API
     case event.type
     when 'payment_intent.succeeded'
       payment_intent = event.data.object 
-      2.times {p "------------ payment intent succeeded-----------------"}
       customer_info = Stripe::Customer.retrieve(payment_intent.customer)
-      total_amount = payment_intent.amount / 100
-      shipping = payment_intent.shipping
-      address = "City: #{shipping.address.city}, country: #{shipping.address.country}, line1: #{shipping.address.line1}, line2: #{shipping.address.line2}"
-      itmes = customer_info.metadata.products.split(",")
-      order_details = {
-        email: customer_info.email,
-        customer_name: customer_info.name,
-        address: address,
-        phone: customer_info.phone,
-        post_code: shipping.address.postal_code,
-        productsId: itmes,
-        number_of_items: itmes.length,
-        total_price: total_amount,
-        customer_id: customer_info.id,
-        payment_id: payment_intent.id,
-        recipient_name: shipping.name,
-       }
-
-       Order.create(order_details)
-      
-      2.times {p "------------ payment intent succeeded-----------------"}
+      order_details = Order.make_details(payment_intent, customer_info)
+      @user ? @user.orders.create(order_details) : Order.create(order_details)
     else
       puts "Unhandled event type: #{event.type}"
     end
@@ -100,16 +75,6 @@ class Api::V1::OrdersController < ActionController::API
     head 200
   end
 
-  def check_payment
-    
-    5.times {p "mqlmql mlq"}
-    p Order.last
-    # if @payment_success
-    #   render json: @payment_success, status: 200
-    # else
-    #   head 400
-    # end
-  end
 
   def display_products
     if @order_products
