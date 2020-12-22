@@ -21,7 +21,7 @@ class Api::V1::OrdersController < ActionController::API
       email: params["order"]["email"],
       metadata: { products: params["order"]["productsId"].join(",") }
     })
-    
+
     session = Stripe::Checkout::Session.create({
       customer: customer.id,
       shipping_address_collection: {
@@ -35,7 +35,6 @@ class Api::V1::OrdersController < ActionController::API
     })
 
     if session 
-      # OrderMailer.with(order: order).new_order_email.deliver_now
       render json: { sessionId: session.id }, status: 200
     else
       head 400
@@ -64,10 +63,7 @@ class Api::V1::OrdersController < ActionController::API
     # Handle the event
     case event.type
     when 'payment_intent.succeeded'
-      payment_intent = event.data.object 
-      customer_info = Stripe::Customer.retrieve(payment_intent.customer)
-      order_details = Order.make_details(payment_intent, customer_info)
-      @user ? @user.orders.create(order_details) : Order.create(order_details)
+      successful_payment(event)
     else
       puts "Unhandled event type: #{event.type}"
     end
@@ -102,6 +98,14 @@ class Api::V1::OrdersController < ActionController::API
   end
 
   protected
+
+  def successful_payment(event)
+    payment_intent = event.data.object 
+    customer_info = Stripe::Customer.retrieve(payment_intent.customer)
+    order_details = Order.make_details(payment_intent, customer_info)
+    @user ? order = @user.orders.create(order_details) : order = Order.create
+    OrderMailer.with(order: order).new_order_email.deliver_now 
+  end
 
   def find_order_products
     @order_products = Order.find_products(params["order"]["productsId"])
