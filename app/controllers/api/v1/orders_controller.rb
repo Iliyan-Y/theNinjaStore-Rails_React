@@ -72,11 +72,25 @@ class Api::V1::OrdersController < ActionController::API
       payment_intent = event.data.object 
       2.times {p "------------ payment intent succeeded-----------------"}
       customer_info = Stripe::Customer.retrieve(payment_intent.customer)
-      payment_id = payment_intent.id
       total_amount = payment_intent.amount / 100
-      p "Payment id: #{payment_id} total amount: #{total_amount}"
-      p payment_intent.shipping
-      p customer_info
+      shipping = payment_intent.shipping
+      address = "City: #{shipping.address.city}, country: #{shipping.address.country}, line1: #{shipping.address.line1}, line2: #{shipping.address.line2}"
+      itmes = customer_info.metadata.products.split(",")
+      order_details = {
+        email: customer_info.email,
+        customer_name: customer_info.name,
+        address: address,
+        phone: customer_info.phone,
+        post_code: shipping.address.postal_code,
+        productsId: itmes,
+        number_of_items: itmes.length,
+        total_price: total_amount,
+        customer_id: customer_info.id,
+        payment_id: payment_intent.id,
+        recipient_name: shipping.name,
+       }
+
+       Order.create(order_details)
       
       2.times {p "------------ payment intent succeeded-----------------"}
     else
@@ -89,6 +103,7 @@ class Api::V1::OrdersController < ActionController::API
   def check_payment
     
     5.times {p "mqlmql mlq"}
+    p Order.last
     # if @payment_success
     #   render json: @payment_success, status: 200
     # else
