@@ -23,7 +23,7 @@ module ApplicationHelper
           currency: 'gbp',
           product_data: {
             name: product[:name],
-            images: [product[:image]],
+            #images: [product[:image].to_s],
           },
         },
         quantity: 1,
