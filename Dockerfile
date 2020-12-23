@@ -37,5 +37,5 @@ RUN yarn install
 
 COPY . .
 
-RUN bundle exec rails assets:precompile
+#RUN bundle exec rails assets:precompile
 #RAILS_ENV=production bundle exec rake assets:precompile
