@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
@@ -102,7 +104,7 @@ Rails.application.configure do
   # end
 
   # DEBUGING IN PRODUCTION
-  Rails.logger = Logger.new(STDOUT)
+  Rails.logger = Logger.new($stdout)
   Rails.logger.level = Logger::DEBUG
   Rails.logger.datetime_format = '%Y-%m-%d %H:%M:%S'
 
