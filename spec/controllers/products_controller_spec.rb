@@ -8,18 +8,10 @@ RSpec.describe Api::V1::ProductsController do
     end
 
     it "Return json formated products" do 
-      file = Rails.root.join('app', 'assets', 'images', 'Techno.jpg')
-      
-      image = ActiveStorage::Blob.create_after_upload!(
-        io: File.open(file, 'rb'),
-         filename: 'Techno.jpg',
-         content_type: 'image/jpg' # Or figure it out from `name` if you have non-JPEGs
-       ).signed_id
-
+      image = create_test_image()
       Product.create(name: "Test", description:"Testeste", price: "1.00", image: image)
-
       expected = Product.where(name: "Test")
-     
+    
       get :index
       expect(response.body).to match(expected.to_json) 
     end
@@ -27,15 +19,7 @@ RSpec.describe Api::V1::ProductsController do
   end
 
   describe "POST create" do 
-
-    file = Rails.root.join('app', 'assets', 'images', 'Techno.jpg')
-      
-    image = ActiveStorage::Blob.create_after_upload!(
-      io: File.open(file, 'rb'),
-       filename: 'Techno.jpg',
-       content_type: 'image/jpg' # Or figure it out from `name` if you have non-JPEGs
-     ).signed_id
-
+    image = create_test_image()
     let (:product) do
        {
         name: "Lebara",
@@ -43,23 +27,21 @@ RSpec.describe Api::V1::ProductsController do
         price: "15",
         image: image
       }
-
     end
     let (:photos) do
       {
-        "0": "Lebara",
-        "1": "2018-12-12"
+        "0": "undefined"
       }
     end
 
     before(:each) do
       allow(controller).to receive(:find_user).and_return(true)
+      allow(@user).to receive(:admin).and_return(true)
+      #allow(controller).to receive(:current_user).and_return(FactoryGirl.create(:admin_user) # better option
     end
 
     it "return Json formated product" do 
-      
      expect { post :create, params: {product: product, photos: photos } }.to change(Product, :count).by(1)
-    
     end
   end
 
