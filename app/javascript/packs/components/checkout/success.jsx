@@ -1,9 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 
 const CheckoutSuccess = () => {
   let history = useHistory();
+
+  useEffect(() => {
+    sessionStorage.removeItem('basket');
+  });
 
   return (
     <div className="text-center">

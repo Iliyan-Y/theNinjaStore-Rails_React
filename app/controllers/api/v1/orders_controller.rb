@@ -91,7 +91,7 @@ class Api::V1::OrdersController < ActionController::API
 
   def user_orders
     if @user
-      render json: @user.orders, status: 200
+      render json: Order.where(email: @user.email), status: 200
     else
       head 400
     end
@@ -102,10 +102,8 @@ class Api::V1::OrdersController < ActionController::API
   def successful_payment(event)
     payment_intent = event.data.object 
     customer_info = Stripe::Customer.retrieve(payment_intent.customer)
-    order_details = Order.make_details(payment_intent, customer_info)
-    user = User.find_by_email(customer_info.email)
-    user ? order = user.orders.create(order_details) : order = Order.create
-
+    order = Order.make_order(payment_intent, customer_info)
+  
     if order.save
       OrderMailer.with(order: order).new_order_email.deliver_now 
     end
@@ -117,8 +115,6 @@ class Api::V1::OrdersController < ActionController::API
 
   def find_user
     return false if request.headers['token'] == "undefined"
-
-    return false if !request.headers['token']
 
     user_from_token = User.decode(request.headers['token'])
     @user = User.find_by_email(user_from_token['user'])
