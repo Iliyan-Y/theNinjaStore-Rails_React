@@ -1,8 +1,14 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
+import { Button } from 'react-bootstrap';
 
 const CheckoutCansel = () => {
+  let history = useHistory();
   return (
-    <h1 className="text-center">Something whent wrong, continue shopping</h1>
+    <div className="text-center">
+      <h1 className="text-danger">Order unsuccessful, please try again</h1>
+      <Button onClick={() => history.push('/')}>Ok</Button>
+    </div>
   );
 };
 

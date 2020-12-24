@@ -1,23 +1,20 @@
 import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { Button } from 'react-bootstrap';
 
 const CheckoutSuccess = () => {
   let history = useHistory();
-  toast.configure();
 
-  const confirmStatus = () => {
-    toast('Your order has been sent');
+  useEffect(() => {
     sessionStorage.removeItem('basket');
-    setTimeout(() => {
-      history.push('/');
-    }, 2000);
-  };
+  });
 
-  useEffect(() => confirmStatus(), []);
-
-  return <h1 className="text-center">Thank you for your purches</h1>;
+  return (
+    <div className="text-center">
+      <h1 className="text-success">Thank you for your purchase</h1>
+      <Button onClick={() => history.push('/')}>Ok</Button>
+    </div>
+  );
 };
 
 export default CheckoutSuccess;

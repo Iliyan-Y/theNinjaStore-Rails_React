@@ -1,6 +1,4 @@
 version: '3'
-volumes:
-  postgres-data:
 services:
   db:
     image: postgres
@@ -23,3 +21,5 @@ services:
       - '3000:3000'
     depends_on:
       - db
+volumes:
+  postgres-data:

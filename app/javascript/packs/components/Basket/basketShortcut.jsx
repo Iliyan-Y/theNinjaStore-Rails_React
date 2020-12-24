@@ -17,7 +17,7 @@ const BasketShortcut = () => {
 
   return (
     <Nav className="ml-auto">
-      <Link className="nav-link" to="/basket">
+      <Link className="btn btn-primary" to="/basket">
         Basket: {numberOfItems}
       </Link>
     </Nav>
