@@ -28,7 +28,7 @@ ENV RAILS_ENV='production'
 COPY Gemfile Gemfile
 COPY Gemfile.lock Gemfile.lock
 
-RUN bundle install
+RUN bundle install --without test development 
 
 COPY package.json package.json
 COPY yarn.lock yarn.lock

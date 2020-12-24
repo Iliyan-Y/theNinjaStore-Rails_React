@@ -1,5 +1,4 @@
 require 'rails_helper'
 
-RSpec.describe "Checkouts", type: :request do
-
+RSpec.describe 'Checkouts', type: :request do
 end

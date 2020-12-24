@@ -9,7 +9,7 @@ module ApplicationHelper
         created_at: product.created_at,
         image: url_for(product.image)
         # galery: product.photos.map{|img| url_for(img)}
-      } 
+      }
     end
   end
 
@@ -22,15 +22,14 @@ module ApplicationHelper
           unit_amount: (product[:price] * 100).round,
           currency: 'gbp',
           product_data: {
-            name: product[:name],
-            #images: [product[:image].to_s],
-          },
+            name: product[:name]
+            # images: [product[:image].to_s],
+          }
         },
-        quantity: 1,
+        quantity: 1
       }
       line_items.push(data)
     end
     line_items
   end
 end
-

@@ -2,10 +2,10 @@ class Api::V1::ProductsController < ActionController::API
   include ActionController::Helpers
   helper ApplicationHelper
 
-  before_action :find_product, only: [:show, :destroy, :update]
-  before_action :find_user, only: [:update, :destroy, :create]
+  before_action :find_product, only: %i[show destroy update]
+  before_action :find_user, only: %i[update destroy create]
 
-  def index 
+  def index
     products = Product.all
     render json: helpers.render_products(products), status: :ok
   end
@@ -16,8 +16,8 @@ class Api::V1::ProductsController < ActionController::API
     if product.save && @user.admin
       render json: product, status: :created
     else
-      render json: product.errors, status: :unprocessable_entity 
-    end   
+      render json: product.errors, status: :unprocessable_entity
+    end
   end
 
   def show
@@ -28,8 +28,8 @@ class Api::V1::ProductsController < ActionController::API
       price: @product.price,
       created_at: @product.created_at,
       image: url_for(@product.image),
-      galery: @product.photos.map{|img| url_for(img)}
-    } 
+      galery: @product.photos.map { |img| url_for(img) }
+    }
     render json: product, status: :ok
   end
 
@@ -42,18 +42,17 @@ class Api::V1::ProductsController < ActionController::API
   end
 
   def destroy
-
     if @user.admin
       @product.destroy
       head 200
-    else 
+    else
       head 403
     end
   end
 
-  private 
+  private
 
-  def find_product 
+  def find_product
     @product = Product.find(params['id'])
   end
 
@@ -71,9 +70,8 @@ class Api::V1::ProductsController < ActionController::API
   end
 
   def add_photos(product)
-    for n in 0..4 do 
-      product.photos.attach(photos_params[:"#{n}"]) unless photos_params[:"#{n}"] == "undefined"
+    (0..4).each do |n|
+      product.photos.attach(photos_params[:"#{n}"]) unless photos_params[:"#{n}"] == 'undefined'
     end
   end
-
 end
