@@ -45,4 +45,21 @@ RSpec.describe Api::V1::ProductsController do
       expect { post :create, params: { product: product, photos: photos } }.to change(Product, :count).by(1)
     end
   end
+
+  describe "GET show" do
+    it "shows a single product" do
+      create_fake_prodcut()
+      create_fake_prodcut("Second Test")
+
+      expected = Product.first
+      second_prodcut = Product.all[1]
+
+      get :show, params: {:id => expected.id}
+      res = JSON.parse(response.body)
+
+      expect(res["name"]).to eq(expected.name)
+      expect(res["name"]).not_to eq(second_prodcut.name)
+    end
+  end
+
 end
