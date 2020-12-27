@@ -20,7 +20,7 @@ module Api
         if product.save && @user.admin
           render json: product, status: :created
         else
-          render json: product.errors, status: :unprocessable_entity
+          render json: product.errors, status: 403
         end
       end
 
@@ -41,7 +41,7 @@ module Api
         if @user.admin && @product.update(product_params)
           head 200
         else
-          head 400
+          head 403
         end
       end
 

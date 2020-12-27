@@ -36,6 +36,7 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'rubocop-rails', '~> 2.9'
   gem 'rubocop-rspec', '~> 2.1'
+  gem 'simplecov', require: false, group: :test
 end
 
 group :development do

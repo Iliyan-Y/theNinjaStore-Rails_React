@@ -1,10 +1,9 @@
 # frozen_string_literal: true
 
-module TestHelpers
-  def help
-    3.times { p 'HELP !' }
-  end
+require 'simplecov'
+SimpleCov.start 'rails'
 
+module TestHelpers
   def create_test_image
     file = Rails.root.join('app', 'assets', 'images', 'Techno.jpg')
 
@@ -15,9 +14,8 @@ module TestHelpers
     ).signed_id
   end
 
-  def create_fake_prodcut(name = "Test")
+  def create_fake_prodcut(name = 'Test')
     image = create_test_image
     Product.create(name: name, description: 'Testeste', price: '1.00', image: image)
   end
-
 end
