@@ -47,7 +47,7 @@ RSpec.describe Api::V1::ProductsController do
 
     it 'not allowed method for non admin users' do
       allow(@user).to receive(:admin).and_return(false)
-      post :create, params: { product: product, photos: photos } 
+      post :create, params: { product: product, photos: photos }
       expect(response.status).to eq(403)
     end
   end
