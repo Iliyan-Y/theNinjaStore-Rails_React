@@ -62,4 +62,24 @@ RSpec.describe Api::V1::OrdersController do
       expect(response.status).to eq(403)
     end
   end
+
+  describe 'GET user_orders' do
+    it 'return json formated list of user orders if user is registred' do
+      allow(controller).to receive(:find_user)
+      mock_user = double('user')
+      allow(mock_user).to receive(:email).and_return('user@example.com')
+      controller.instance_variable_set(:@user, mock_user)
+      order = create_order('mock_user', 'user@example.com')
+
+      get :user_orders
+      expect(response.status).to eq(200)
+      expect(response.body).to match([order].to_json)
+    end
+
+    it "isn't available for non registred users" do
+      allow(controller).to receive(:find_user)
+      get :user_orders
+      expect(response.status).to eq(400)
+    end
+  end
 end
