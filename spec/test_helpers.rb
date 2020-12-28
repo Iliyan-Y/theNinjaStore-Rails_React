@@ -19,7 +19,7 @@ module TestHelpers
     Product.create(name: name, description: 'Testeste', price: '1.00', image: image)
   end
 
-  def create_order(name = "Pesho")
+  def create_order(name = 'Pesho')
     Order.create(status: 'new', email: 'test@email.com', customer_name: name, address: 'sreet 12', phone: '020321030',
                  productsId: [1, 2])
   end
