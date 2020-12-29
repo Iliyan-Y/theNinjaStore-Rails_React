@@ -35,11 +35,6 @@ module Api
           end
         end
 
-        # DELETE /resource/sign_out
-        # def destroy
-        #   super
-        # end
-
         protected
 
         def sign_in_params
