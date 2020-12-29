@@ -23,4 +23,10 @@ module TestHelpers
     Order.create(status: 'new', email: email, customer_name: name, address: 'sreet 12', phone: '020321030',
                  productsId: [1, 2])
   end
+
+  def create_test_user(email = 'example@me.com')
+    user = User.create(email: email, password: '123456', password_confirmation: '123456')
+    user.auth_token = User.generate_token(email)
+    user.save
+  end
 end

@@ -33,24 +33,13 @@ RSpec.describe Api::V1::Users::SessionsController do
     end
   end
 
-  describe "GET verifiy" do
-
-    it "return status 200 on succsessful token authentication" do
-      # controller.local_variable_set(:token, true)
-      # user_double = double('user') 
-      # allow(user_double).to receive(admin).and_return(false)
-      # controller.instance_variable_set(:user, user_double)
-      User = double
-      
-      allow(User).to receive(:decode)
-      allow(User).to receive(:find_by_email).and_return(1)
-      token = double("Book", "user" => 250)
-      user = double("user", :admin => true)
-      
-
+  describe 'GET verifiy' do
+    it 'return status 200 on succsessful token authentication' do
+      create_test_user
+      test_user = User.first
+      request.headers['token'] = test_user.auth_token
       get :verify
       expect(response.status).to eq(200)
     end
   end
-
 end
