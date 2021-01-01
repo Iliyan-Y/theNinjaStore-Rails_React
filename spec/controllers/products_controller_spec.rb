@@ -10,12 +10,9 @@ RSpec.describe Api::V1::ProductsController do
     end
 
     it 'Return json formated products' do
-      image = create_test_image
-      Product.create(name: 'Test', description: 'Testeste', price: '1.00', image: image)
-      expected = Product.where(name: 'Test')
-
+      product = create_fake_prodcut
       get :index
-      expect(response.body).to match(expected.to_json)
+      expect(JSON.parse(response.body)[0]['id']).to eq(product.id)
     end
   end
 

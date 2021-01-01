@@ -32,7 +32,9 @@ RSpec.describe Api::V1::OrdersController do
       product = create_fake_prodcut
       post :display_products, params: { order: { productsId: [product.id] } }
       expect(response.status).to eq(200)
-      expect(response.body).to match([product].to_json)
+      res = JSON.parse(response.body)
+      expect(res[0]["name"]).to match(product.name)
+      expect(res[0]["id"]).to match(product.id)
     end
 
     it 'Return error code 400 if invalid product list is passed' do
