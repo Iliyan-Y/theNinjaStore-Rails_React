@@ -33,8 +33,8 @@ RSpec.describe Api::V1::OrdersController do
       post :display_products, params: { order: { productsId: [product.id] } }
       expect(response.status).to eq(200)
       res = JSON.parse(response.body)
-      expect(res[0]["name"]).to match(product.name)
-      expect(res[0]["id"]).to match(product.id)
+      expect(res[0]['name']).to match(product.name)
+      expect(res[0]['id']).to match(product.id)
     end
 
     it 'Return error code 400 if invalid product list is passed' do

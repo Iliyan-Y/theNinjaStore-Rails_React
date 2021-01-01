@@ -29,4 +29,16 @@ module TestHelpers
     user.auth_token = User.generate_token(email)
     user.save
   end
+
+  class FakeProduct
+    attr_reader :id, :name, :description, :price, :created_at
+
+    def initialize(id = 1, name = 'Soap', description = 'bubbly', price = 1, created_at = '01.01.2021')
+      @id = id
+      @name = name
+      @description = description
+      @price = price
+      @created_at = created_at
+    end
+  end
 end
