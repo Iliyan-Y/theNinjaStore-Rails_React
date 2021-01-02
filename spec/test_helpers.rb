@@ -30,15 +30,21 @@ module TestHelpers
     user.save
   end
 
-  class FakeProduct
-    attr_reader :id, :name, :description, :price, :created_at
+  def new_fake_customer
+    metadata = OpenStruct.new({ products: '1,2,3' })
+    OpenStruct.new({ metadata: metadata, name: 'Kiro', email: 'kiro@skalata.com', phone: '2323132',
+                     id: 4 })
+  end
 
-    def initialize(id = 1, name = 'Soap', description = 'bubbly', price = 1, created_at = '01.01.2021')
-      @id = id
-      @name = name
-      @description = description
-      @price = price
-      @created_at = created_at
-    end
+  def new_fake_payment
+    address = OpenStruct.new({
+                               city: 'Dos Locos',
+                               country: 'Republic of Mars',
+                               line1: '3 street',
+                               line2: '',
+                               postal_code: 'SE'
+                             })
+    shipping = OpenStruct.new({ address: address, name: 'Kiro Skalata' })
+    OpenStruct.new({ amount: 1000, shipping: shipping, id: 3333 })
   end
 end
