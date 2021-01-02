@@ -5,6 +5,7 @@ module Api
     class OrdersController < ActionController::API
       include ActionController::Helpers
       helper ApplicationHelper
+      helper OrdersHelper
 
       before_action :find_user, only: %i[index change_status user_orders]
       before_action :find_order_products, only: %i[create display_products]
@@ -19,24 +20,9 @@ module Api
       end
 
       def create
-        customer = Stripe::Customer.create({
-                                             name: params['order']['customer_name'],
-                                             phone: params['order']['phone'],
-                                             email: params['order']['email'],
-                                             metadata: { products: params['order']['productsId'].join(',') }
-                                           })
-
-        session = Stripe::Checkout::Session.create({
-                                                     customer: customer.id,
-                                                     shipping_address_collection: {
-                                                       allowed_countries: %w[GB BG FR DE BE DK IE IT ES]
-                                                     },
-                                                     payment_method_types: ['card'],
-                                                     line_items: helpers.create_line_items(@order_products),
-                                                     mode: 'payment',
-                                                     success_url: checkout_success_url,
-                                                     cancel_url: checkout_cancel_url
-                                                   })
+        customer = helpers.create_stripe_customer(params)
+        line_items = helpers.create_line_items(@order_products)
+        session = helpers.create_stripe_session(customer, line_items)
 
         if session
           render json: { sessionId: session.id }, status: 200
