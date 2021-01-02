@@ -1,31 +1,27 @@
+# frozen_string_literal: true
+
 class HomeController < ApplicationController
   before_action :find_user, only: [:new]
-  
-  def index
-  end
 
-  def new 
-    if @user.admin  
+  def index; end
+
+  def new
+    if @user.admin
       head 200
-    else 
+    else
       head 403
     end
   end
 
-  def log_in
-  end
+  def log_in; end
 
-  def sign_up
-  end
+  def sign_up; end
 
-  
-  def all_orders
-  end
+  def all_orders; end
 
-  def user_orders
-  end
+  def user_orders; end
 
-  private 
+  private
 
   def find_user
     user_from_token = User.decode(request.headers['token'])

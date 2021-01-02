@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
@@ -51,7 +53,7 @@ Rails.application.configure do
   config.log_level = :debug
 
   # Prepend all log lines with the following tags.
-  config.log_tags = [ :request_id ]
+  config.log_tags = [:request_id]
 
   # Use a different cache store in production.
   # config.cache_store = :mem_cache_store
@@ -68,12 +70,12 @@ Rails.application.configure do
   # config.action_mailer.default_url_options = { host: host }
   # SMTP settings for gmail
   config.action_mailer.smtp_settings = {
-  :address              => "smtp.gmail.com",
-  :port                 => 587,
-  :user_name            => ENV["MAILER_SENDER"],
-  :password             => ENV["MAILER_PASSWORD"],
-  :authentication       => "plain",
-  :enable_starttls_auto => true
+    address: 'smtp.gmail.com',
+    port: 587,
+    user_name: ENV['MAILER_SENDER'],
+    password: ENV['MAILER_PASSWORD'],
+    authentication: 'plain',
+    enable_starttls_auto: true
   }
 
   # Ignore bad email addresses and do not raise email delivery errors.
@@ -101,10 +103,10 @@ Rails.application.configure do
   #   config.logger    = ActiveSupport::TaggedLogging.new(logger)
   # end
 
-  #DEBUGING IN PRODUCTION
-  Rails.logger = Logger.new(STDOUT)
-  Rails.logger.level = Logger::DEBUG 
-  Rails.logger.datetime_format = "%Y-%m-%d %H:%M:%S"
+  # DEBUGING IN PRODUCTION
+  Rails.logger = Logger.new($stdout)
+  Rails.logger.level = Logger::DEBUG
+  Rails.logger.datetime_format = '%Y-%m-%d %H:%M:%S'
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false

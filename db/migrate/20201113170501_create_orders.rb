@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateOrders < ActiveRecord::Migration[6.0]
   def change
     create_table :orders do |t|
@@ -7,7 +9,7 @@ class CreateOrders < ActiveRecord::Migration[6.0]
       t.string :phone, null: false
       t.string :post_code
       t.string :productsId, array: true, null: false
-      t.string :status, default: "New"
+      t.string :status, default: 'New'
 
       t.timestamps
     end

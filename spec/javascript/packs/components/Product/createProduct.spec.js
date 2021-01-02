@@ -6,6 +6,11 @@ import axios from 'axios';
 jest.mock('axios');
 
 describe('Home component', () => {
+  beforeEach(() => {
+    console.error = jest.fn();
+    console.error('you cant see me');
+  });
+
   it('Check the create product page is rendered correctly', () => {
     const { getByPlaceholderText, getByTestId, getByText } = render(
       <CreateProduct />

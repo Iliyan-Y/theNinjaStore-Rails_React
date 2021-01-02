@@ -17,6 +17,11 @@ jest.mock('axios');
 axios.get.mockResolvedValue({});
 
 describe('Home component', () => {
+  beforeEach(() => {
+    console.error = jest.fn();
+    console.error('you cant see me');
+  });
+
   it('Check the home page renders correctly', () => {
     //mock
     const mockStore = configureStore();
