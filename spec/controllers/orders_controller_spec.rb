@@ -54,7 +54,7 @@ RSpec.describe Api::V1::OrdersController do
       allow(@user).to receive(:admin).and_return(true)
       post :change_status, params: { order: { id: @order.id, status: 'sent' }, id: @order.id }
       expect(response.status).to eq(200)
-      expected = Order.first
+      expected = Order.find(@order.id)
       expect(expected.status).to eq('sent')
     end
 
