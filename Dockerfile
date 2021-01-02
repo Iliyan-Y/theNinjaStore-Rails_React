@@ -23,7 +23,6 @@ RUN apt-get update && \
 WORKDIR ${RAILS_ROOT}
 
 ENV RAILS_ENV='production'
-ENV RAILS_ENV='production'
 
 COPY Gemfile Gemfile
 COPY Gemfile.lock Gemfile.lock
@@ -36,6 +35,3 @@ COPY yarn.lock yarn.lock
 RUN yarn install
 
 COPY . .
-
-#RUN bundle exec rails assets:precompile
-#RAILS_ENV=production bundle exec rake assets:precompile
