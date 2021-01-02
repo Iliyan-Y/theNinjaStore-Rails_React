@@ -9,7 +9,7 @@ import Menu from './menu';
 
 const ActionBar = () => {
   const [cookies, setCookie, removeCookie] = useCookies();
-  let [isUser, setIsUser] = useState(false);
+  let [isUser, setIsUser] = React.useState(false);
 
   useEffect(() => {
     let token = cookies.user_token;

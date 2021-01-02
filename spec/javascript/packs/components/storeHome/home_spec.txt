@@ -37,7 +37,7 @@ describe('Home component', () => {
     );
 
     //expected
-    getByText('Home Page');
+    getByText('The Ninja Store');
     expect(axios.get).toHaveBeenCalledTimes(1);
     expect(useSelector).toHaveBeenCalledTimes(1);
   });
