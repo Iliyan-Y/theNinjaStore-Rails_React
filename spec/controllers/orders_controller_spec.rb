@@ -28,14 +28,23 @@ RSpec.describe Api::V1::OrdersController do
   end
 
   describe '#create' do
-    it 'create sucessful stripe session' do
-      session = OpenStruct.new({ id: 1 })
+    before(:each) do
       allow(controller).to receive(:find_order_products)
       allow_any_instance_of(OrdersHelper).to receive(:create_stripe_customer)
       allow_any_instance_of(ApplicationHelper).to receive(:create_line_items)
-      allow_any_instance_of(OrdersHelper).to receive(:create_stripe_session).and_return(session)
+      @session = OpenStruct.new({ id: 1 })
+    end
+
+    it 'create sucessful stripe session' do
+      allow_any_instance_of(OrdersHelper).to receive(:create_stripe_session).and_return(@session)
       post :create
       expect(response.status).to eq(200)
+    end
+
+    it 'return bad request if session is NOT created' do
+      allow_any_instance_of(OrdersHelper).to receive(:create_stripe_session).and_return(nil)
+      post :create
+      expect(response.status).to eq(400)
     end
   end
 
