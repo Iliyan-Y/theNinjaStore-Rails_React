@@ -3,7 +3,10 @@ import { cleanup } from '@testing-library/react';
 import Home from 'packs/components/storeHome/home';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
-import { renderWithFakeProvider } from 'packs/__test__/react_helpers';
+import {
+  renderWithFakeProvider,
+  fakeProductState,
+} from 'packs/__test__/react_helpers';
 import '@testing-library/jest-dom/extend-expect';
 
 //mock
@@ -11,15 +14,7 @@ jest.mock('react-redux', () => ({
   ...jest.requireActual('react-redux'),
   useSelector: jest.fn(),
 }));
-useSelector.mockImplementation(() => [
-  {
-    id: 1,
-    name: 'test',
-    description: 'test description',
-    image: 'url',
-    price: '1.00',
-  },
-]);
+useSelector.mockImplementation(() => fakeProductState);
 
 jest.mock('axios');
 axios.get.mockResolvedValue({});

@@ -23,3 +23,27 @@ export const renderWithFakeProvider = (component) => {
     </BrowserRouter>
   );
 };
+
+export const fakeProductState = [
+  {
+    id: 1,
+    name: 'test',
+    description: 'test description',
+    image: 'image 1',
+    price: '1.00',
+  },
+  {
+    id: 2,
+    name: 'Test item 2',
+    description: 'test description 2',
+    image: 'url 2',
+    price: '2.00',
+  },
+  {
+    id: 3,
+    name: 'product 3',
+    description: 'test description 3',
+    image: 'url 3',
+    price: '3.33',
+  },
+];

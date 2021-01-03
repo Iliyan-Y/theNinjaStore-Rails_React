@@ -19,7 +19,12 @@ const DisplayProducts = ({ products }) => {
             {each.name}
           </Link>
           <p style={{ width: '33vh' }}>{summarize(each.description, 80)}...</p>
-          <img src={each.image} style={{ width: '35vh' }} />
+          <img
+            data-testid={'Image-' + each.id}
+            alt={'Image of ' + each.name}
+            src={each.image}
+            style={{ width: '35vh' }}
+          />
           <p>£{each.price}</p>
           <AddToBasket product={each} />
           <br />
