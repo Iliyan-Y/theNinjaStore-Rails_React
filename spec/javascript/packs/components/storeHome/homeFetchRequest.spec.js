@@ -25,7 +25,7 @@ beforeEach(() => {
 
 afterEach(cleanup);
 
-test('Check the home page renders correctly', async () => {
+test('Check the home page renders correctly after axios get request', async () => {
   const { getByTestId, queryByText } = renderWithProvider(<Home />);
 
   queryByText('test');

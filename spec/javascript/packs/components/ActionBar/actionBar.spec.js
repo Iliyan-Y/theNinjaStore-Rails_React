@@ -1,8 +1,7 @@
 import React from 'react';
-import { render, cleanup } from '@testing-library/react';
-import { Provider, useSelector } from 'react-redux';
-import configureStore from 'redux-mock-store';
-import { BrowserRouter } from 'react-router-dom';
+import { cleanup } from '@testing-library/react';
+import { useSelector } from 'react-redux';
+import { renderWithFakeProvider } from 'packs/__test__/react_helpers';
 
 import ActionBar from 'packs/components/ActionBar/actionBar';
 
@@ -12,19 +11,11 @@ jest.mock('react-redux', () => ({
   useSelector: jest.fn(),
 }));
 useSelector.mockImplementation(() => []);
-const mockStore = configureStore();
-let store = mockStore({});
 
 afterEach(cleanup);
 
 test('renders the default action bar', () => {
-  const { getByText } = render(
-    <BrowserRouter>
-      <Provider store={store}>
-        <ActionBar />
-      </Provider>
-    </BrowserRouter>
-  );
+  const { getByText } = renderWithFakeProvider(<ActionBar />);
   getByText('The Ninja Store');
   getByText('Log In');
   getByText('Sign Up');
