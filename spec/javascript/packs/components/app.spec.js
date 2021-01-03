@@ -1,6 +1,6 @@
 import React from 'react';
 import '@testing-library/jest-dom/extend-expect';
-import { cleanup } from '@testing-library/react';
+import { cleanup, fireEvent } from '@testing-library/react';
 import { useSelector } from 'react-redux';
 import {
   renderWithFakeProvider,
@@ -27,8 +27,24 @@ test('render', () => {
 });
 
 test('render all test items', () => {
-  const { getByText, getByTestId } = renderWithFakeProvider(<App />);
+  const { getByText, getByTestId, getAllByText } = renderWithFakeProvider(
+    <App />
+  );
   getByText('Test item 2');
   getByText('product 3');
   expect(getByTestId('Image-1')).toHaveAttribute('src', 'image 1');
+  getAllByText('Add to basket');
+});
+
+test('click emty basket button', () => {
+  const { getByText } = renderWithFakeProvider(<App />);
+  fireEvent.click(getByText('Basket: 0'));
+  getByText('Basket is empty');
+});
+
+test('render default action bar', () => {
+  const { getByText } = renderWithFakeProvider(<App />);
+  getByText('Log In');
+  getByText('Sign Up');
+  getByText('Basket: 0');
 });
