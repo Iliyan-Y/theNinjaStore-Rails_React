@@ -8,7 +8,7 @@ const DisplayProducts = ({ products }) => {
   };
 
   return (
-    <div style={outerDiv}>
+    <div data-testid="prod" style={outerDiv}>
       {products.map((each) => (
         <span style={innerSpan} key={each.id}>
           <Link
