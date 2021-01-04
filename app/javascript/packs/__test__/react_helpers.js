@@ -47,3 +47,13 @@ export const fakeProductState = [
     price: '3.33',
   },
 ];
+
+export const fakeOrder = {
+  id: 1,
+  created_at: '04.01.2021',
+  email: 'example@me.com',
+  address: 'London 2',
+  post_code: '13LZ',
+  phone: '1234',
+  productsId: [1],
+};
