@@ -34,14 +34,14 @@ const SignUp = () => {
         type="email"
         name="email"
         value={email}
-        placeholder="email"
+        placeholder="Email"
       />
       <input
         onChange={(e) => setPassword(e.target.value)}
         value={password}
         type="password"
         name="Password"
-        placeholder="password"
+        placeholder="Password"
       />
       <input
         onChange={(e) => setConfirmPassword(e.target.value)}

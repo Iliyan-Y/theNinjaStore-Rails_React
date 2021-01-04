@@ -48,3 +48,28 @@ test('render default action bar', () => {
   getByText('Sign Up');
   getByText('Basket: 0');
 });
+
+test('render default log in from', () => {
+  const { getByText, getByPlaceholderText } = renderWithFakeProvider(<App />);
+  fireEvent.click(getByText('Log In'));
+  getByPlaceholderText('Email');
+  getByPlaceholderText('Password');
+  getByText('Submit');
+});
+
+test('render default sign up form', () => {
+  const { getByText, getByPlaceholderText } = renderWithFakeProvider(<App />);
+  fireEvent.click(getByText('Sign Up'));
+  getByPlaceholderText('Email');
+  getByPlaceholderText('Password');
+  getByText('Submit');
+  getByPlaceholderText('Confirm Password');
+});
+
+test('logo click return to home', () => {
+  const { getByText, getByTestId } = renderWithFakeProvider(<App />);
+  fireEvent.click(getByTestId('basket-btn'));
+  getByText('Basket is empty');
+  fireEvent.click(getByTestId('logo-1'));
+  getByText('Test item 2');
+});

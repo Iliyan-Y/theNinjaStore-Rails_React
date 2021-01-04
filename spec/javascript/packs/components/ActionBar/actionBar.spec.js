@@ -15,8 +15,8 @@ useSelector.mockImplementation(() => []);
 afterEach(cleanup);
 
 test('renders the default action bar', () => {
-  const { getByText } = renderWithFakeProvider(<ActionBar />);
-  getByText('The Ninja Store');
+  const { getByText, getByTestId } = renderWithFakeProvider(<ActionBar />);
+  getByTestId('logo-1');
   getByText('Log In');
   getByText('Sign Up');
   getByText('Basket: 0');
