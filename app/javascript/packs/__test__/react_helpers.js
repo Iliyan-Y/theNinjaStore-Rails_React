@@ -55,5 +55,5 @@ export const fakeOrder = {
   address: 'London 2',
   post_code: '13LZ',
   phone: '1234',
-  productsId: [1],
+  productsId: [1, 2],
 };
