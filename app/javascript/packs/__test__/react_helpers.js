@@ -57,3 +57,28 @@ export const fakeOrder = {
   phone: '1234',
   productsId: [1, 2],
 };
+
+export const fakeOrderList = [
+  {
+    id: 1,
+    created_at: '04.01.2021',
+    email: 'example@me.com',
+    address: 'London 2',
+    post_code: '13LZ',
+    phone: '1234',
+    productsId: [1, 2],
+    status: 'New',
+    customer_name: 'Chocho',
+  },
+  {
+    id: 2,
+    created_at: '05.01.2021',
+    email: 'me@me.com',
+    address: 'London 1',
+    post_code: 'ELY',
+    phone: '5555',
+    productsId: [1],
+    status: 'New',
+    customer_name: 'Kiro',
+  },
+];

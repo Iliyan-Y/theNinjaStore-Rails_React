@@ -5,6 +5,7 @@ import { dateTimeString } from '../../helpers/covertDate';
 const OrderDetails = ({ order, showOrder }) => {
   return (
     <span
+      data-testid={'order-details-' + order.id}
       style={{
         display: showOrder == order.id ? 'flex' : 'none',
         flexDirection: 'column',
