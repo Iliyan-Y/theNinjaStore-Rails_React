@@ -7,6 +7,7 @@ import {
 import { fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import BasketPage from 'packs/components/Basket/basketPage.jsx';
+import NewOrder from 'packs/components/Orders/orderForm';
 
 test('Render the default component', () => {
   const { getByText } = renderWithProvider(<BasketPage />);
@@ -55,4 +56,25 @@ test('Remove specific item from basket', () => {
   expect(div_after).not.toHaveTextContent(fakeProductState[1].name);
   expect(div_after).not.toHaveTextContent('£' + fakeProductState[1].price);
   expect(div_after).toHaveTextContent('Total: 4.33');
+});
+
+test('check confirm order button redirect to order from', () => {
+  window.sessionStorage.setItem(
+    'basket',
+    JSON.stringify({ items: [fakeProdcut] })
+  );
+  const { getByText, getByTestId } = renderWithProvider(
+    <>
+      <BasketPage /> <NewOrder />
+    </>
+  );
+
+  getByText('Total: ' + fakeProdcut.price);
+  fireEvent.click(getByText('Confirm Order'));
+  const div = getByTestId('order-from');
+  expect(div).not.toHaveTextContent('Total: ' + fakeProdcut.price);
+  expect(div).toHaveTextContent('Email');
+  expect(div).toHaveTextContent('Customer Name');
+  expect(div).toHaveTextContent('Contact number');
+  expect(div).toHaveTextContent('Place Order');
 });

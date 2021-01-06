@@ -7,7 +7,7 @@ const OrderForm = () => {
   let [phone, setPhone] = useState('');
 
   return (
-    <div style={formStyle}>
+    <div data-testid="order-from" style={formStyle}>
       <label htmlFor="email">Email *</label>
       <input
         type="email"
