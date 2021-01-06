@@ -15,7 +15,7 @@ const BasketPage = () => {
     return total.toFixed(2);
   };
 
-  if (basket) {
+  if (basket && basket.items.length > 0) {
     return (
       <div data-testid="basket-div" style={outerDiv}>
         <RenderItems items={basket.items} setBasket={setBasket} />
