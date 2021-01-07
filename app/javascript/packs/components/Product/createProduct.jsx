@@ -47,7 +47,7 @@ const CreateProduct = () => {
         setImage(undefined);
         history.push('/');
       })
-      .catch((err) => console.log('Error : ' + err.message));
+      .catch((err) => console.error('Error : ' + err.message));
   };
 
   let addMorePhotos = (e) => {
@@ -70,7 +70,6 @@ const CreateProduct = () => {
       <p>Description</p>
       <textarea
         placeholder="description"
-        data-testid="description-area"
         cols="30"
         rows="5"
         value={description}
@@ -93,6 +92,7 @@ const CreateProduct = () => {
       />
       <label htmlFor="Galery">Galery:</label>
       <input
+        data-testid="galery"
         type="file"
         name="Galery"
         id="Galery"
