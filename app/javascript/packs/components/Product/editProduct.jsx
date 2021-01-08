@@ -45,6 +45,7 @@ const EditProduct = ({ product }) => {
           data-testid="description-area"
           cols="30"
           rows="5"
+          placeholder="description"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
         ></textarea>
@@ -55,13 +56,14 @@ const EditProduct = ({ product }) => {
           onChange={(e) => setPrice(e.target.value)}
         />
         <input
+          id="cover-photo-change"
           data-testid="photo-upload"
           type="file"
           onChange={(e) => setImage(e.target.files[0])}
         />
 
         <button onClick={() => submit()}>Submit</button>
-        <button onClick={() => setShowEdit(false)}>Cansel</button>
+        <button onClick={() => setShowEdit(false)}>Cancel</button>
       </div>
     </>
   );

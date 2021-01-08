@@ -20,7 +20,6 @@ axios.get.mockResolvedValue({
 
 beforeEach(() => {
   console.error = jest.fn();
-  console.error('you cant see me');
 });
 
 afterEach(cleanup);

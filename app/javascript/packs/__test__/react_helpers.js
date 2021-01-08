@@ -32,6 +32,14 @@ export const fakeProdcut = {
   price: '1.00',
 };
 
+export const fakeProduct = {
+  id: 1,
+  name: 'test',
+  description: 'test description',
+  image: 'image 1',
+  price: '1.00',
+};
+
 export const fakeProductState = [
   {
     id: 1,

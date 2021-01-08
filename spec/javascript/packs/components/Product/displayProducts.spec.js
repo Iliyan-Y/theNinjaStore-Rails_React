@@ -1,16 +1,11 @@
 import React from 'react';
-import { fireEvent, cleanup, waitFor } from '@testing-library/react';
-import axios from 'axios';
+import { cleanup } from '@testing-library/react';
 import DisplayProducts from 'packs/components/Product/displayProducts.jsx';
 import {
   fakeProductState,
   renderWithProvider,
 } from 'packs/__test__/react_helpers';
 import '@testing-library/jest-dom/extend-expect';
-
-// jest.mock('axios');
-// axios.get.mockResolvedValue({ data: 'ok' });
-// axios.post.mockResolvedValue({ data: 'ok' });
 
 beforeEach(() => {
   console.error = jest.fn();

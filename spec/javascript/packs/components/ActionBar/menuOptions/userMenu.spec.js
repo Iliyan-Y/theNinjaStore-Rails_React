@@ -14,7 +14,6 @@ useSelector.mockImplementation(() => []);
 
 beforeEach(() => {
   console.error = jest.fn();
-  console.error('you cant see me');
 });
 
 afterEach(cleanup);
