@@ -18,7 +18,9 @@ const DisplayProducts = ({ products }) => {
           >
             {each.name}
           </Link>
-          <p style={{ width: '33vh' }}>{summarize(each.description, 80)}...</p>
+          <p data-testid="short-description" style={{ width: '33vh' }}>
+            {summarize(each.description, 80)}...
+          </p>
           <img
             data-testid={'Image-' + each.id}
             alt={'Image of ' + each.name}

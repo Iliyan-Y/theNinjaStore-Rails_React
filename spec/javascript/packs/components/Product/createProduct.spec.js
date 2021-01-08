@@ -9,7 +9,6 @@ axios.post.mockResolvedValue({ data: 'ok' });
 
 beforeEach(() => {
   console.error = jest.fn();
-  console.error('you cant see me');
 });
 
 afterEach(cleanup);

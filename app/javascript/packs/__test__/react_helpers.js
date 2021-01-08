@@ -50,7 +50,8 @@ export const fakeProductState = [
   {
     id: 3,
     name: 'product 3',
-    description: 'test description 3',
+    description:
+      'test description 3, its actually more then a description its super long description of the third product',
     image: 'url 3',
     price: '3.33',
   },
