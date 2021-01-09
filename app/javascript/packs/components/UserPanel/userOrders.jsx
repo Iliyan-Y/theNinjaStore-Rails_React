@@ -15,7 +15,7 @@ const UserOrders = () => {
   const fetchOrders = () => {
     axios
       .get('/api/v1/orders/user', {
-        headers: { 'token': cookies.user_token },
+        headers: { token: cookies.user_token },
       })
       .then((res) => setOrders(res.data))
       .catch((err) => console.error(err.message));
@@ -35,13 +35,13 @@ const UserOrders = () => {
     <Container className="text-center">
       <h1>My Orders</h1>
       {orders.map((order) => (
-        <div style={innerDiv} key={order.id}>
+        <div data-testid="user-order-div" style={innerDiv} key={order.id}>
           <span style={eachOrderSpan}>
             <p
               style={orderInfoP(order.status)}
               onClick={() => displaySelectedOrder(order.id)}
             >
-              ↓ Created: {dateToString(order.created_at)} | Number of products:
+              ↓ Created: {dateToString(order.created_at)} | Number of products:{' '}
               {order.productsId.length} | Status: {order.status} ↓
             </p>
           </span>
@@ -56,11 +56,11 @@ const UserOrders = () => {
 export default UserOrders;
 
 let orderColorStatus = {
-  'New': '#d3abed',
-  'Sent': '#8ab7ff',
+  New: '#d3abed',
+  Sent: '#8ab7ff',
   'In progress': '#e6bd65',
-  'Canceled': '#f76f68',
-  'Done': '#7be070',
+  Canceled: '#f76f68',
+  Done: '#7be070',
 };
 
 let innerDiv = {
