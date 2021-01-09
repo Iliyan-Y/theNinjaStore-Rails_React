@@ -8,6 +8,9 @@ jest.mock('axios', () => ({
   delete: jest.fn(),
 }));
 
+beforeEach(() => {
+  console.error = jest.fn();
+});
 afterAll(cleanup);
 
 test('render the delete button', () => {

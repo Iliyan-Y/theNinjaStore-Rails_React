@@ -40,9 +40,7 @@ const NewOrder = ({ name, email, phone }) => {
         token: cookies.user_token,
       },
     };
-    console.log('before Stripe request');
     const stripe = await stripePromise;
-    console.log('before axios request');
     axios
       .post('/api/v1/orders', body, headers)
       .then(async (res) => await stripe.redirectToCheckout(res.data))

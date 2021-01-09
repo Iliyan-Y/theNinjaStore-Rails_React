@@ -19,6 +19,9 @@ window.sessionStorage.setItem(
   JSON.stringify({ items: [fakeProduct] })
 );
 
+beforeEach(() => {
+  console.error = jest.fn();
+});
 afterAll(cleanup);
 
 test('render the component', () => {

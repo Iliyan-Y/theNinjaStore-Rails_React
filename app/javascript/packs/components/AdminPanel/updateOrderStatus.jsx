@@ -24,7 +24,12 @@ const UpdateOrderStatus = ({ token, orderId, currentStatus }) => {
 
   return (
     <Form.Group onChange={(e) => updateStatus(e.target.value)}>
-      <Form.Control defaultValue={currentStatus} size="sm" as="select">
+      <Form.Control
+        data-testid="select-status"
+        defaultValue={currentStatus}
+        size="sm"
+        as="select"
+      >
         <option>In progress</option>
         <option>Done</option>
         <option>Canceled</option>
