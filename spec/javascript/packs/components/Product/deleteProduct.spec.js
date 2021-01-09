@@ -8,6 +8,8 @@ jest.mock('axios', () => ({
   delete: jest.fn(),
 }));
 
+afterAll(cleanup);
+
 test('render the delete button', () => {
   const { getByText } = render(<DeleteProduct />);
   expect(getByText('Delete')).toBeInTheDocument();
