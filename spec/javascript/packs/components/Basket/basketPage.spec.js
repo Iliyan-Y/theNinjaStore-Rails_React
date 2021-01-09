@@ -1,7 +1,7 @@
 import React from 'react';
 import {
   renderWithProvider,
-  fakeProdcut,
+  fakeProduct,
   fakeProductState,
 } from 'packs/__test__/react_helpers';
 import { fireEvent } from '@testing-library/react';
@@ -17,22 +17,22 @@ test('Render the default component', () => {
 test('Render the default component with one item', () => {
   window.sessionStorage.setItem(
     'basket',
-    JSON.stringify({ items: [fakeProdcut] })
+    JSON.stringify({ items: [fakeProduct] })
   );
   const { getByTestId } = renderWithProvider(<BasketPage />);
   const div = getByTestId('basket-div');
   expect(div).not.toHaveTextContent('Basket is empty');
-  expect(div).toHaveTextContent(fakeProdcut.name);
-  expect(div).toHaveTextContent('£' + fakeProdcut.price);
+  expect(div).toHaveTextContent(fakeProduct.name);
+  expect(div).toHaveTextContent('£' + fakeProduct.price);
   expect(div).toHaveTextContent('Confirm Order');
   getByTestId('remove-btn-basket');
-  expect(div).toHaveTextContent('Total: ' + fakeProdcut.price);
+  expect(div).toHaveTextContent('Total: ' + fakeProduct.price);
 });
 
 test('Remove item from basket', () => {
   window.sessionStorage.setItem(
     'basket',
-    JSON.stringify({ items: [fakeProdcut] })
+    JSON.stringify({ items: [fakeProduct] })
   );
   const { getByTestId, getByText } = renderWithProvider(<BasketPage />);
   fireEvent.click(getByTestId('remove-btn-basket'));
@@ -61,7 +61,7 @@ test('Remove specific item from basket', () => {
 test('check confirm order button redirect to order from', () => {
   window.sessionStorage.setItem(
     'basket',
-    JSON.stringify({ items: [fakeProdcut] })
+    JSON.stringify({ items: [fakeProduct] })
   );
   const { getByText, getByTestId } = renderWithProvider(
     <>
@@ -69,10 +69,10 @@ test('check confirm order button redirect to order from', () => {
     </>
   );
 
-  getByText('Total: ' + fakeProdcut.price);
+  getByText('Total: ' + fakeProduct.price);
   fireEvent.click(getByText('Confirm Order'));
   const div = getByTestId('order-from');
-  expect(div).not.toHaveTextContent('Total: ' + fakeProdcut.price);
+  expect(div).not.toHaveTextContent('Total: ' + fakeProduct.price);
   expect(div).toHaveTextContent('Email');
   expect(div).toHaveTextContent('Customer Name');
   expect(div).toHaveTextContent('Contact number');
