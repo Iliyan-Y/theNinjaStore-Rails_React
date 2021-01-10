@@ -5,7 +5,7 @@ import { Switch, Route } from 'react-router-dom';
 import Home from './storeHome/home';
 import CreateProduct from './Product/createProduct';
 import ShowProduct from './Product/showProduct';
-import SignUp from './Auth/SignSup';
+import SignUp from './Auth/SignUp';
 import LogIn from './Auth/LogIn';
 import BasketPage from './Basket/basketPage';
 import ActionBar from './ActionBar/actionBar';

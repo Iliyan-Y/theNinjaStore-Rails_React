@@ -19,8 +19,8 @@ const SignUp = () => {
 
     await axios
       .post('/api/v1/users', body)
-      .then((res) => console.log(res.status))
-      .catch((err) => console.log(err.message));
+      .then((res) => res.status)
+      .catch((err) => console.error(err.message));
 
     setEmail('');
     setPassword('');
