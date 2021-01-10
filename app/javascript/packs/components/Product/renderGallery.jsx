@@ -6,6 +6,7 @@ const RenderGallery = ({ product }) => {
     <span>
       {product.galery.map((url) => (
         <img
+          alt={product.name + '-gallery'}
           src={url}
           key={uuid()}
           style={{ width: '30vh', margin: '0.3em' }}

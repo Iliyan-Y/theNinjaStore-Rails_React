@@ -38,6 +38,7 @@ export const fakeProduct = {
   description: 'test description',
   image: 'image 1',
   price: '1.00',
+  galery: ['photo1'],
 };
 
 export const fakeProductState = [
