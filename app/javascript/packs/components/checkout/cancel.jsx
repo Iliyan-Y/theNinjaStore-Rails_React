@@ -2,7 +2,7 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 
-const CheckoutCansel = () => {
+const CheckoutCancel = () => {
   let history = useHistory();
   return (
     <div className="text-center">
@@ -12,4 +12,4 @@ const CheckoutCansel = () => {
   );
 };
 
-export default CheckoutCansel;
+export default CheckoutCancel;

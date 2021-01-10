@@ -15,7 +15,7 @@ const ViewAllOrders = () => {
 
   useEffect(() => {
     axios
-      .get('/api/v1/orders', { headers: { 'token': cookies.user_token } })
+      .get('/api/v1/orders', { headers: { token: cookies.user_token } })
       .then((res) => {
         setOrders(res.data);
       })
@@ -29,7 +29,7 @@ const ViewAllOrders = () => {
   };
 
   return (
-    <div style={{ marginTop: '1em' }}>
+    <div data-testid="all-orders-div" style={{ marginTop: '1em' }}>
       {orders.map((order) => (
         <div style={innerDiv} key={order.id}>
           <span style={eachOrderSpan}>
@@ -58,11 +58,11 @@ export default ViewAllOrders;
 // style
 
 let orderColorStatus = {
-  'New': '#d3abed',
-  'Sent': '#8ab7ff',
+  New: '#d3abed',
+  Sent: '#8ab7ff',
   'In progress': '#e6bd65',
-  'Canceled': '#f76f68',
-  'Done': '#7be070',
+  Canceled: '#f76f68',
+  Done: '#7be070',
 };
 
 let innerDiv = {

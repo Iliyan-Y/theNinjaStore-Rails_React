@@ -45,7 +45,11 @@ const RemoveItem = ({ itemId, items, setBasket }) => {
   };
 
   return (
-    <Button className="btn-danger" onClick={() => removeItem()}>
+    <Button
+      data-testid="remove-btn-basket"
+      className="btn-danger"
+      onClick={() => removeItem()}
+    >
       X
     </Button>
   );

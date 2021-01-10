@@ -15,9 +15,9 @@ const BasketPage = () => {
     return total.toFixed(2);
   };
 
-  if (basket) {
+  if (basket && basket.items.length > 0) {
     return (
-      <div style={outerDiv}>
+      <div data-testid="basket-div" style={outerDiv}>
         <RenderItems items={basket.items} setBasket={setBasket} />
         <div style={bottomDiv}>
           <h4>Total: {calcTotalPrice()} </h4>

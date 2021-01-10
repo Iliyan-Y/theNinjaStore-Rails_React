@@ -19,8 +19,8 @@ const SignUp = () => {
 
     await axios
       .post('/api/v1/users', body)
-      .then((res) => console.log(res.status))
-      .catch((err) => console.log(err.message));
+      .then((res) => res.status)
+      .catch((err) => console.error(err.message));
 
     setEmail('');
     setPassword('');
@@ -34,14 +34,14 @@ const SignUp = () => {
         type="email"
         name="email"
         value={email}
-        placeholder="email"
+        placeholder="Email"
       />
       <input
         onChange={(e) => setPassword(e.target.value)}
         value={password}
         type="password"
         name="Password"
-        placeholder="password"
+        placeholder="Password"
       />
       <input
         onChange={(e) => setConfirmPassword(e.target.value)}

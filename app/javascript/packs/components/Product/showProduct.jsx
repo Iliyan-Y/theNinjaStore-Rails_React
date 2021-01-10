@@ -48,7 +48,11 @@ const ShowProduct = ({ match }) => {
             {product.name}
           </h4>
           <span style={firstInnerSpan}>
-            <img src={product.image} alt="" style={{ width: '35vh' }} />
+            <img
+              src={product.image}
+              alt={product.name}
+              style={{ width: '35vh' }}
+            />
             <p style={{ width: '50vh', margin: '0 auto', padding: '0.3em' }}>
               {product.description}
             </p>

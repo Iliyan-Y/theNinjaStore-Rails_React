@@ -5,14 +5,14 @@ import { Switch, Route } from 'react-router-dom';
 import Home from './storeHome/home';
 import CreateProduct from './Product/createProduct';
 import ShowProduct from './Product/showProduct';
-import SignUp from './Auth/SignSup';
+import SignUp from './Auth/SignUp';
 import LogIn from './Auth/LogIn';
 import BasketPage from './Basket/basketPage';
 import ActionBar from './ActionBar/actionBar';
 import OrderForm from './Orders/orderForm';
 import ViewAllOrders from './AdminPanel/viewAllOrders';
 import UserOrders from './UserPanel/userOrders';
-import CheckoutCansel from './checkout/cansel';
+import CheckoutCancel from './checkout/cancel';
 import CheckoutSuccess from './checkout/success';
 
 const App = () => {
@@ -30,7 +30,7 @@ const App = () => {
         <Route exact path="/admin/all-orders" component={ViewAllOrders} />
         <Route exact path="/user/orders" component={UserOrders} />
         <Route exact path="/checkout/success" component={CheckoutSuccess} />
-        <Route exact path="/checkout/cancel" component={CheckoutCansel} />
+        <Route exact path="/checkout/cancel" component={CheckoutCancel} />
       </Switch>
     </>
   );

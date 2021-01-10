@@ -8,7 +8,7 @@ const DisplayProducts = ({ products }) => {
   };
 
   return (
-    <div style={outerDiv}>
+    <div data-testid="prod" style={outerDiv}>
       {products.map((each) => (
         <span style={innerSpan} key={each.id}>
           <Link
@@ -18,8 +18,15 @@ const DisplayProducts = ({ products }) => {
           >
             {each.name}
           </Link>
-          <p style={{ width: '33vh' }}>{summarize(each.description, 80)}...</p>
-          <img src={each.image} style={{ width: '35vh' }} />
+          <p data-testid="short-description" style={{ width: '33vh' }}>
+            {summarize(each.description, 80)}...
+          </p>
+          <img
+            data-testid={'Image-' + each.id}
+            alt={'Image of ' + each.name}
+            src={each.image}
+            style={{ width: '35vh' }}
+          />
           <p>£{each.price}</p>
           <AddToBasket product={each} />
           <br />
