@@ -62,3 +62,5 @@ gem 'stripe', '~> 5.28'
 gem 'aws-sdk-s3', require: false
 gem 'sassc', '2.0.1'
 gem 'uglifier', '~> 4.2'
+
+gem "active_storage_validations", "~> 0.9.1"
