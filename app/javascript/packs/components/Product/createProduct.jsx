@@ -2,18 +2,24 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
+import { validateProductForm } from '../../helpers/formValidators';
 
 const CreateProduct = () => {
   let history = useHistory();
   let [name, setName] = useState('');
   let [description, setDescription] = useState('');
   let [price, setPrice] = useState('');
-  let [image, setImage] = useState(null);
+  let [image, setImage] = useState(undefined);
   let [files, setFiles] = useState([]);
   const [cookies] = useCookies();
+  let [valid, setValid] = useState('default');
 
   useEffect(() => {
     let token = cookies.user_token;
+    verifyUser(token);
+  }, []);
+
+  const verifyUser = (token) => {
     axios
       .get('/new/product', {
         headers: {
@@ -24,9 +30,24 @@ const CreateProduct = () => {
         console.error(err.message);
         history.push('/');
       });
-  }, []);
+  };
 
   let submit = () => {
+    const [validateInput, error] = validateProductForm(
+      name,
+      description,
+      price,
+      image
+    );
+    if (validateInput) {
+      let body = createBody();
+      postProduct(body);
+    } else {
+      setValid(error);
+    }
+  };
+
+  const createBody = () => {
     const body = new FormData();
     body.append('product[name]', name);
     body.append('product[description]', description);
@@ -35,19 +56,26 @@ const CreateProduct = () => {
     for (let i = 0; i < 5; i++) {
       body.append(`photos[${i}]`, files[i]);
     }
+    return body;
+  };
 
+  const postProduct = (body) => {
     axios
       .post('/api/v1/products', body, {
         headers: { 'token': cookies.user_token },
       })
       .then(() => {
-        setName('');
-        setDescription('');
-        setPrice('');
-        setImage(undefined);
+        clearInput();
         history.push('/');
       })
-      .catch((err) => console.error('Error : ' + err.message));
+      .catch((err) => console.error(err.message));
+  };
+
+  const clearInput = () => {
+    setName('');
+    setDescription('');
+    setPrice('');
+    setImage(undefined);
   };
 
   let addMorePhotos = (e) => {
@@ -62,6 +90,8 @@ const CreateProduct = () => {
     <div style={outerDiv}>
       <p>Title</p>
       <input
+        required
+        style={inputStyle[valid]}
         type="text"
         placeholder="title"
         value={name}
@@ -69,6 +99,8 @@ const CreateProduct = () => {
       ></input>
       <p>Description</p>
       <textarea
+        required
+        style={inputStyle[valid]}
         placeholder="description"
         cols="30"
         rows="5"
@@ -77,6 +109,7 @@ const CreateProduct = () => {
       ></textarea>
       <p>Price</p>
       <input
+        required
         type="number"
         placeholder="price"
         value={price}
@@ -84,6 +117,7 @@ const CreateProduct = () => {
       />
       <label htmlFor="photoCover">Photo Cover:</label>
       <input
+        required
         data-testid="photo-upload"
         type="file"
         name="photoCover"
@@ -113,4 +147,10 @@ let outerDiv = {
   width: '50%',
   minWidth: '300px',
   margin: '1em auto',
+};
+
+const inputStyle = {
+  title: { border: '3px solid red' },
+  description: { border: '3px solid red' },
+  default: { border: '1px solid grey' },
 };
