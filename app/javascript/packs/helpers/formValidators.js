@@ -11,15 +11,15 @@ export const validateProductForm = (name, description, price, image) => {
 
   if (price == '') {
     alert('Price cant be blank');
-    return false;
+    return [false, 'price'];
   } else if (price < 1) {
     alert('price must be greater then 0');
-    return false;
+    return [false, 'price'];
   }
 
   if (image == undefined) {
     alert('Please add cover image');
-    return false;
+    return [false, 'image'];
   }
 
   return [true, 'default'];

@@ -90,8 +90,7 @@ const CreateProduct = () => {
     <div style={outerDiv}>
       <p>Title</p>
       <input
-        required
-        style={inputStyle[valid]}
+        style={valid == 'title' ? inputStyle.error : inputStyle.default}
         type="text"
         placeholder="title"
         value={name}
@@ -99,8 +98,7 @@ const CreateProduct = () => {
       ></input>
       <p>Description</p>
       <textarea
-        required
-        style={inputStyle[valid]}
+        style={valid == 'description' ? inputStyle.error : inputStyle.default}
         placeholder="description"
         cols="30"
         rows="5"
@@ -109,7 +107,7 @@ const CreateProduct = () => {
       ></textarea>
       <p>Price</p>
       <input
-        required
+        style={valid == 'price' ? inputStyle.error : inputStyle.default}
         type="number"
         placeholder="price"
         value={price}
@@ -117,7 +115,7 @@ const CreateProduct = () => {
       />
       <label htmlFor="photoCover">Photo Cover:</label>
       <input
-        required
+        style={valid == 'image' ? inputStyle.error : inputStyle.image}
         data-testid="photo-upload"
         type="file"
         name="photoCover"
@@ -150,7 +148,7 @@ let outerDiv = {
 };
 
 const inputStyle = {
-  title: { border: '3px solid red' },
-  description: { border: '3px solid red' },
+  error: { border: '2px solid red' },
   default: { border: '1px solid grey' },
+  image: { border: 'none' },
 };
