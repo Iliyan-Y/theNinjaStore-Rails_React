@@ -30,12 +30,12 @@ test('Check the create product page is rendered correctly', () => {
   getByText(/Galery/);
 });
 
-test('Check if the submit button works', () => {
+test('Empty form can NOT be submitted', () => {
   const { getByText } = render(<CreateProduct />);
 
   const btn = getByText('Submit');
   fireEvent.click(btn);
-  expect(axios.post).toHaveBeenCalledTimes(1);
+  expect(axios.post).toHaveBeenCalledTimes(0);
 });
 
 test('title field change after input', () => {
