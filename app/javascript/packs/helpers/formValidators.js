@@ -13,7 +13,7 @@ export const validateProductForm = (name, description, price, image) => {
     alert('Price cant be blank');
     return [false, 'price'];
   } else if (price < 1) {
-    alert('price must be greater then 0');
+    alert('Price must be greater then 0');
     return [false, 'price'];
   }
 

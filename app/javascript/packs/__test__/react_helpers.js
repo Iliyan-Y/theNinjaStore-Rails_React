@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
-import { render } from '@testing-library/react';
+import { render, fireEvent, waitFor } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import store from 'packs/store';
 import configureStore from 'redux-mock-store';
@@ -100,3 +100,34 @@ export const fakeOrderList = [
     customer_name: 'Kiro',
   },
 ];
+
+export const fillProductForm = (title, description, price) => {
+  fireEvent.change(title, {
+    target: {
+      value: 'New test product',
+    },
+  });
+  fireEvent.change(description, {
+    target: {
+      value: 'Organic sand',
+    },
+  });
+  fireEvent.change(price, {
+    target: {
+      value: 1000,
+    },
+  });
+};
+
+export const createFakeFile = (title, type) => {
+  let file = new File(['(⌐□_□)'], title, { type });
+  return file;
+};
+
+export const addFakeCoverPhoto = async (button, files) => {
+  await waitFor(() =>
+    fireEvent.change(button, {
+      target: { files },
+    })
+  );
+};

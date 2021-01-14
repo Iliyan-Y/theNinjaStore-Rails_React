@@ -6,12 +6,12 @@ import { validateProductForm } from '../../helpers/formValidators';
 
 const CreateProduct = () => {
   let history = useHistory();
+  const [cookies] = useCookies();
   let [name, setName] = useState('');
   let [description, setDescription] = useState('');
   let [price, setPrice] = useState('');
   let [image, setImage] = useState(undefined);
   let [files, setFiles] = useState([]);
-  const [cookies] = useCookies();
   let [valid, setValid] = useState('default');
 
   useEffect(() => {
@@ -80,9 +80,9 @@ const CreateProduct = () => {
 
   let addMorePhotos = (e) => {
     if (e.target.files.length <= 5) {
-      let f = [];
-      [...e.target.files].map((each) => f.push(each));
-      setFiles(f);
+      let allFiles = [];
+      [...e.target.files].map((each) => allFiles.push(each));
+      setFiles(allFiles);
     } else alert('Only 5 files allowed');
   };
 
@@ -122,12 +122,12 @@ const CreateProduct = () => {
         id="photoCover"
         onChange={(e) => setImage(e.target.files[0])}
       />
-      <label htmlFor="Galery">Galery:</label>
+      <label htmlFor="Gallery">Gallery:</label>
       <input
-        data-testid="galery"
+        data-testid="gallery"
         type="file"
-        name="Galery"
-        id="Galery"
+        name="Gallery"
+        id="Gallery"
         multiple
         onChange={(e) => addMorePhotos(e)}
       />
