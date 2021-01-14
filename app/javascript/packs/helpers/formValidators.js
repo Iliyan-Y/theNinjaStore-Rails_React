@@ -24,3 +24,15 @@ export const validateProductForm = (name, description, price, image) => {
 
   return [true, 'default'];
 };
+
+export const validateFileType = (file) => {
+  if (
+    file.type === 'image/jpeg' ||
+    file.type === 'image/png' ||
+    file.type === 'image/jpg'
+  ) {
+    return true;
+  }
+
+  return false;
+};

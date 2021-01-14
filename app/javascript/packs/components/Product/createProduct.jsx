@@ -2,7 +2,10 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
-import { validateProductForm } from '../../helpers/formValidators';
+import {
+  validateProductForm,
+  validateFileType,
+} from '../../helpers/formValidators';
 
 const CreateProduct = () => {
   let history = useHistory();
@@ -11,7 +14,7 @@ const CreateProduct = () => {
   let [description, setDescription] = useState('');
   let [price, setPrice] = useState('');
   let [image, setImage] = useState(undefined);
-  let [files, setFiles] = useState([]);
+  let [gallery, setGallery] = useState([]);
   let [valid, setValid] = useState('default');
 
   useEffect(() => {
@@ -54,7 +57,7 @@ const CreateProduct = () => {
     body.append('product[price]', price);
     body.append('product[image]', image);
     for (let i = 0; i < 5; i++) {
-      body.append(`photos[${i}]`, files[i]);
+      body.append(`photos[${i}]`, gallery[i]);
     }
     return body;
   };
@@ -78,12 +81,29 @@ const CreateProduct = () => {
     setImage(undefined);
   };
 
-  let addMorePhotos = (e) => {
-    if (e.target.files.length <= 5) {
-      let allFiles = [];
-      [...e.target.files].map((each) => allFiles.push(each));
-      setFiles(allFiles);
+  let attachGallery = (files) => {
+    if (files.length <= 5) {
+      setGallery(filterFiles(files));
     } else alert('Only 5 files allowed');
+  };
+
+  const filterFiles = (files) => {
+    let allFiles = [];
+    [...files].map((each) => {
+      if (!validateFileType(each)) {
+        alert('File can be only image type');
+        return;
+      }
+
+      allFiles.push(each);
+    });
+    return allFiles;
+  };
+
+  const addCoverImage = (file) => {
+    validateFileType(file)
+      ? setImage(file)
+      : alert('File can be only image type');
   };
 
   return (
@@ -120,7 +140,7 @@ const CreateProduct = () => {
         type="file"
         name="photoCover"
         id="photoCover"
-        onChange={(e) => setImage(e.target.files[0])}
+        onChange={(e) => addCoverImage(e.target.files[0])}
       />
       <label htmlFor="Gallery">Gallery:</label>
       <input
@@ -129,7 +149,7 @@ const CreateProduct = () => {
         name="Gallery"
         id="Gallery"
         multiple
-        onChange={(e) => addMorePhotos(e)}
+        onChange={(e) => attachGallery(e.target.files)}
       />
       <button onClick={() => submit()}>Submit</button>
     </div>
