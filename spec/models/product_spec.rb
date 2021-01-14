@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe Product, type: :model do
   before(:each) do
-    @product = Product.create(name: 'Test', description: 'Testeste', price: '1.00')
+    @product = Product.create(name: 'Test', description: 'Testeste', price: '1.00', image: create_test_image)
   end
 
   it 'Add a product to the producs database' do
@@ -12,8 +12,8 @@ RSpec.describe Product, type: :model do
   end
 
   it 'return all the products in the database' do
-    3.times { Product.create(name: 'Test', description: 'Testeste', price: '1.00') }
-    expect(Product.all.length).to be > 1
+    3.times { Product.create(name: 'Test', description: 'Testeste', price: '1.00', image: create_test_image ) }
+    expect(Product.all.length).to be > 0
   end
 
   it 'expect product tohave image attached' do
