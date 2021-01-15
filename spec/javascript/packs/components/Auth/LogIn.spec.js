@@ -1,10 +1,10 @@
 import React from 'react';
 import LogIn from 'packs/components/Auth/LogIn';
-import { render, fireEvent, waitFor } from '@testing-library/react';
+import { render, fireEvent, waitFor, cleanup } from '@testing-library/react';
 import axios from 'axios';
+
 jest.mock('axios');
 const mockSetCookie = jest.fn();
-
 jest.mock('react-cookie', () => ({
   useCookies: () => [
     {
@@ -13,6 +13,12 @@ jest.mock('react-cookie', () => ({
     mockSetCookie,
   ],
 }));
+
+beforeAll(() => {
+  console.error = jest.fn();
+});
+
+afterAll(cleanup);
 
 test('render the component', () => {
   const { getByText, getByPlaceholderText } = render(<LogIn />);

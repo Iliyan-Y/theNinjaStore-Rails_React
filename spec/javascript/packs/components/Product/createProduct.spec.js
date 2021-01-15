@@ -8,6 +8,7 @@ import {
   createFakeFile,
   addFakeCoverPhoto,
 } from 'packs/__test__/react_helpers';
+import * as validator from 'packs/helpers/formValidators.js';
 
 let file;
 let mockPush = jest.fn();
@@ -68,6 +69,8 @@ describe('form validation', () => {
   });
 
   test('submit a valid form with all inputs', async () => {
+    let original = validator.validateProductForm;
+    validator.validateProductForm = jest.fn().mockReturnValueOnce([true, '']);
     const {
       getByPlaceholderText,
       getByDisplayValue,
@@ -83,9 +86,10 @@ describe('form validation', () => {
     getByDisplayValue('1000');
     let uploader = getByTestId('photo-upload');
     await addFakeCoverPhoto(uploader, [file]);
-    await waitFor(() => fireEvent.click(getByText('Submit')));
-    expect(axios.post).toHaveBeenCalledTimes(1);
+    fireEvent.click(getByText('Submit'));
+    await waitFor(() => expect(axios.post).toHaveBeenCalledTimes(1));
     expect(mockPush).toHaveBeenCalledWith('/');
+    validator.validateProductForm = original;
   });
 
   test('submit invalid tile value highlight the area', async () => {

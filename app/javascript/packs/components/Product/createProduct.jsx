@@ -6,6 +6,7 @@ import {
   validateProductForm,
   validateFileType,
 } from '../../helpers/formValidators';
+import imageCompression from 'browser-image-compression';
 
 const CreateProduct = () => {
   let history = useHistory();
@@ -100,10 +101,30 @@ const CreateProduct = () => {
     return allFiles;
   };
 
-  const addCoverImage = (file) => {
-    validateFileType(file)
-      ? setImage(file)
+  const addCoverImage = (image) => {
+    validateFileType(image)
+      ? compressImage(image, setImage)
       : alert('File can be only image type');
+  };
+
+  const compressImage = (imageFile, saveToState) => {
+    //console.log(`originalFile size ${imageFile.size / 1024 / 1024} MB`);
+
+    var options = {
+      maxSizeMB: 1,
+      maxWidthOrHeight: 800,
+    };
+    imageCompression(imageFile, options)
+      .then(function (compressedFile) {
+        // console.log(
+        //   `compressedFile size ${compressedFile.size / 1024 / 1024} MB`
+        // );
+
+        return saveToState(compressedFile);
+      })
+      .catch(function (error) {
+        console.log(error.message);
+      });
   };
 
   return (
