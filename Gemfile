@@ -64,3 +64,5 @@ gem 'sassc', '2.0.1'
 gem 'uglifier', '~> 4.2'
 
 gem "active_storage_validations", "~> 0.9.1"
+
+gem "mini_magick", "~> 4.11"
