@@ -5,6 +5,8 @@ import { useCookies } from 'react-cookie';
 import {
   validateProductForm,
   validateFileType,
+  imageOptions,
+  validateGallery,
 } from '../../helpers/formValidators';
 import imageCompression from 'browser-image-compression';
 
@@ -69,62 +71,34 @@ const CreateProduct = () => {
         headers: { 'token': cookies.user_token },
       })
       .then(() => {
-        clearInput();
         history.push('/');
       })
       .catch((err) => console.error(err.message));
   };
 
-  const clearInput = () => {
-    setName('');
-    setDescription('');
-    setPrice('');
-    setImage(undefined);
-  };
-
-  let attachGallery = (files) => {
-    if (files.length <= 5) {
-      setGallery(filterFiles(files));
+  let attachGallery = (images) => {
+    if (images.length <= 5) {
+      let compressedImages = compressGallery(validateGallery(images));
+      setGallery(compressedImages);
     } else alert('Only 5 files allowed');
   };
 
-  const filterFiles = (files) => {
-    let allFiles = [];
-    [...files].map((each) => {
-      if (!validateFileType(each)) {
-        alert('File can be only image type');
-        return;
-      }
-
-      allFiles.push(each);
+  const compressGallery = (uncompressed) => {
+    let all = [];
+    uncompressed.map((imageFile) => {
+      imageCompression(imageFile, imageOptions).then((compressedImage) =>
+        all.push(compressedImage)
+      );
     });
-    return allFiles;
+    return all;
   };
 
   const addCoverImage = (image) => {
     validateFileType(image)
-      ? compressImage(image, setImage)
+      ? imageCompression(image, imageOptions).then((compressedImage) =>
+          setImage(compressedImage)
+        )
       : alert('File can be only image type');
-  };
-
-  const compressImage = (imageFile, saveToState) => {
-    //console.log(`originalFile size ${imageFile.size / 1024 / 1024} MB`);
-
-    var options = {
-      maxSizeMB: 1,
-      maxWidthOrHeight: 800,
-    };
-    imageCompression(imageFile, options)
-      .then(function (compressedFile) {
-        // console.log(
-        //   `compressedFile size ${compressedFile.size / 1024 / 1024} MB`
-        // );
-
-        return saveToState(compressedFile);
-      })
-      .catch(function (error) {
-        console.log(error.message);
-      });
   };
 
   return (

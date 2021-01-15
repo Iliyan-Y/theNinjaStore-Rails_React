@@ -1,3 +1,8 @@
+export const imageOptions = {
+  maxSizeMB: 1,
+  maxWidthOrHeight: 800,
+};
+
 export const validateProductForm = (name, description, price, image) => {
   if (name.length < 3) {
     alert('Title must be at least 3 characters long');
@@ -35,4 +40,17 @@ export const validateFileType = (file) => {
   }
 
   return false;
+};
+
+export const validateGallery = (images) => {
+  let allFiles = [];
+  [...images].map((photo) => {
+    if (!validateFileType(photo)) {
+      alert('File can be only image type');
+      return;
+    }
+
+    allFiles.push(photo);
+  });
+  return allFiles;
 };
