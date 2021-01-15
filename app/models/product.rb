@@ -5,6 +5,6 @@ class Product < ApplicationRecord
   has_many_attached :photos
   
   validates :price, :name, presence: true
-  validates :image, attached: true, content_type: ['image/png', 'image/jpg', 'image/jpeg'], size: { less_than: 2.megabytes , message: 'invalid size' }
-  validates :photos, content_type: ['image/png', 'image/jpg', 'image/jpeg'], size: { less_than: 2.megabytes , message: 'invalid size' }
+  validates :image, attached: true, content_type: ['image/png', 'image/jpg', 'image/jpeg'], size: { less_than: 1.megabytes , message: 'invalid size' }
+  validates :photos, content_type: ['image/png', 'image/jpg', 'image/jpeg'], size: { less_than: 1.megabytes , message: 'invalid size' }
 end
