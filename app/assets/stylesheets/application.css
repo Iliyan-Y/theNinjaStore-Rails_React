@@ -13,3 +13,15 @@
  *= require_tree .
  *= require_self
  */
+
+.inputOutline {
+  border-radius: 5px;
+  margin: 0.4em;
+  border: 0.5px solid grey;
+}
+
+.inputOutline:focus {
+  outline: none;
+  border: 1px solid hotpink;
+  box-shadow: 0 0 6px #060708;
+}

@@ -18,7 +18,11 @@ const DeleteProduct = ({ productId }) => {
       .then(() => history.push('/'))
       .catch((err) => console.error(err.message));
   };
-  return <button onClick={() => deleteItem()}>Delete</button>;
+  return (
+    <button className="btn btn-danger" onClick={() => deleteItem()}>
+      Delete
+    </button>
+  );
 };
 
 export default DeleteProduct;
