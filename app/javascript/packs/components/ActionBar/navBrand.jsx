@@ -11,7 +11,7 @@ const NavBrand = () => {
         className="navbar-brand"
         to="/"
       >
-        The Ninja Store
+        Nevi's healthy life
       </Link>
     </Nav>
   );
