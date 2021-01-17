@@ -34,9 +34,6 @@
 
 - To start the app
 
-  - Create a brandName file
-    `echo "export const brandName = 'Your Brand'" > brandName.js`
-
   - Start the server
 
   ```

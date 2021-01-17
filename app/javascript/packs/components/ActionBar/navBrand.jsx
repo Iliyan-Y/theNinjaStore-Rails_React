@@ -1,7 +1,6 @@
 import React from 'react';
 import { Nav } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import { brandName } from '../../../../../brandName';
 
 const NavBrand = () => {
   return (
@@ -12,7 +11,7 @@ const NavBrand = () => {
         className="navbar-brand"
         to="/"
       >
-        {brandName}
+        Nevi's healthy life
       </Link>
     </Nav>
   );
