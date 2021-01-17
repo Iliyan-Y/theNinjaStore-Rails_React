@@ -27,8 +27,8 @@ const ActionBar = () => {
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Menu isAdmin={isUser.admin} isUser={isUser.user} logOut={logOut} />
-        <BasketShortcut />
       </Navbar.Collapse>
+      <BasketShortcut />
     </Navbar>
   );
 };

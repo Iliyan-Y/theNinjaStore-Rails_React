@@ -34,6 +34,9 @@
 
 - To start the app
 
+  - Create a brandName file
+    `echo "export const brandName = 'Your Brand'" > brandName.js`
+
   - Start the server
 
   ```
@@ -42,9 +45,9 @@
 
   - Navigate to http://localhost:3000/
 
-- Environment variables required
-  in the root dir of the app create .env file `touch .env`
-  open the .env file and add the following variables:
+- Environment variables required:
+  - create .env file `touch .env`
+  - open the .env file and add the following variables:
 
 ```
 JWT_SECRET=REPLACE_WITH_YOUR_VALUE

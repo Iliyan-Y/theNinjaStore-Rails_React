@@ -6,7 +6,7 @@ import UserMenu from './menuOptions/userMenu';
 
 const Menu = ({ isAdmin, isUser, logOut }) => {
   return (
-    <Nav className="mr-auto">
+    <Nav className="ml-auto">
       <AdminMenu isAdmin={isAdmin} logOut={logOut} />
       <UserMenu isUser={isUser} isAdmin={isAdmin} logOut={logOut} />
       <NoUser isUser={isUser} />
