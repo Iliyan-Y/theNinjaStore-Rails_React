@@ -22,9 +22,7 @@ const LogIn = () => {
     axios
       .post('/api/v1/users/sign_in', body)
       .then((res) => {
-        let response = JSON.stringify(res.data);
-        let parsed = JSON.parse(response);
-        setCookie('user_token', parsed.data.user.auth_token, {
+        setCookie('user_token', res.data, {
           maxAge: 3600,
         });
       })
