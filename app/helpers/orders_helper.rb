@@ -13,11 +13,11 @@ module OrdersHelper
                                      })
   end
 
-  def create_stripe_customer(params)
+  def create_stripe_customer(params, email)
     Stripe::Customer.create({
                               name: params['order']['customer_name'],
                               phone: params['order']['phone'],
-                              email: params['order']['email'],
+                              email: email,
                               metadata: { products: params['order']['productsId'].join(',') }
                             })
   end

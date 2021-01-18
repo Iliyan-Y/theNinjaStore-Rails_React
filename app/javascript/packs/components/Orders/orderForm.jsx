@@ -1,15 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import NewOrder from './newOrder';
+import { checkForUser } from '../../helpers/checkForUser';
+import { useCookies } from 'react-cookie';
 
 const OrderForm = () => {
   let [email, setEmail] = useState('');
   let [name, setName] = useState('');
   let [phone, setPhone] = useState('');
+  let [isUser, setIsUser] = useState({ user: false });
+  const [cookies] = useCookies();
+
+  useEffect(() => {
+    checkForUser(cookies.user_token, setIsUser);
+  }, []);
 
   return (
     <div data-testid="order-from" style={formStyle}>
-      <label htmlFor="email">Email *</label>
+      <label style={emailStyle(isUser)} htmlFor="email">
+        Email *
+      </label>
       <input
+        style={emailStyle(isUser)}
         type="email"
         id="email"
         name="email"
@@ -35,7 +46,12 @@ const OrderForm = () => {
         placeholder="Phone Number"
         onChange={(e) => setPhone(e.target.value)}
       />
-      <NewOrder email={email} name={name} phone={phone} />
+      <NewOrder
+        email={email}
+        name={name}
+        phone={phone}
+        token={cookies.user_token}
+      />
     </div>
   );
 };
@@ -47,4 +63,9 @@ let formStyle = {
   flexDirection: 'column',
   width: '48vh',
   margin: '1em auto',
+};
+let emailStyle = (isUser) => {
+  return {
+    display: isUser.user ? 'none' : 'block',
+  };
 };

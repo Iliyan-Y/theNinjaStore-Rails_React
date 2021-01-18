@@ -1,13 +1,11 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { Button } from 'react-bootstrap';
-import { useCookies } from 'react-cookie';
 import { loadStripe } from '@stripe/stripe-js';
 const stripePromise = loadStripe(
   'pk_test_51HxwzUFr1fOlo3WtjiUKn9CcA3UkYmgYf4EkQ9GBbb8Qk3NCOkLc6htsEoyLV2IG989T7uCkdGfwMUJQszUcHeLq00ZbXFjQum'
 );
-const NewOrder = ({ name, email, phone }) => {
-  const [cookies] = useCookies();
+const NewOrder = ({ name, email, phone, token }) => {
   let [basket, setBasket] = useState(
     JSON.parse(sessionStorage.getItem('basket'))
   );
@@ -37,7 +35,7 @@ const NewOrder = ({ name, email, phone }) => {
   let sendToApi = async (body) => {
     let headers = {
       headers: {
-        token: cookies.user_token,
+        token,
       },
     };
     const stripe = await stripePromise;
