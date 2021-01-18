@@ -21,4 +21,12 @@ module OrdersHelper
                               metadata: { products: params['order']['productsId'].join(',') }
                             })
   end
+
+  def validate_params(params, email)
+      return false unless params['order']['customer_name'].length > 2
+      return false unless params['order']['phone'].length > 5
+      return false unless email.length > 3
+
+      return true
+  end
 end

@@ -25,10 +25,10 @@ module Api
         line_items = helpers.create_line_items(@order_products)
         session = helpers.create_stripe_session(customer, line_items)
 
-        if session
+        if session && helpers.validate_params(params, email)
           render json: { sessionId: session.id }, status: 200
         else
-          head 400
+          render json: { message: "Invalid params" }, status: 400
         end
       end
 
@@ -111,6 +111,7 @@ module Api
       def order_params
         params.require(:order).permit(:email, :customer_name, :phone, :status, :number_of_items, productsId: [])
       end
+
     end
   end
 end
