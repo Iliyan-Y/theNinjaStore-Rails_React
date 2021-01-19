@@ -4,6 +4,9 @@ module Api
   module V1
     module Users
       class RegistrationsController < Devise::RegistrationsController
+        include ActionController::Helpers
+        helper RegistrationsHelper
+
         skip_before_action :verify_authenticity_token, only: :create
         # protect_from_forgery with: :null_session
 
@@ -13,7 +16,7 @@ module Api
           if user.save
             head 200
           else
-            render json: display_error(params), status: 422
+            render json: helpers.display_error(params), status: 422
           end
         end
 
@@ -21,16 +24,6 @@ module Api
 
         def user_params
           params.require(:user).permit(:email, :password, :password_confirmation)
-        end
-
-        def display_error(params)
-          return 'User already exists' if User.find_by_email(params[:user][:email])
-
-          return 'Password not match' unless params[:user][:password] == params[:user][:password_confirmation]
-
-          return 'Password must be at least 5 characters' unless params[:user][:password].length > 5
-
-          'Something went wrong please try again'
         end
 
         def ensure_params_exist
