@@ -56,6 +56,7 @@ const OrderForm = () => {
         name={name}
         phone={phone}
         token={cookies.user_token}
+        user={isUser.user}
       />
     </div>
   );
