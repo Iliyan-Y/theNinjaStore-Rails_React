@@ -7,7 +7,7 @@ module Api
       helper ApplicationHelper
       helper OrdersHelper
 
-      before_action :find_user, only: %i[index change_status user_orders, create]
+      before_action :find_user, only: %i[index change_status user_orders create]
       before_action :find_order_products, only: %i[create display_products]
 
       def index
@@ -28,7 +28,7 @@ module Api
         if session && helpers.validate_params(params, email)
           render json: { sessionId: session.id }, status: 200
         else
-          render json: { message: "Invalid params" }, status: 400
+          render json: { message: 'Invalid params' }, status: 400
         end
       end
 
@@ -111,7 +111,6 @@ module Api
       def order_params
         params.require(:order).permit(:email, :customer_name, :phone, :status, :number_of_items, productsId: [])
       end
-
     end
   end
 end

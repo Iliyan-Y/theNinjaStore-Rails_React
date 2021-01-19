@@ -28,6 +28,7 @@ RSpec.describe Api::V1::OrdersController do
   end
 
   describe '#create' do
+    let(:post_params) { { order: { email: 'ex@me.com', customer_name: 'Kiro', phone: '123456' } } }
     before(:each) do
       allow(controller).to receive(:find_order_products)
       allow_any_instance_of(OrdersHelper).to receive(:create_stripe_customer)
@@ -36,14 +37,16 @@ RSpec.describe Api::V1::OrdersController do
     end
 
     it 'create sucessful stripe session' do
+      allow(controller).to receive(:find_user)
       allow_any_instance_of(OrdersHelper).to receive(:create_stripe_session).and_return(@session)
-      post :create
+      post :create, params: post_params
       expect(response.status).to eq(200)
     end
 
     it 'return bad request if session is NOT created' do
+      allow(controller).to receive(:find_user)
       allow_any_instance_of(OrdersHelper).to receive(:create_stripe_session).and_return(nil)
-      post :create
+      post :create, params: post_params
       expect(response.status).to eq(400)
     end
   end

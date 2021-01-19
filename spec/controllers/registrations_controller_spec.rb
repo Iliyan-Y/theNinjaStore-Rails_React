@@ -13,17 +13,10 @@ RSpec.describe Api::V1::Users::RegistrationsController do
       expect(response.status).to eq(200)
     end
 
-    it 'create and return user details if all user credentials match' do
-      post :create, params: user_params
-      res = JSON.parse(response.body)
-      expect(res['data']['user']['email']).to eq('example@me.com')
-    end
-
     it 'create and save user to the database' do
       post :create, params: user_params
       user = User.first
-      res = JSON.parse(response.body)
-      expect(res['data']['user']['id']).to eq(user.id)
+      expect(user.email).to eq('example@me.com')
     end
 
     it 'return status of unprocessable_entity(422) if user exist' do
