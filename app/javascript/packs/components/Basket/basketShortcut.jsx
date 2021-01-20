@@ -16,7 +16,7 @@ const BasketShortcut = () => {
   }, [items, refresh, sessionStorage.length]);
 
   return (
-    <Nav className="ml-auto">
+    <Nav className="mr-auto">
       <Link data-testid="basket-btn" className="btn btn-primary" to="/basket">
         Basket: {numberOfItems}
       </Link>

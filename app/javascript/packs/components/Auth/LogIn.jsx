@@ -34,27 +34,42 @@ const LogIn = () => {
   }
 
   return (
-    <div style={{ textAlign: 'center' }}>
-      <h4>Log In</h4>
-      <form onSubmit={(action) => submit(action)}>
+    <form
+      style={{ textAlign: 'center', border: '0.5px solid darkgrey' }}
+      onSubmit={(action) => submit(action)}
+      className="w-50 mx-auto p-3"
+    >
+      <div className="form-group">
+        <h4>Log In</h4>
+        <label htmlFor="email">Email address</label>
         <input
+          required
           onChange={(e) => setEmail(e.target.value)}
           type="email"
           name="email"
+          className="form-control w-50 mx-auto"
+          id="email"
+          aria-describedby="email"
           value={email}
           placeholder="Email"
         />
+      </div>
+      <div className="form-group">
+        <label htmlFor="password">Password</label>
         <input
+          required
           onChange={(e) => setPassword(e.target.value)}
           value={password}
           type="password"
           name="Password"
           placeholder="Password"
+          className="form-control w-50 mx-auto"
+          id="password"
+          aria-describedby="password"
         />
-
-        <input type="submit" value="Submit" />
-      </form>
-    </div>
+      </div>
+      <input className="btn btn-primary mt-2" type="submit" value="Submit" />
+    </form>
   );
 };
 

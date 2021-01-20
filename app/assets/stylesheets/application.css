@@ -25,3 +25,7 @@
   border: 1px solid hotpink;
   box-shadow: 0 0 6px #060708;
 }
+.dropdown-menu.show {
+  right: 0;
+  left: auto;
+}
