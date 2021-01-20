@@ -31,4 +31,4 @@ const DeleteWarning = ({ warning, setWarning }) => {
   );
 };
 
-export default DeleteWwarning;
+export default DeleteWarning;
