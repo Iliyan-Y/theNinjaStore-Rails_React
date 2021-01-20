@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
+import DeleteWarning from './deleteWarning';
 
 const DeleteProduct = ({ productId }) => {
   let history = useHistory();
   const [cookies] = useCookies();
+  let [warning, setWarning] = useState(false);
 
   let deleteItem = () => {
     let token = cookies.user_token;
@@ -18,10 +20,14 @@ const DeleteProduct = ({ productId }) => {
       .then(() => history.push('/'))
       .catch((err) => console.error(err.message));
   };
+
   return (
-    <button className="btn btn-danger" onClick={() => deleteItem()}>
-      Delete
-    </button>
+    <>
+      <DeleteWarning warning={warning} setWarning={setWarning} />
+      <button className="btn btn-danger" onClick={() => setWarning(!warning)}>
+        Delete
+      </button>
+    </>
   );
 };
 
