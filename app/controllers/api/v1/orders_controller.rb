@@ -7,7 +7,7 @@ module Api
       helper ApplicationHelper
       helper OrdersHelper
 
-      before_action :find_user, only: %i[index change_status user_orders]
+      before_action :find_user, only: %i[index change_status user_orders create]
       before_action :find_order_products, only: %i[create display_products]
 
       def index
@@ -20,14 +20,15 @@ module Api
       end
 
       def create
-        customer = helpers.create_stripe_customer(params)
+        email = @user ? @user.email : params['order']['email']
+        customer = helpers.create_stripe_customer(params, email)
         line_items = helpers.create_line_items(@order_products)
         session = helpers.create_stripe_session(customer, line_items)
 
-        if session
+        if session && helpers.validate_params(params, email)
           render json: { sessionId: session.id }, status: 200
         else
-          head 400
+          render json: { message: 'Invalid params' }, status: 400
         end
       end
 

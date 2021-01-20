@@ -4,9 +4,9 @@ export let checkForUser = (token, setIsUser) => {
   axios
     .get('/api/v1/users/verify', {
       headers: {
-        token: token,
+        token,
       },
     })
-    .then((res) => (res.status == 200 ? setIsUser(res.data) : ''))
+    .then((res) => res.status == 200 && setIsUser(res.data))
     .catch(() => {});
 };

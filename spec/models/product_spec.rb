@@ -12,7 +12,7 @@ RSpec.describe Product, type: :model do
   end
 
   it 'return all the products in the database' do
-    3.times { Product.create(name: 'Test', description: 'Testeste', price: '1.00', image: create_test_image ) }
+    3.times { Product.create(name: 'Test', description: 'Testeste', price: '1.00', image: create_test_image) }
     expect(Product.all.length).to be > 0
   end
 

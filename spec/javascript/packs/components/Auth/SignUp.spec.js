@@ -3,8 +3,11 @@ import SingUp from 'packs/components/Auth/SignUp';
 import '@testing-library/jest-dom/extend-expect';
 import { render, fireEvent, waitFor } from '@testing-library/react';
 import axios from 'axios';
+
 jest.mock('axios');
 console.error = jest.fn();
+let alertMock = jest.fn();
+global.alert = alertMock;
 
 test('Render the sign up component', () => {
   const { getByPlaceholderText, getByText } = render(<SingUp />);
@@ -15,18 +18,27 @@ test('Render the sign up component', () => {
 });
 
 test('Submit button trigger axios post request', async () => {
-  axios.post.mockRejectedValue({ message: 'Invalid input' });
+  axios.post.mockRejectedValue({
+    message: 'Invalid input',
+    response: { data: 'ALERT' },
+  });
   const { getByText } = render(<SingUp />);
   const submitBtn = getByText('Submit');
   await waitFor(() => fireEvent.click(submitBtn));
+
+  expect(alertMock).toHaveBeenCalledWith('ALERT');
   expect(axios.post).toHaveBeenCalledTimes(1);
   expect(console.error.mock.calls[0][0]).toBe('Invalid input');
 });
 
 test('post request send with required params', async () => {
-  axios.post.mockResolvedValue({});
-  const { getByText, getByPlaceholderText } = render(<SingUp />);
+  axios.post.mockResolvedValue({ data: 'das' });
+  axios.post.mockRejectedValue({
+    message: 'Invalid input',
+    response: { data: 'ALERT' },
+  });
 
+  const { getByText, getByPlaceholderText } = render(<SingUp />);
   let emailField = getByPlaceholderText('Email');
   let passwordField = getByPlaceholderText('Password');
   let cofPasswordField = getByPlaceholderText('Confirm Password');

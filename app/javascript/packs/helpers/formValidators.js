@@ -54,3 +54,17 @@ export const validateGallery = (images) => {
   });
   return allFiles;
 };
+
+export function validateOrderForm(name, email, phone, user) {
+  if (name.length < 3 || phone.length < 5) {
+    alert('Please fill in all fields');
+    return false;
+  }
+
+  if (!user && email.length < 5) {
+    alert('Please add valid email');
+    return false;
+  }
+
+  return true;
+}

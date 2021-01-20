@@ -11,17 +11,9 @@ module Api
           if @user.valid_password?(sign_in_params[:password])
             token = User.generate_token(@user.email)
             @user.update_attributes(auth_token: token)
-            render json: {
-              messages: 'Signed In Successfully',
-              is_success: true,
-              data: { user: @user }
-            }, status: :ok
+            render json: token, status: :ok
           else
-            render json: {
-              messages: 'Signed In Failed - Unauthorized',
-              is_success: false,
-              data: {}
-            }, status: :unauthorized
+            head 401
           end
         end
 

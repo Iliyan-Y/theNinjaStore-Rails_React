@@ -4,6 +4,9 @@ module Api
   module V1
     module Users
       class RegistrationsController < Devise::RegistrationsController
+        include ActionController::Helpers
+        helper RegistrationsHelper
+
         skip_before_action :verify_authenticity_token, only: :create
         # protect_from_forgery with: :null_session
 
@@ -11,17 +14,9 @@ module Api
           token = User.generate_token(params[:user][:email])
           user = User.new(user_params.merge(auth_token: token))
           if user.save
-            render json: {
-              messages: 'Sign Up Successfully',
-              is_success: true,
-              data: { user: user }
-            }, status: :ok
+            head 200
           else
-            render json: {
-              messages: 'Sign Up Failed',
-              is_success: false,
-              data: {}
-            }, status: :unprocessable_entity
+            render json: helpers.display_error(params), status: 422
           end
         end
 

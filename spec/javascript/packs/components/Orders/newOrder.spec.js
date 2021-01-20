@@ -5,6 +5,7 @@ import '@testing-library/jest-dom/extend-expect';
 import { fireEvent, render, waitFor, cleanup } from '@testing-library/react';
 import axios from 'axios';
 import { loadStripe } from '@stripe/stripe-js';
+import * as validator from 'packs/helpers/formValidators.js';
 
 jest.mock('@stripe/stripe-js', () => ({
   loadStripe: jest.fn(),
@@ -30,6 +31,7 @@ test('render the component', () => {
 });
 
 test('clicking place order triggers axios request to start stripe api process', async () => {
+  validator.validateOrderForm = jest.fn().mockReturnValue(true);
   axios.post.mockResolvedValue(false);
   const { getByText } = render(<NewOrder />);
   let btn = getByText('Place Order');

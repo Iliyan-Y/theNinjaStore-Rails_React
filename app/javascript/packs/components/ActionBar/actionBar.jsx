@@ -25,10 +25,10 @@ const ActionBar = () => {
     <Navbar bg="light" expand="lg" sticky="top">
       <NavBrand />
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
+      <BasketShortcut />
       <Navbar.Collapse id="basic-navbar-nav">
         <Menu isAdmin={isUser.admin} isUser={isUser.user} logOut={logOut} />
       </Navbar.Collapse>
-      <BasketShortcut />
     </Navbar>
   );
 };
