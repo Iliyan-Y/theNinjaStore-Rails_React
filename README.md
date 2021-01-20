@@ -1,4 +1,10 @@
-# README
+# Description
+
+E-commerce app allowing small businesses to sell their products directly to their customers cutting out the middleman fees of the big online corporations.
+
+# Tech Stack:
+
+React, Ruby on Rails, Redux, Postgresql, Stripe, Jest, Rspec, RTL, Docker, AWS S3, SES
 
 - Ruby version
 
@@ -10,7 +16,7 @@
 
 ```
 > bundle install
-> npm install
+> yarn install
 ```
 
 - Database creation
@@ -29,7 +35,7 @@
 
 ```
 > bundle exec rspec
-> npm test
+> yarn test
 ```
 
 - To start the app
@@ -41,6 +47,10 @@
   ```
 
   - Navigate to http://localhost:3000/
+
+# Usage
+
+In order to use the app in production AWS and Stripe accounts are required
 
 - Environment variables required:
   - create .env file `touch .env`
@@ -58,3 +68,14 @@ AWS_ACCESS_KEY_ID=AMAZON_S3_STORAGE_ID
 AWS_SECRET_ACCESS_KEY=AMAZON_S3_STORAGE_KEY
 KEY_BASE=RAILS_SECRET_KEY_BASE
 ```
+
+- Register user and promote it to admin from the rails console
+
+```
+rails c
+user = User.where(email: user@email.com)
+user.admin = true
+user.save
+```
+
+- Log in with the admin user and create a products
