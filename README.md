@@ -73,7 +73,7 @@ KEY_BASE=RAILS_SECRET_KEY_BASE
 
 ```
 rails c
-user = User.where(email: user@email.com)
+user = User.where(email: admin@email.com)[0]
 user.admin = true
 user.save
 ```
