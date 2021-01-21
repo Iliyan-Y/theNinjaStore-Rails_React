@@ -37,7 +37,7 @@ const SignUp = () => {
     <form
       style={{ textAlign: 'center', border: '0.5px solid darkgrey' }}
       onSubmit={(event) => submit(event)}
-      className="w-50 mx-auto p-3"
+      className="wid-50 mx-auto p-3"
     >
       <h3>Sign Up</h3>
       <div className="form-group">
@@ -47,7 +47,7 @@ const SignUp = () => {
           onChange={(e) => setEmail(e.target.value)}
           type="email"
           name="email"
-          className="form-control w-50 mx-auto"
+          className="form-control wid-50 mx-auto"
           id="email"
           aria-describedby="email"
           value={email}
@@ -63,7 +63,7 @@ const SignUp = () => {
           type="password"
           name="Password"
           placeholder="Password"
-          className="form-control w-50 mx-auto"
+          className="form-control wid-50 mx-auto"
           id="password"
           aria-describedby="password"
         />
@@ -79,7 +79,7 @@ const SignUp = () => {
           id="PasswordConfirmation"
           aria-describedby="PasswordConfirmation"
           placeholder="Confirm Password"
-          className="form-control w-50 mx-auto"
+          className="form-control wid-50 mx-auto"
         />
         <input className="btn btn-primary mt-2" type="submit" value="Submit" />
       </div>
