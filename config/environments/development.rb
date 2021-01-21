@@ -36,19 +36,19 @@ Rails.application.configure do
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.perform_caching = false
   config.action_mailer.perform_deliveries = true
-  config.action_mailer.delivery_url_options = {host: 'localhost', port: 3000}
+  # config.action_mailer.delivery_url_options = {host: 'localhost', port: 3000}
   config.action_mailer.delivery_method = :smtp
-  #AWS SES
+  # AWS SES
   config.action_mailer.smtp_settings = {
     address: 'email-smtp.eu-west-2.amazonaws.com',
     port: 587,
     user_name: ENV['MAILER_SENDER'],
     password: ENV['MAILER_PASSWORD'],
-    authentication: :login,
+    authentication: 'plain',
     enable_starttls_auto: true
   }
 
-   # host = 'example.com' #replace with your own url
+  # host = 'example.com' #replace with your own url
   # config.action_mailer.default_url_options = { host: host }
   # SMTP settings for gmail
   # config.action_mailer.smtp_settings = {

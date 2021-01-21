@@ -3,10 +3,7 @@
 class HomeController < ApplicationController
   before_action :find_user, only: [:new]
 
-  def index
-    AwstestMailer.with(test_email: {title: "Hello", body: "I'm SES from AWS rails"}).test_email.deliver_now
-    head 200
-  end
+  def index; end
 
   def new
     if @user.admin

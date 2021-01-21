@@ -4,12 +4,12 @@
     <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
   </head>
   <body>
-    <p>This is just test email <%= @test_email['title'] %>!</p>
+    <p>This is just test email <%= @test_email[:title] %>!</p>
     <p>
       From AWS SES <br />
       --------------------------
     </p>
-    <p>Message: <%= @test_email['body'] %></p>
+    <p>Message: <%= @test_email[:body] %></p>
    
   </body>
 </html>
