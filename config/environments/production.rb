@@ -70,7 +70,7 @@ Rails.application.configure do
   # config.action_mailer.default_url_options = { host: host }
   # SMTP settings for gmail
   config.action_mailer.smtp_settings = {
-    address: 'smtp.gmail.com',
+    address: 'email-smtp.eu-west-2.amazonaws.com',
     port: 587,
     user_name: ENV['MAILER_SENDER'],
     password: ENV['MAILER_PASSWORD'],
