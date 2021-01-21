@@ -1,6 +1,6 @@
 # Description
 
-E-commerce app allowing small businesses to sell their products directly to their customers cutting out the middleman fees of the big online corporations.
+E-commerce app allowing small businesses to sell their products directly to their customers cutting out the middleman fees.
 
 # Tech Stack:
 
