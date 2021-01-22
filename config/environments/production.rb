@@ -62,19 +62,17 @@ Rails.application.configure do
   # config.active_job.queue_adapter     = :resque
   # config.active_job.queue_name_prefix = "theNinjaStore_production"
 
+  # Action mailer config
   config.action_mailer.perform_caching = false
-
-  # set the mailer to send emails
+  config.action_mailer.perform_deliveries = true
   config.action_mailer.delivery_method = :smtp
-  # host = 'example.com' #replace with your own url
-  # config.action_mailer.default_url_options = { host: host }
-  # SMTP settings for gmail
+  # AWS SES
   config.action_mailer.smtp_settings = {
-    address: 'smtp.gmail.com',
+    address: ENV['AWS_SES_SERVER'],
     port: 587,
     user_name: ENV['MAILER_SENDER'],
     password: ENV['MAILER_PASSWORD'],
-    authentication: 'plain',
+    authentication: :login,
     enable_starttls_auto: true
   }
 

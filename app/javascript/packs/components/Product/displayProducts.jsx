@@ -1,11 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import AddToBasket from '../Basket/addToBasketBtn';
+import { useHistory } from 'react-router-dom';
 
 const DisplayProducts = ({ products }) => {
-  let summarize = (text, endChar) => {
+  let history = useHistory();
+
+  function summarize(text, endChar) {
     return text.slice(0, endChar);
-  };
+  }
 
   return (
     <div data-testid="prod" style={outerDiv}>
@@ -16,12 +19,14 @@ const DisplayProducts = ({ products }) => {
             className="h4"
             to={'/show/product/' + each.id}
           >
-            {each.name}
+            {summarize(each.name, 29)}
           </Link>
           <p data-testid="short-description" style={{ width: '33vh' }}>
             {summarize(each.description, 80)}...
           </p>
           <img
+            className="coverImage"
+            onClick={() => history.push('/show/product/' + each.id)}
             data-testid={'Image-' + each.id}
             alt={'Image of ' + each.name}
             src={each.image}

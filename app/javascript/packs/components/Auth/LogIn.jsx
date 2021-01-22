@@ -37,7 +37,7 @@ const LogIn = () => {
     <form
       style={{ textAlign: 'center', border: '0.5px solid darkgrey' }}
       onSubmit={(action) => submit(action)}
-      className="w-50 mx-auto p-3"
+      className="wid-50 mx-auto p-3"
     >
       <div className="form-group">
         <h4>Log In</h4>
@@ -47,7 +47,7 @@ const LogIn = () => {
           onChange={(e) => setEmail(e.target.value)}
           type="email"
           name="email"
-          className="form-control w-50 mx-auto"
+          className="form-control wid-50 mx-auto"
           id="email"
           aria-describedby="email"
           value={email}
@@ -63,7 +63,7 @@ const LogIn = () => {
           type="password"
           name="Password"
           placeholder="Password"
-          className="form-control w-50 mx-auto"
+          className="form-control wid-50 mx-auto"
           id="password"
           aria-describedby="password"
         />

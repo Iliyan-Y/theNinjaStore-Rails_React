@@ -1,6 +1,6 @@
 export const imageOptions = {
   maxSizeMB: 1,
-  maxWidthOrHeight: 800,
+  maxWidthOrHeight: 600,
 };
 
 export const validateProductForm = (name, description, price, image) => {
