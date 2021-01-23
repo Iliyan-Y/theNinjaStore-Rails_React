@@ -1,7 +1,7 @@
 version: '3'
 services:
   db:
-    image: postgres
+    image: postgres:alpine
     environment:
       POSTGRES_PASSWORD: '${PG_PASS}'
     ports:
@@ -26,11 +26,8 @@ services:
       - AWS_ACCESS_KEY_ID
       - AWS_SECRET_ACCESS_KEY
     ports:
-      - '3000:3000'
-    #volumes:
-    # - rails-data:/home/railsApp/data
+      - '80:3000'
     depends_on:
       - db
 volumes:
   postgres-data:
-  #rails-data:
