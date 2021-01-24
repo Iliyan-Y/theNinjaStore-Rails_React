@@ -13,6 +13,6 @@ yaml-dev zlib-dev nodejs yarn
 WORKDIR ${RAILS_ROOT}
 
 COPY Gemfile* package.json yarn.lock ./
-RUN bundle install && yarn install
+RUN bundle install --without development test && yarn install
 
 COPY . .

@@ -35,5 +35,12 @@ module TheNinjaStore
     # config.generators.system_tests = nil
 
     config.active_storage.replace_on_assign_to_many = false
+
+    config.middleware.insert_before 0, Rack::Cors do
+      allow do
+        origins '*'
+        resource '*', headers: :any, methods: [:get, :post, :options]
+      end
+    end
   end
 end

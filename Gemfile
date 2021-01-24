@@ -66,3 +66,5 @@ gem 'uglifier', '~> 4.2'
 gem 'active_storage_validations', '~> 0.9.1'
 
 gem 'mini_magick', '~> 4.11'
+
+gem "rack-cors", "~> 1.1"
