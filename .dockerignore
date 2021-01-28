@@ -1,7 +1,7 @@
 .git
 .dockerignore
 node_modules
-buildCMD.txt
+buildCMD.sh
 .env
 coverage
 storage/*

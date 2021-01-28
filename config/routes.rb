@@ -42,9 +42,10 @@ Rails.application.routes.draw do
   end
 
   # set all routes to point this path - used for react router
-  get '*path', to: redirect('/'), constraints: lambda { |req|
-                                                 req.path.exclude? 'rails/active_storage'
-                                               }
+  if Rails.env.development?
+    get '*path', to: redirect('/'), constraints: lambda { |req|
+                                                   req.path.exclude? 'rails/active_storage'
+                                                 }
+  end
 
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
