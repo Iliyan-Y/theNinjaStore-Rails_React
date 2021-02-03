@@ -15,7 +15,6 @@ services:
       - SECRET_KEY_BASE="${KEY_BASE}"
       - RAILS_ENV=production
       - 'DATABASE_URL=postgres://postgres:${PG_PASS}@db:5432'
-      - RAILS_SERVE_STATIC_FILES=true
       - JWT_SECRET
       - ADMIN_EMAIL
       - MAILER_SENDER
@@ -26,7 +25,7 @@ services:
       - AWS_ACCESS_KEY_ID
       - AWS_SECRET_ACCESS_KEY
     ports:
-      - '80:3000'
+      - '3000:3000'
     depends_on:
       - db
 volumes:

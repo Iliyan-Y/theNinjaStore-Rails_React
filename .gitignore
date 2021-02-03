@@ -38,6 +38,5 @@ yarn-debug.log*
 
 .env
 
-buildCMD.txt
 coverage
 buildCMD.sh

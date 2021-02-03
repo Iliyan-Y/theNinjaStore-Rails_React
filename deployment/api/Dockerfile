@@ -1,6 +1,6 @@
 FROM ruby:2.7.2-alpine3.13
 
-ENV RAILS_ROOT /deploy
+ENV RAILS_ROOT /rails-app
 ENV RAILS_ENV=production
 ENV NODE_ENV=production
 
