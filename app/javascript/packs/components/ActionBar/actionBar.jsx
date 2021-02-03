@@ -6,6 +6,7 @@ import { checkForUser } from '../../helpers/checkForUser';
 import { Navbar } from 'react-bootstrap';
 import NavBrand from './navBrand';
 import Menu from './menu';
+import { Link } from 'react-router-dom';
 
 const ActionBar = () => {
   const [cookies, setCookie, removeCookie] = useCookies();
@@ -25,6 +26,9 @@ const ActionBar = () => {
     <Navbar bg="light" expand="lg" sticky="top">
       <NavBrand />
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
+      <Link className="nav-link" to="http://localhost:4567">
+        More Stuff
+      </Link>
       <BasketShortcut />
       <Navbar.Collapse id="basic-navbar-nav">
         <Menu isAdmin={isUser.admin} isUser={isUser.user} logOut={logOut} />
