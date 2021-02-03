@@ -9,12 +9,13 @@ services:
     volumes:
       - postgres-data:/var/lib/postgresql/data
   app:
-    image: iliyany/ninja-store:no-static
+    image: ninja-store:alpine01
     command: sh -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
     environment:
       - SECRET_KEY_BASE="${KEY_BASE}"
       - RAILS_ENV=production
       - 'DATABASE_URL=postgres://postgres:${PG_PASS}@db:5432'
+      - RAILS_SERVE_STATIC_FILES=true
       - JWT_SECRET
       - ADMIN_EMAIL
       - MAILER_SENDER
@@ -24,13 +25,9 @@ services:
       - END_POINT
       - AWS_ACCESS_KEY_ID
       - AWS_SECRET_ACCESS_KEY
+    ports:
+      - '80:3000'
     depends_on:
       - db
-  web:
-    image: rails-web
-    depends_on:
-      - app
-    ports:
-      - 5000:5000
 volumes:
   postgres-data:

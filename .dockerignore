@@ -1,9 +1,0 @@
-.git
-.dockerignore
-node_modules
-buildCMD.txt
-.env
-coverage
-storage/*
-!/storage/.keep
-
