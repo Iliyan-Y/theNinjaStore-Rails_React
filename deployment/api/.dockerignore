@@ -1,22 +1,18 @@
-../../.git
-../../node_modules
-../../buildCMD.sh
+.git
+.gitignore
+node_modules
+buildCMD.sh
+deployment
+buildApi.sh
 
-../../coverage
-../../storage/*
-../../!/storage/.keep
+coverage
+storage/*
+!/storage/.keep
+.byebug_history
 
-../../public/assets
-../../.byebug_history
+yarn-error.log
+yarn-debug.log*
+.yarn-integrity
 
-
-../../public/packs
-../../public/packs-test
-../../node_modules
-../../yarn-error.log
-../../yarn-debug.log*
-../../.yarn-integrity
-
-
-../../config/master.key
-../../.env
+config/master.key
+.env
