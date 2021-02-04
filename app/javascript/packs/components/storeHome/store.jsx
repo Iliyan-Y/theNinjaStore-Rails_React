@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import DisplayProducts from '../Product/displayProducts';
 
-const Home = () => {
+const Store = () => {
   let dispatch = useDispatch();
   let products = useSelector((state) => state.products.all);
 
@@ -44,4 +44,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Store;

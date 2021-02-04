@@ -1,8 +1,8 @@
-import React from 'react';
-import { Switch, Route } from 'react-router-dom';
+import * as React from 'react';
+import { Switch, Route, Redirect } from 'react-router-dom';
 
 //components
-import Home from './storeHome/home';
+import Store from './storeHome/store';
 import CreateProduct from './Product/createProduct';
 import ShowProduct from './Product/showProduct';
 import SignUp from './Auth/SignUp';
@@ -22,7 +22,10 @@ const App = () => {
       <ActionBar />
       <Switch>
         <div style={{ minHeight: '87vh' }}>
-          <Route exact path="/" component={Home} />
+          <Route exact path="/">
+            <Redirect to="/store" />
+          </Route>
+          <Route exact path="/store" component={Store} />
           <Route exact path="/new/product" component={CreateProduct} />
           <Route
             exact
