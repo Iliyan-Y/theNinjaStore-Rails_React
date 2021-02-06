@@ -17,8 +17,10 @@ services:
       - 'DATABASE_URL=postgres://postgres:${PG_PASS}@db:5432'
       - JWT_SECRET
       - ADMIN_EMAIL
+      - FROM_EMAIL_ADDRESS
       - MAILER_SENDER
       - MAILER_PASSWORD
+      - AWS_SES_SERVER
       - STRIPE_PUBLISHABLE_KEY
       - STRIPE_SECRET_KEY
       - END_POINT
