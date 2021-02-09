@@ -2,6 +2,7 @@
 
 Rails.application.routes.draw do
   root 'home#index'
+  get '/store', to: 'home#index'
   get 'new/product', to: 'home#new'
   get 'show/product/:id', to: 'home#show'
   get '/register', to: 'home#sign_up'
@@ -41,11 +42,7 @@ Rails.application.routes.draw do
     end
   end
 
-  # set all routes to point this path - used for react router
-  if Rails.env.development?
-    get '*path', to: redirect('/'), constraints: lambda { |req|
-                                                   req.path.exclude? 'rails/active_storage'
-                                                 }
-  end
-
+  get '*path', to: redirect('/'), constraints: lambda { |req|
+                                                 req.path.exclude? 'rails/active_storage'
+                                               }
 end
