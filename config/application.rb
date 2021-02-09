@@ -37,7 +37,7 @@ module TheNinjaStore
     config.active_storage.replace_on_assign_to_many = false
 
     # Add cores
-    
+
     # config.middleware.insert_before 0, Rack::Cors do
     #   allow do
     #     origins '*'
