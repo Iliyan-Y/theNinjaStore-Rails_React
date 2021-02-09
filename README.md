@@ -2,6 +2,10 @@
 
 E-commerce app allowing small businesses to sell their products directly to their customers cutting out the middleman fees.
 
+## Demo
+
+https://enigmatic-sierra-23464.herokuapp.com/
+
 # Tech Stack:
 
 React, Ruby on Rails, Redux, Postgresql, Stripe, Jest, Rspec, RTL, Docker, AWS S3, SES
