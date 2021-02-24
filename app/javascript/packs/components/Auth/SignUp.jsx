@@ -47,7 +47,7 @@ const SignUp = () => {
           onChange={(e) => setEmail(e.target.value)}
           type="email"
           name="email"
-          className="form-control wid-50 mx-auto"
+          className="form-control mx-auto"
           id="email"
           aria-describedby="email"
           value={email}
@@ -63,7 +63,7 @@ const SignUp = () => {
           type="password"
           name="Password"
           placeholder="Password"
-          className="form-control wid-50 mx-auto"
+          className="form-control mx-auto"
           id="password"
           aria-describedby="password"
         />
@@ -79,7 +79,7 @@ const SignUp = () => {
           id="PasswordConfirmation"
           aria-describedby="PasswordConfirmation"
           placeholder="Confirm Password"
-          className="form-control wid-50 mx-auto"
+          className="form-control mx-auto"
         />
         <input className="btn btn-primary mt-2" type="submit" value="Submit" />
       </div>

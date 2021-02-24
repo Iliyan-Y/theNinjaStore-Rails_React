@@ -47,7 +47,7 @@ const LogIn = () => {
           onChange={(e) => setEmail(e.target.value)}
           type="email"
           name="email"
-          className="form-control wid-50 mx-auto"
+          className="form-control mx-auto"
           id="email"
           aria-describedby="email"
           value={email}
@@ -63,7 +63,7 @@ const LogIn = () => {
           type="password"
           name="Password"
           placeholder="Password"
-          className="form-control wid-50 mx-auto"
+          className="form-control mx-auto"
           id="password"
           aria-describedby="password"
         />
